@@ -187,12 +187,27 @@
       /* hamburger for small screens */
       .hamburger {
         display: none;
-        background: rgba(255, 255, 255, 0.06);
-        padding: 8px 10px;
-        border-radius: 6px;
+        background: none;
+        border: none;
+        padding: 10px;
         cursor: pointer;
-        color: #fff;
-        font-size: 18px;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 30px;
+        height: 30px;
+      }
+
+      .hamburger span {
+        display: block;
+        height: 3px;
+        width: 100%;
+        background: #fff;
+        border-radius: 2px;
+        transition: all 0.3s ease;
+      }
+
+      .site-header.scrolled .hamburger span {
+        background: #333;
       }
       
       /* scrolled state: white nav with dark text (sticky effect) */
@@ -464,9 +479,46 @@
       @media (max-width: 1000px) {
         .nav-center {
           display: none;
+          position: fixed;
+          top: 70px;
+          left: 0;
+          right: 0;
+          background: rgba(0, 0, 0, 0.95);
+          backdrop-filter: blur(10px);
+          flex-direction: column;
+          padding: 20px;
+          z-index: 1000;
         }
-        .hamburger {
+
+        .nav-center.show {
+          display: flex;
+        }
+
+        .nav-center a {
+          color: #fff !important;
+          padding: 15px 0;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+          text-align: center;
+        }
+
+        .nav-center .dropdown {
+          width: 100%;
+        }
+
+        .nav-center .dropdown-content {
+          position: static;
+          display: none;
+          background: rgba(255, 255, 255, 0.1);
+          box-shadow: none;
+          margin-top: 10px;
+        }
+
+        .nav-center .dropdown:hover .dropdown-content {
           display: block;
+        }
+
+        .hamburger {
+          display: flex;
         }
         .intro {
           flex-direction: column;
@@ -578,6 +630,14 @@
           <a href="#">Contact</a>
           <a href="#">Live Performance</a>
         </nav>
+        
+        <div class="nav-right">
+          <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
       </div>
     </header>
 
@@ -786,18 +846,14 @@
     <script>
       // Mobile menu toggle
       const hamburger = document.getElementById('hamburger')
-      const mobileMenu = document.getElementById('mobileMenu')
-      const closeMobile = document.getElementById('closeMobile')
+      const mobileMenu = document.querySelector('.nav-center')
       
       hamburger &&
         hamburger.addEventListener('click', () => {
-          mobileMenu.style.display = 'block'
-          mobileMenu.setAttribute('aria-hidden', 'false')
-        })
-      closeMobile &&
-        closeMobile.addEventListener('click', () => {
-          mobileMenu.style.display = 'none'
-          mobileMenu.setAttribute('aria-hidden', 'true')
+          mobileMenu.classList.toggle('show')
+          const isOpen = mobileMenu.classList.contains('show')
+          mobileMenu.setAttribute('aria-hidden', !isOpen)
+          hamburger.setAttribute('aria-expanded', isOpen)
         })
       
       // Change nav background on scroll (so navbar becomes white and readable)
