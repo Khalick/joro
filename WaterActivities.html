@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Water Sports - Jura Beach Bar</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary-color: #004c73; /* dark ocean blue */
+      --secondary-color: #0073a8; /* lighter hover blue */
+      --text-color: #333;
+      --bg-light: #fafafa;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Open Sans", sans-serif;
+      color: var(--text-color);
+      background: #fff;
+      line-height: 1.7;
+    }
+
+    /* ===== NAVBAR ===== */
+    nav {
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 10%;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    nav .logo img {
+      height: 40px;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: var(--text-color);
+      font-weight: 600;
+      transition: color 0.3s;
+      font-family: "Raleway", sans-serif;
+    }
+
+    nav ul li a:hover {
+      color: var(--primary-color);
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      background: url('watter1.webp') no-repeat center center/cover;
+      height: 60vh;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.35);
+    }
+
+    .hero h1 {
+      position: relative;
+      color: #fff;
+      font-size: 3rem;
+      font-family: "Raleway", sans-serif;
+      z-index: 1;
+    }
+
+    /* ===== CONTENT SECTION ===== */
+    .section {
+      padding: 3rem 10%;
+      text-align: center;
+    }
+
+    .section h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      font-family: "Raleway", sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .section p {
+      margin-bottom: 1rem;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      font-size: 1rem;
+      color: #444;
+    }
+
+    /* ===== FULL WIDTH INTRO SECTION ===== */
+    .section-fullwidth {
+      padding: 3rem 0;
+      text-align: center;
+      width: 100vw;
+      position: relative;
+      left: 50%;
+      right: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+      background: #f8f9fa;
+    }
+
+    .section-fullwidth .content {
+      padding: 0 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-fullwidth h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      font-family: "Raleway", sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .section-fullwidth p {
+      margin-bottom: 1rem;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      font-size: 1rem;
+      color: #444;
+    }
+
+    .btn {
+      background: var(--primary-color);
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.9rem;
+      display: inline-block;
+      margin-top: 1.2rem;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background: var(--secondary-color);
+    }
+
+    /* ===== GALLERY ===== */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-top: 2rem;
+      width: 100vw;
+      position: relative;
+      left: 50%;
+      right: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+      padding: 0 20px;
+    }
+
+    .gallery img {
+      width: 100%;
+      border-radius: 6px;
+      transition: transform 0.3s;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.03);
+    }
+
+    /* ===== FULL WIDTH IMAGE ===== */
+    .full-img {
+      margin-top: 2rem;
+    }
+
+    .full-img img {
+      width: 100%;
+      border-radius: 6px;
+    }
+
+    /* ===== LOCATION SECTION ===== */
+    .location-container {
+      width: 100vw;
+      position: relative;
+      left: 50%;
+      right: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+      display: flex;
+      min-height: 300px;
+    }
+
+    .location {
+      background: var(--primary-color);
+      color: #fff;
+      text-align: center;
+      padding: 2.5rem 2rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .location h2 {
+      font-family: "Raleway", sans-serif;
+      font-size: 1.6rem;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+      letter-spacing: 1px;
+    }
+
+    .location p {
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+    }
+
+    .location .icon {
+      margin: 0.5rem auto 1rem;
+      width: 30px;
+      height: 30px;
+      background: url("icon-placeholder.png") no-repeat center/contain;
+    }
+
+    .address {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .address h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .coords {
+      margin-top: 0.8rem;
+      font-size: 0.9rem;
+    }
+
+    /* ===== LIVE LOCATION PLACEHOLDER ===== */
+    .map {
+      flex: 1;
+      min-height: 300px;
+      background: #f8f9fa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .location-placeholder {
+      text-align: center;
+      padding: 2rem;
+      color: #666;
+    }
+
+    .location-placeholder h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+    }
+
+    .location-placeholder p {
+      margin-bottom: 1.5rem;
+      font-style: italic;
+    }
+
+    .placeholder-content {
+      border: 2px dashed #ccc;
+      padding: 2rem;
+      border-radius: 8px;
+      background: #fff;
+      min-height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .placeholder-content:before {
+      content: "🗺️ Your live location component goes here";
+      color: #999;
+      font-weight: 600;
+    }
+
+    /* Responsive: Stack vertically on mobile */
+    @media (max-width: 768px) {
+      .location-container {
+        flex-direction: column;
+      }
+      
+      .location {
+        padding: 2rem 1rem;
+      }
+      
+      .map {
+        min-height: 250px;
+      }
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--primary-color);
+      color: #fff;
+      text-align: center;
+      padding: 1.5rem;
+      margin-top: 3rem;
+      font-size: 0.9rem;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      nav ul {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <div class="logo">
+      <img src="logo.png" alt="Jura Logo">
+    </div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="RestaurantandDishes.html">Restaurant & Dishes</a></li>
+      <li><a href="IndoorGames.html">Indoor Games</a></li>
+      <li><a href="OutdoorActivities.html">Outdoor Activities</a></li>
+      <li><a href="#">About Us</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <h1>WATER SPORTS</h1>
+  </div>
+
+  <!-- INTRO SECTION -->
+  <section class="section">
+    <h2>ENJOY ALL THE OCEAN HAS TO OFFER</h2>
+    <p>
+      Our fully equipped watersports center offers you the chance to enjoy a range of water-based activities, either on your own or under the guidance of our expert instructors.
+    </p>
+    <p>
+      Paddle in crystal-clear, turquoise waters or catch a wave beyond the reef. Why not join us for kayaking and snorkelling trips and witness a parade of colourful marine life?
+    </p>
+    <p>
+      Whether you’re an experienced thrill-seeker or searching for more gentle water-based pursuits, we’ve got something for the whole family to enjoy.
+    </p>
+    <a href="#" class="btn">WATER SPORTS PRICE LIST</a>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="section">
+    <div class="gallery">
+      <img src="water2.webp" alt="Water sport activity">
+      <img src="water3.webp" alt="Water sport activity">
+      <img src="water4.webp" alt="Water sport activity">
+      <img src="water5.webp" alt="Water sport activity">
+      <img src="water6.webp" alt="Water sport activity">
+    </div>
+
+    <!-- Full-width large image -->
+    <div class="full-img">
+      <img src="water6.webp" alt="Standup paddle boarding">
+    </div>
+  </section>
+
+  <!-- LOCATION SECTION -->
+  <div class="location-container">
+    <section class="location">
+      <div>
+        <h2>LOCATION</h2>
+        <p>Jura Beach Bar and Restaurant is located on Kenya's Famous Lake Side Beach.</p>
+
+        <div class="icon"></div>
+
+        <div class="address">
+          <h3>JURA BEACH BAR</h3>
+          <p>Lake Side Beach Road, Lake Side Beach, Kenya</p>
+          <p>Restaurant Reservations: +254 738 333 888</p>
+          <p>Hotel Enquiries: +254 709 538 888</p>
+          <div class="coords">
+            Longitude: 39.572763 &nbsp;&nbsp; Latitude: -4.326899
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LIVE LOCATION PLACEHOLDER -->
+    <div class="map">
+      <div class="location-placeholder">
+        <h3>🗺️ LIVE LOCATION</h3>
+        <p>Insert your live location/map component here</p>
+        <div class="placeholder-content">
+          <!-- ADD YOUR LIVE LOCATION CODE HERE -->
+          <!-- This could be Google Maps API, Mapbox, or any other mapping service -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2025 Jura Beach Bar & Restaurant - All Rights Reserved</p>
+  </footer>
+
+</body>
+</html>

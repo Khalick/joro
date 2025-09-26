@@ -21,7 +21,26 @@
         box-sizing: border-box;
       }
       html,
-      body {
+              <main class="main" role="main">
+      <h1 class="hero-title">JURA RESORT MOST POPULAR RESTAURANT</h1>
+
+      <section class="intro" aria-labelledby="intro-heading">
+        <div class="intro-left">
+          <p class="lead">Karibu!JORO Beach Bar and Restaurant enjoys an enviable location on Kenya's stunning Lake Side Beach. With a stylish outside seating area and a la carte restaurant, it is the perfect place for a relaxed afternoon or a moonlit dining experience.</p>
+
+          <div class="features" role="list">tion class="intro" aria-labelledby="intro-heading">
+        <div class="intro-left">
+          <p class="lead">Karibu!JORO Beach Bar and Restaurant enjoys an enviable location on Kenya's stunning Lake Side Beach. With a stylish outside seating area and a la carte restaurant, it is the perfect place for a relaxed afternoon or a moonlit dining experience.</p>
+
+          <div class="features" role="list">
+            <div class="feature" role="listitem"><div class="intro-left">
+          <p class="lead">Karibu!JORO Beach Bar and Restaurant enjoys an enviable location on Kenya's stunning Lake Side Beach. With a stylish outside seating area and a la carte restaurant, it is the perfect place for a relaxed afternoon or a moonlit dining experience.</p>
+
+          <div class="features" role="list">ction class="intro" aria-labelledby="intro-heading">
+        <div class="intro-left">
+          <p class="lead">Karibu!JORO Beach Bar and Restaurant enjoys an enviable location on Kenya's stunning Lake Side Beach. With a stylish outside seating area and a la carte restaurant, it is the perfect place for a relaxed afternoon or a moonlit dining experience.</p>
+
+          <div class="features" role="list">       <p class="lead">Karibu!JURA Beach Bar and Restaurant enjoys an enviable location on Kenya's stunning Lake Side Beach. With a stylish outside seating area and a la carte restaurant, it is the perfect place for a relaxed afternoon or a moonlit dining experience.</p>         <p class="lead">Karibu!JURO Beach Bar and Restaurant enjoys an enviable location on Kenya's stunning Lake Side Beach. With a stylish outside seating area and a la carte restaurant, it is the perfect place for a relaxed afternoon or a moonlit dining experience.</p>         <p class="lead">Karibu!JURA Beach Bar and Restaurant enjoys an enviable location on Kenya's stunning Dia          <p>Offering quality local and international dishes, Jura resort is perfectly placed on Kenya's award-winning Lake side Beach.</p>i Beach. With a stylish outside seating area and a la carte restaurant, it is the perfect place for a relaxed afternoon or a moonlit dining experience.</p>  body {
         height: 100%;
         margin: 0;
         font-family: 'Open Sans', system-ui, Arial;
@@ -44,17 +63,18 @@
         top: 0;
         z-index: 1000;
         pointer-events: auto;
-        padding: 14px 20px;
+        padding: 24px 0;
       }
       
       .nav-inner {
-        max-width: var(--maxWidth);
-        margin: 0 auto;
+        width: 100%;
+        margin: 0;
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 12px;
         position: relative;
+        padding: 0 20px;
       }
       
       /* left logo area */
@@ -62,6 +82,7 @@
         display: flex;
         align-items: center;
         gap: 12px;
+        margin-left: 0;
       }
       .nav-left img.logo {
         height: 44px;
@@ -71,10 +92,11 @@
       }
       .nav-left .brand {
         font-family: 'Montserrat', sans-serif;
-        color: #fff;
-        font-weight: 800;
-        letter-spacing: 0.6px;
-        font-size: 16px;
+        color: #007BFF;
+        font-weight: 900;
+        letter-spacing: 0.8px;
+        font-size: 22px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
       }
       
       /* center menu */
@@ -83,21 +105,23 @@
         left: 50%;
         transform: translateX(-50%);
         display: flex;
-        gap: 22px;
+        gap: 26px;
         align-items: center;
-        font-weight: 700;
+        font-weight: 800;
         text-transform: uppercase;
-        font-size: 13px;
-        letter-spacing: 0.7px;
+        font-size: 16px;
+        letter-spacing: 0.9px;
       }
       .nav-center a {
-        color: #fff;
+        color: #007BFF;
         opacity: 0.95;
-        padding: 6px 8px;
-        border-radius: 4px;
+        padding: 10px 14px;
+        border-radius: 6px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        font-weight: 900;
       }
       .nav-center a:hover {
-        background: rgba(255, 255, 255, 0.08);
+        background: #309189;
       }
       
       /* Dropdown styles */
@@ -135,7 +159,7 @@
         display: block;
       }
       .dropdown > a:after {
-        content: ' ▼';
+        content: ' ';
         font-size: 10px;
         margin-left: 4px;
       }
@@ -175,7 +199,8 @@
       .site-header.scrolled .nav-center a,
       .site-header.scrolled .nav-right .icon,
       .site-header.scrolled .nav-left .brand {
-        color: var(--navy);
+        color: #007BFF;
+        text-shadow: none;
       }
       .site-header.scrolled {
         background: #fff;
@@ -185,7 +210,7 @@
       /* ---------------- HERO ---------------- */
       .hero {
         height: 520px;
-        background-image: url('beach.jpg');
+        background-image: url('restourant.png');
         background-size: cover;
         background-position: center;
         position: relative;
@@ -348,14 +373,20 @@
       /* gallery strip */
       .gallery {
         display: flex;
-        gap: 12px;
+        gap: 0;
         margin: 22px 0;
-        justify-content: center;
-        flex-wrap: wrap;
+        justify-content: space-evenly;
+        width: 100vw;
+        position: relative;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+        padding: 0 20px;
       }
       .gallery img {
-        width: 6cm;
-        height: 6cm;
+        width: 10cm;
+        height: 8cm;
         object-fit: cover;
         border-radius: 8px;
         box-shadow: 0 6px 18px rgba(11, 20, 22, 0.06);
@@ -453,6 +484,7 @@
         .gallery img {
           width: 92px;
           height: 62px;
+          padding: 40px;
         }
         .map {
           width: 100%;
@@ -499,13 +531,13 @@
     <header class="site-header" role="banner" id="siteHeader">
       <div class="nav-inner">
         <div class="nav-left">
-          <img src="logo.png" alt="Nomad logo" class="logo" />
-          <div class="brand">JORO RESORT</div>
+          <img src="logo.png" alt="Jura logo" class="logo" />
+          <div class="brand">JURA RESORT</div>
         </div>
         <nav class="nav-center" role="navigation" aria-label="Primary">
           <a href="#">Home</a>
           <div class="dropdown">
-            <a href="#">Restaurant and Dishes</a>
+            <a href="RestaurantandDishes.html">Restaurant and Dishes</a>
             <div class="dropdown-content">
               <a href="#indian-cuisine">Indian Cuisine</a>
               <a href="#traditional-luo-cuisine">Traditional Luo Cuisine</a>
@@ -513,13 +545,13 @@
             </div>
           </div>
           <div class="dropdown">
-            <a href="#">Water Activities</a>
+            <a href="WaterActivities.html">Water Activities</a>
             <div class="dropdown-content">
-              <a href="#swimming">Swimming</a>
-              <a href="#snorkeling">Snorkeling</a>
-              <a href="#jet-skiing">Jet Skiing</a>
-              <a href="#kayaking">Kayaking</a>
-              <a href="#diving">Scuba Diving</a>
+              <a href="WaterActivities.html">Swimming</a>
+              <a href="WaterActivities.html">Snorkeling</a>
+              <a href="WaterActivities.html">Jet Skiing</a>
+              <a href="WaterActivities.html">Kayaking</a>
+              <a href="WaterActivities.html">Scuba Diving</a>
             </div>
           </div>
           <div class="dropdown">
@@ -589,11 +621,11 @@
 
     <!-- MAIN CONTENT -->
     <main class="main" role="main">
-      <h1 class="hero-title">JORO RESORT MOST POPULAR RESTAURANT</h1>
+      <h1 class="hero-title">JURA RESORT MOST POPULAR RESTAURANT</h1>
 
       <section class="intro" aria-labelledby="intro-heading">
         <div class="intro-left">
-          <p class="lead">Karibu!JORO Beach Bar and Restaurant enjoys an enviable location on Kenya’s stunning Diani Beach. With a stylish outside seating area and a la carte restaurant, it is the perfect place for a relaxed afternoon or a moonlit dining experience.</p>
+          <p class="lead">Karibu!JORO Beach Bar and Restaurant enjoys an enviable location on Kenya’s stunning Lake Side Beach. With a stylish outside seating area and a la carte restaurant, it is the perfect place for a relaxed afternoon or a moonlit dining experience.</p>
 
           <div class="features" role="list">
             <div class="feature" role="listitem">
@@ -627,7 +659,7 @@
             <div class="feature" role="listitem">
               <div class="circle">🌾</div>
               <div>
-                <strong>Organic Produce</strong><small>From Joro's Farm</small>
+                <strong>Organic Produce</strong><small>From Jura's Farm</small>
               </div>
             </div>
 
@@ -653,7 +685,7 @@
             </div>
           </div>
 
-          <p style="color:#274f52; margin-top:6px;">Serving breakfast, lunch & dinner, Joro resort is a perfect spot at any time of the day for a light bite or full meal. Drop by for a cocktail whilst the sun sets and enjoy live entertainment.</p>
+          <p style="color:#274f52; margin-top:6px;">Serving breakfast, lunch & dinner, Jura resort is a perfect spot at any time of the day for a light bite or full meal. Drop by for a cocktail whilst the sun sets and enjoy live entertainment.</p>
 
           <div class="cta">
             <a href="#restaurant-menu" class="btn primary">VIEW RESTAURANT MENU</a>
@@ -662,7 +694,7 @@
         </div>
 
         <aside class="intro-right" aria-label="Restaurant image">
-          <img src="restaurant.jpg" alt="Restaurant seating" style="border-radius:12px; box-shadow:0 8px 24px rgba(6,20,24,0.08); width:100%; height:100%; object-fit:cover" />
+          <img src="restaurant image.jpeg" alt="Restaurant seating" style="border-radius:12px; box-shadow:0 8px 24px rgba(6,20,24,0.08); width:100%; height:100%; object-fit:cover" />
         </aside>
       </section>
 
@@ -672,7 +704,6 @@
         <img src="image three.png" alt="dish 2" />
         <img src="image one.png" alt="dish 3" />
         <img src="image four.webp" alt="dish 4" />
-        <img src="image five.webp" alt="dish 5" />
       </div>
 
       <!-- reviews and events -->
@@ -704,16 +735,16 @@
       <div class="footer-inner">
         <div class="footer-left">
           <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
-            <img src="logo.png" alt="Nomad" style="height:44px" />
-            <div style="font-weight:800; font-family:Montserrat">Joro resort</div>
+            <img src="logo.png" alt="Jura" style="height:44px" />
+            <div style="font-weight:800; font-family:Montserrat">Jura resort</div>
           </div>
 
           <p>Offering quality local and international dishes, Joro resort is perfectly placed on Kenya’s award-winning Lake side Beach.</p>
           <p>
             <strong>Reservations</strong>
           </p>
-          <p>📞 +254 738 333 888 &nbsp; +254 746 774 675</p>
-          <p>WhatsApp: +254 738 333 888</p>
+          <p>📞 +254 700000000 &nbsp; +254 700000000</p>
+          <p>WhatsApp: +254 700000000</p>
           <p>info@nomadbeachbar.com</p>
           <p style="margin-top:6px; font-size:13px; opacity:0.95">Open: 08:00 - 22:00 (Every day)</p>
         </div>

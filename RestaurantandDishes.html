@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jura's Restaurant</title>
+  <style>
+    * {
+      margin: 0;
+      pad      Offering quality local and international dishes, the Jura Restaurant is perfectly placed on Kenya's Lake Side Beach. Providing an idyllic spot to relax between water sport sessions, enjoy sundowners wi    <!-- LIVE LOCATION PLACEHOLDER -->
+    <div class="map">
+      <div class="location-placeholder">
+        <h3>🗺️ LIVE LOCATION</h3>
+        <p>Insert your live location/map component here</p>
+        <div class="placeholder-content">
+          <!-- ADD YOUR LIVE LOCATION CODE HERE -->
+          <!-- This could be Google Maps API, Mapbox, or any other mapping service -->
+        </div>
+      </div>
+    </div>s and savour a romantic, moonlight dinner, Jura Resort is the place to be on  Lake Side Beach.ing: 0;
+      box-sizing: border-box;
+      font-family: "Arial", sans-serif;
+    }
+
+    body {
+      background: #fff;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    header {
+      background: url('restourant.png') no-repeat center center/cover;
+      height: 50vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #fff;
+      position: relative;
+    }
+
+    header::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    header h1 {
+      font-size: 3rem;
+      z-index: 1;
+    }
+
+    .section {
+      padding: 3rem 10%;
+      text-align: center;
+    }
+
+    .section h2 {
+      margin-bottom: 1rem;
+      font-size: 2rem;
+    }
+
+    .btn {
+      background: #004c73;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+      transition: 0.3s;
+      display: inline-block;
+    }
+
+    .btn:hover {
+      background: #0073a8;
+    }
+
+    /* Food Gallery */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+      margin-top: 2rem;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: auto;
+      border-radius: 6px;
+    }
+
+    /* Beach Section */
+    .beach {
+      background: #fafafa;
+    }
+
+    .beach img {
+      width: 60%;
+      max-width: 600px;
+      border-radius: 6px;
+      margin-top: 1rem;
+    }
+
+    /* Specials Section */
+    .specials {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .card {
+      flex: 1 1 300px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .card img {
+      width: 100%;
+      border-radius: 6px;
+    }
+
+    .card h3 {
+      margin: 1rem 0 0.5rem;
+    }
+
+    /* Booking Section */
+    .booking-section {
+      background: #f8f9fa;
+      border-top: 3px solid #004c73;
+    }
+
+    .booking-form {
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border: 2px solid #ddd;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: border-color 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #004c73;
+      box-shadow: 0 0 0 2px rgba(0, 76, 115, 0.1);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .btn-booking {
+      background: #28a745;
+      font-size: 1.1rem;
+      padding: 1rem 2rem;
+      margin-top: 1rem;
+      width: 100%;
+    }
+
+    .btn-booking:hover {
+      background: #218838;
+    }
+
+    .btn-booking:disabled {
+      background: #6c757d;
+      cursor: not-allowed;
+    }
+
+    .form-messages {
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .success-message {
+      background: #d4edda;
+      color: #155724;
+      padding: 1rem;
+      border-radius: 6px;
+      border: 1px solid #c3e6cb;
+    }
+
+    .error-message {
+      background: #f8d7da;
+      color: #721c24;
+      padding: 1rem;
+      border-radius: 6px;
+      border: 1px solid #f5c6cb;
+    }
+
+    /* ===== LOCATION SECTION ===== */
+    .location-container {
+      display: flex;
+      min-height: 300px;
+    }
+
+    .location {
+      background: #004c73;
+      color: #fff;
+      text-align: center;
+      padding: 2.5rem 2rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .location h2 {
+      font-family: "Arial", sans-serif;
+      font-size: 1.6rem;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+      letter-spacing: 1px;
+      font-weight: bold;
+    }
+
+    .location p {
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+    }
+
+    .location .icon {
+      margin: 0.5rem auto 1rem;
+      width: 30px;
+      height: 30px;
+      background: url("icon-placeholder.png") no-repeat center/contain;
+    }
+
+    .address {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .address h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .coords {
+      margin-top: 0.8rem;
+      font-size: 0.9rem;
+    }
+
+    /* ===== LIVE LOCATION PLACEHOLDER ===== */
+    .map {
+      flex: 1;
+      min-height: 300px;
+      background: #f8f9fa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .location-placeholder {
+      text-align: center;
+      padding: 2rem;
+      color: #666;
+    }
+
+    .location-placeholder h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: #004c73;
+    }
+
+    .location-placeholder p {
+      margin-bottom: 1.5rem;
+      font-style: italic;
+    }
+
+    .placeholder-content {
+      border: 2px dashed #ccc;
+      padding: 2rem;
+      border-radius: 8px;
+      background: #fff;
+      min-height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .placeholder-content:before {
+      content: "🗺️ Your live location component goes here";
+      color: #999;
+      font-weight: 600;
+    }
+
+    /* Responsive: Stack vertically on mobile */
+    @media (max-width: 768px) {
+      .location-container {
+        flex-direction: column;
+      }
+      
+      .location {
+        padding: 2rem 1rem;
+      }
+      
+      .map {
+        min-height: 250px;
+      }
+    }
+
+    footer {
+      background: #004c73;
+      color: #fff;
+      text-align: center;
+      padding: 1.5rem;
+      margin-top: 3rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero / Intro -->
+  <header>
+    <h1>JURA RESTAURANT</h1>
+  </header>
+
+  <!-- Restaurant Intro -->
+  <section class="section">
+    <p>
+      Offering quality local and international dishes, the Joro Restaurant is perfectly placed on Kenya’s Lake Side Beach. Providing an idyllic spot to relax between water sport sessions, enjoy sundowners with friends and savour a romantic, moonlight dinner, Joro Resort is the place to be on  Lake Side Beach.
+    </p>
+    <p>
+      Our extensive à-la-carte menu offers a fantastic choice of seafood, pizza and fine dining options, accompanied by an extensive wine selection and drinks menu. Younger diners will love our kids’ menu and delicious homemade ice-creams.
+    </p>
+    <p>
+      Available for private functions, the Jura Restaurant is also the ideal place to celebrate a special occasion or corporate event.
+    </p>
+    <a href="#" class="btn">VIEW RESTAURANT MENU</a>
+  </section>
+
+  <!-- Food Gallery -->
+  <section class="section">
+      <h1>INDIAN CUISINE</h1>
+    <div class="gallery">
+
+      <img src="INDIAN CSINE.jpeg" alt="Dish">
+      <img src="INDIAN THREE.jpeg" alt="Dish">
+      <img src="INDIAN TWO.jpeg" alt="Dish">
+      <img src="INDIAN.jpeg" alt="Dish">
+      <img src="INDIAN4.jpeg" alt="Dish">
+    </div>
+  </section>
+
+  <!-- Beach Restaurant -->
+  <section class="section beach">
+    <h2>THE BEST ON THE BEACH</h2>
+
+  </section>
+
+  <!-- LUO Cuisine Gallery -->
+  <section class="section">
+    <h1>LUO CUISINE</h1>
+    <div class="gallery">
+      <img src="LUO5.jpg" alt="Dish">
+      <img src="LUO2.jpeg" alt="Dish">
+      <img src="LUO3.jpeg" alt="Dish">
+      <img src="LUO4.jpeg" alt="Dish">
+      <img src="LUO1.webp" alt="Dish">
+    </div>
+  </section>
+
+  <!-- Specials -->
+  <section class="section">
+    <div class="specials">
+      <div class="card">
+        <img src="sushi_sept_23_16_9.webp" alt="Jura Restaurant Sushi">
+        <h3>CHEF'S SPECIAL OF THE MONTH</h3>
+        <p>
+          Enjoy a fantastic selection of fresh sushi prepared by our Chef using fresh, locally caught fish by our local fishermen.
+        </p>
+      </div>
+      <div class="card">
+        <img src="image two.png" alt="Fresh local ingredients">
+        <h3>FRESH LOCAL INGREDIENTS</h3>
+        <p>
+          Jura Restaurant is committed to supporting local farmers and producers. Our extensive à-la-carte menu boasts an eclectic combination of local and international dishes made from the freshest local ingredients.
+        </p>
+        <a href="#" class="btn">THINKING GREEN</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking Section -->
+  <section class="section booking-section">
+    <h2>MAKE A RESERVATION</h2>
+    <p>Book your table at Jura Restaurant and experience our exceptional cuisine</p>
+    
+    <!-- Status Messages -->
+    <div id="form-messages" class="form-messages" style="display: none;">
+      <div id="success-message" class="success-message">
+        ✅ Booking request sent successfully! We'll contact you soon.
+      </div>
+      <div id="error-message" class="error-message">
+        ❌ Sorry, there was an error sending your request. Please try again.
+      </div>
+    </div>
+    
+    <form class="booking-form" id="booking-form">
+      <div class="form-group">
+        <label for="from_name">Full Name:</label>
+        <input type="text" id="from_name" name="from_name" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="from_email">Email:</label>
+        <input type="email" id="from_email" name="from_email" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="contact">Contact Number:</label>
+        <input type="tel" id="contact" name="contact" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="message">Message (Date, Time, Number of Guests, Special Requests):</label>
+        <textarea id="message" name="message" rows="6" placeholder="Please include your preferred date, time, number of guests, and any special requests..." required></textarea>
+      </div>
+      
+      <button type="submit" class="btn btn-booking" id="submit-btn">
+        <span class="btn-text">SEND BOOKING REQUEST</span>
+        <span class="loading-text" style="display: none;">SENDING...</span>
+      </button>
+    </form>
+  </section>
+
+  <!-- LOCATION SECTION -->
+  <div class="location-container">
+    <section class="location">
+      <div>
+        <h2>LOCATION</h2>
+        <p>Jura Beach Bar and Restaurant is located on Kenya's Famous Lake Side Beach.</p>
+
+        <div class="icon"></div>
+
+        <div class="address">
+          <h3>JURA BEACH BAR</h3>
+          <p>Lake Side Beach Road, Lake Side Beach, Kenya</p>
+          <p>Restaurant Reservations: +254 738 333 888</p>
+          <p>Hotel Enquiries: +254 709 538 888</p>
+          <div class="coords">
+            Longitude: 39.572763 &nbsp;&nbsp; Latitude: -4.326899
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LIVE LOCATION PLACEHOLDER -->
+    <div class="map">
+      <div class="location-placeholder">
+        <h3>📍 Live Location</h3>
+        <p>Insert your live location/map component here</p>
+        <p><strong>Current Location:</strong> Lake Side Beach Road, Lake Side Beach, Kenya</p>
+        <!-- This could be Google Maps API, Mapbox, or any other mapping service -->
+        <!-- You can integrate with GPS coordinates: Longitude: 39.572763, Latitude: -4.326899 -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Jura Restaurant - All Rights Reserved</p>
+  </footer>
+
+  <!-- EmailJS Script -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  
+  <script type="text/javascript">
+    // Initialize EmailJS with your public key
+    emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your actual EmailJS public key
+    
+    document.getElementById('booking-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      
+      const submitBtn = document.getElementById('submit-btn');
+      const btnText = document.querySelector('.btn-text');
+      const loadingText = document.querySelector('.loading-text');
+      const formMessages = document.getElementById('form-messages');
+      const successMessage = document.getElementById('success-message');
+      const errorMessage = document.getElementById('error-message');
+      
+      // Show loading state
+      submitBtn.disabled = true;
+      btnText.style.display = 'none';
+      loadingText.style.display = 'inline';
+      formMessages.style.display = 'none';
+      
+      // Prepare template parameters
+      const templateParams = {
+        from_name: document.getElementById('from_name').value,
+        from_email: document.getElementById('from_email').value,
+        contact: document.getElementById('contact').value,
+        message: document.getElementById('message').value,
+        to_email: 'staff@jurarestaurant.com' // Replace with your actual email
+      };
+      
+      // Send email using EmailJS
+      emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+        .then(function(response) {
+          console.log('SUCCESS!', response.status, response.text);
+          
+          // Show success message
+          formMessages.style.display = 'block';
+          successMessage.style.display = 'block';
+          errorMessage.style.display = 'none';
+          
+          // Reset form
+          document.getElementById('booking-form').reset();
+          
+          // Reset button
+          submitBtn.disabled = false;
+          btnText.style.display = 'inline';
+          loadingText.style.display = 'none';
+          
+        }, function(error) {
+          console.log('FAILED...', error);
+          
+          // Show error message
+          formMessages.style.display = 'block';
+          successMessage.style.display = 'none';
+          errorMessage.style.display = 'block';
+          
+          // Reset button
+          submitBtn.disabled = false;
+          btnText.style.display = 'inline';
+          loadingText.style.display = 'none';
+        });
+    });
+  </script>
+
+</body>
+</html>
