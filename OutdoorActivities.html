@@ -29,6 +29,16 @@
     body{background:linear-gradient(180deg,var(--bg-1),var(--bg-2));color:var(--muted);line-height:1.6}
     a{color:inherit;text-decoration:none}
 
+    /* NAVIGATION */
+    nav{background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);border-bottom:1px solid rgba(0,76,115,0.08);position:sticky;top:0;z-index:50;padding:12px 0}
+    .nav-inner{max-width:1200px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between}
+    .logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:1.2rem;color:var(--brand);text-decoration:none}
+    .logo img{width:32px;height:32px;border-radius:4px}
+    .nav-menu{display:flex;align-items:center;gap:32px;list-style:none}
+    .nav-menu a{color:var(--brand);font-weight:600;text-decoration:none;padding:8px 4px;border-bottom:2px solid transparent;transition:all 0.3s ease}
+    .nav-menu a:hover,.nav-menu a.active{border-bottom-color:var(--accent);color:var(--accent)}
+    .nav-menu .current{border-bottom-color:var(--brand);color:var(--brand)}
+
     /* HERO with dramatic animated sun + water waves + sailing boat */
     header{position:relative;height:54vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}
 
@@ -116,10 +126,41 @@
     footer{margin-top:26px;background:linear-gradient(90deg,var(--brand),#0b86a3);color:white;padding:18px;border-radius:8px;text-align:center}
 
     /* Responsive */
-    @media(max-width:900px){.features{grid-template-columns:1fr}.form-row{flex-direction:column}.location{flex-direction:column}}
+    @media(max-width:900px){
+      .features{grid-template-columns:1fr}
+      .form-row{flex-direction:column}
+      .location{flex-direction:column}
+      .nav-menu{display:none}
+      .logo{font-size:1rem}
+    }
+    @media(max-width:768px){
+      .nav-inner{padding:0 12px}
+      .hero-inner h1{font-size:2rem}
+      .activity-grid{grid-template-columns:1fr}
+    }
   </style>
 </head>
 <body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="logo">
+        <img src="jura-logo.png" alt="Jura Logo" onerror="this.style.display='none'"/>
+        <span>JURA RESORT</span>
+      </a>
+      <ul class="nav-menu">
+        <li><a href="index.html">HOME</a></li>
+        <li><a href="RestaurantandDishes.html">RESTAURANT AND DISHES</a></li>
+        <li><a href="WaterActivities.html">WATER ACTIVITIES</a></li>
+        <li><a href="IndoorGames.html">INDOOR GAMES</a></li>
+        <li><a href="OutdoorActivities.html" class="current">OUTDOOR ACTIVITIES</a></li>
+        <li><a href="About.html">ABOUT</a></li>
+        <li><a href="#contact">CONTACT</a></li>
+        <li><a href="#live">LIVE PERFORMANCE</a></li>
+      </ul>
+    </div>
+  </nav>
 
   <header>
     <div class="sky"></div>
@@ -367,38 +408,4 @@
       } else if(id===4){
         mini.innerHTML = `<div style="height:120px;background:linear-gradient(180deg,#fff6ec,#fff8f4);border-radius:10px;display:flex;align-items:center;justify-content:center"><div style=\"width:180px;height:36px;border-radius:999px;background:linear-gradient(90deg,#f7d9a8,#ffd36b);box-shadow:inset 0 -12px 30px rgba(0,0,0,0.06);\">&nbsp;</div></div>`;
       } else if(id===5){
-        mini.innerHTML = `<div style="height:120px;background:linear-gradient(180deg,#e9fbff,#f7fffd);border-radius:10px;display:flex;align-items:center;justify-content:center"><button class=\"small info\" onclick=\"alert('You swam 10 virtual laps! 🏊')\">TAKE A LAP</button></div>`;
-      } else {
-        mini.innerHTML = `<div style="height:120px;border-radius:10px;background:linear-gradient(180deg,#f2fff0,#f9fff5);display:flex;align-items:center;justify-content:center;color:var(--muted)">Seasonal surprise events rotate weekly — check back for details.</div>`;
-      }
-    }
-
-    function bookFromModal(title){ closeModal(); document.getElementById('activity').value = title; window.scrollTo({top:document.getElementById('book').offsetTop - 40, behavior:'smooth'}); }
-
-    // BOOK FORM (EmailJS integration optional)
-    const bookForm = document.getElementById('book-form');
-    bookForm.addEventListener('submit', function(e){
-      e.preventDefault();
-      const payload = { name:this.name.value, email:this.email.value, activity:this.activity.value, people:this.people.value, notes:this.notes.value };
-      const status = document.getElementById('booking-status'); status.textContent='SENDING...';
-
-      if(window.emailjs){
-        emailjs.init('YOUR_EMAILJS_PUBLIC_KEY');
-        emailjs.send('YOUR_SERVICE_ID','YOUR_TEMPLATE_ID', payload).then(()=>{ status.textContent='✅ Request sent — we will confirm via email.'; bookForm.reset(); setTimeout(()=>status.textContent='',6000); }).catch(()=>{ status.textContent='❌ Error sending — try again later.'; setTimeout(()=>status.textContent='',6000); });
-      } else {
-        // demo fallback
-        setTimeout(()=>{ status.textContent='✅ (Demo) Booking recorded. Add EmailJS keys to enable emails.'; bookForm.reset(); setTimeout(()=>status.textContent='',6000); },800);
-      }
-    });
-
-    // Accessibility: ESC closes modal
-    document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeModal(); });
-
-    // link activity slot images to modal
-    document.querySelectorAll('.activity').forEach((el,i)=>{ el.addEventListener('click', ev=>{ // avoid clicking inner buttons
-        const btn = ev.target.closest('button'); if(btn) return; openActivity(i+1);
-      }); });
-
-  </script>
-</body>
-</html>
+        mini.innerHTML = `<div style="height:120px;background:linear-gradient(180deg,#e9fbff,#f7fffd);border-radius:10px;display:flex;align-items:center;justify
