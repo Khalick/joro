@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>J0R0 RESORT</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet" />
+
+    <style>
+      :root {
+        --navy: #073043;
+        --aqua: #29b7d0;
+        --muted: #6b8086;
+        --card: #f6f8f9;
+        --maxWidth: 1180px;
+      }
+      
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        font-family: 'Open Sans', system-ui, Arial;
+        color: #123036;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      img {
+        display: block;
+        max-width: 100%;
+      }
+      
+      /* ---------------- NAVBAR ---------------- */
+      .site-header {
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        z-index: 1000;
+        pointer-events: auto;
+        padding: 14px 20px;
+      }
+      
+      .nav-inner {
+        max-width: var(--maxWidth);
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        position: relative;
+      }
+      
+      /* left logo area */
+      .nav-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .nav-left img.logo {
+        height: 44px;
+        width: auto;
+        border-radius: 6px;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+      }
+      .nav-left .brand {
+        font-family: 'Montserrat', sans-serif;
+        color: #fff;
+        font-weight: 800;
+        letter-spacing: 0.6px;
+        font-size: 16px;
+      }
+      
+      /* center menu */
+      .nav-center {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 22px;
+        align-items: center;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 13px;
+        letter-spacing: 0.7px;
+      }
+      .nav-center a {
+        color: #fff;
+        opacity: 0.95;
+        padding: 6px 8px;
+        border-radius: 4px;
+      }
+      .nav-center a:hover {
+        background: rgba(255, 255, 255, 0.08);
+      }
+      
+      /* Dropdown styles */
+      .dropdown {
+        position: relative;
+        display: inline-block;
+      }
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: #fff;
+        min-width: 200px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        border-radius: 6px;
+        z-index: 1001;
+        margin-top: 8px;
+        padding: 8px 0;
+      }
+      .dropdown-content a {
+        color: var(--navy) !important;
+        padding: 10px 16px !important;
+        display: block;
+        font-size: 12px;
+        opacity: 1 !important;
+        border-radius: 0 !important;
+        text-transform: none;
+        font-weight: 600;
+      }
+      .dropdown-content a:hover {
+        background: var(--card) !important;
+      }
+      .dropdown:hover .dropdown-content {
+        display: block;
+      }
+      .dropdown > a:after {
+        content: ' ▼';
+        font-size: 10px;
+        margin-left: 4px;
+      }
+      
+      /* right icons */
+      .nav-right {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        color: #fff;
+        font-weight: 700;
+      }
+      .nav-right .flag {
+        height: 16px;
+        border-radius: 2px;
+        box-shadow: 0 1px 0 rgba(0, 0, 0, 0.12) inset;
+      }
+      .nav-right .icon {
+        background: rgba(255, 255, 255, 0.06);
+        padding: 8px 10px;
+        border-radius: 6px;
+        font-size: 13px;
+      }
+      
+      /* hamburger for small screens */
+      .hamburger {
+        display: none;
+        background: rgba(255, 255, 255, 0.06);
+        padding: 8px 10px;
+        border-radius: 6px;
+        cursor: pointer;
+        color: #fff;
+        font-size: 18px;
+      }
+      
+      /* scrolled state: white nav with dark text (sticky effect) */
+      .site-header.scrolled .nav-center a,
+      .site-header.scrolled .nav-right .icon,
+      .site-header.scrolled .nav-left .brand {
+        color: var(--navy);
+      }
+      .site-header.scrolled {
+        background: #fff;
+        box-shadow: 0 6px 22px rgba(8, 20, 28, 0.12);
+      }
+      
+      /* ---------------- HERO ---------------- */
+      .hero {
+        height: 520px;
+        background-image: url('beach.jpg');
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        display: block;
+      }
+      
+      /* overlay soft gradient so white nav works on top */
+      .hero::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.18) 0%, rgba(0, 0, 0, 0.06) 40%, rgba(255, 255, 255, 0) 70%);
+        pointer-events: none;
+      }
+      
+      /* Aqua info band that overlaps hero bottom */
+      .info-band {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        background: var(--aqua);
+        color: #fff;
+        padding: 16px 12px;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700;
+        letter-spacing: 0.6px;
+        position: relative;
+        margin-top: -36px; /* overlap the hero */
+        z-index: 30;
+        box-shadow: 0 8px 22px rgba(9, 30, 36, 0.12);
+      }
+      
+      .info-wrap {
+        max-width: var(--maxWidth);
+        width: 100%;
+        display: flex;
+        gap: 28px;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+      }
+      .info-item {
+        text-align: center;
+        min-width: 80px;
+      }
+      .info-item .val {
+        font-size: 18px;
+        display: block;
+        font-weight: 800;
+      }
+      .info-item small {
+        display: block;
+        font-size: 12px;
+        margin-top: 6px;
+        opacity: 0.95;
+        font-weight: 700;
+      }
+      
+      /* ---------------- MAIN CONTAINER ---------------- */
+      .main {
+        max-width: var(--maxWidth);
+        margin: 8px auto 60px;
+        padding: 24px 20px;
+        background: #fff;
+        position: relative;
+        z-index: 10;
+      }
+      
+      .hero-title {
+        text-align: center;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 800;
+        color: #0e3b3f;
+        font-size: 28px;
+        margin-top: 6px;
+        letter-spacing: 1px;
+      }
+      
+      .intro {
+        display: flex;
+        gap: 26px;
+        margin-top: 22px;
+        align-items: flex-start;
+      }
+      
+      .intro-left {
+        flex: 1;
+      }
+      .intro-right {
+        width: 430px;
+        flex: 0 0 430px;
+      }
+      
+      .lead {
+        color: #314f52;
+        line-height: 1.6;
+        margin-bottom: 14px;
+        font-size: 15px;
+      }
+      
+      .features {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px 22px;
+        margin-bottom: 16px;
+      }
+      .feature {
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+      }
+      .feature .circle {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border: 2px solid var(--navy);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: var(--navy);
+        font-weight: 800;
+        font-size: 16px;
+      }
+      .feature strong {
+        display: block;
+        font-size: 14px;
+      }
+      .feature small {
+        display: block;
+        color: var(--muted);
+        font-size: 13px;
+        margin-top: 4px;
+      }
+      
+      .cta {
+        display: flex;
+        gap: 12px;
+        margin-top: 18px;
+      }
+      .btn {
+        padding: 12px 20px;
+        border-radius: 4px;
+        border: 0;
+        cursor: pointer;
+        font-weight: 800;
+      }
+      .btn.primary {
+        background: var(--navy);
+        color: white;
+      }
+      .btn.ghost {
+        background: transparent;
+        color: var(--navy);
+        border: 2px solid var(--navy);
+      }
+      
+      /* gallery strip */
+      .gallery {
+        display: flex;
+        gap: 12px;
+        margin: 22px 0;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .gallery img {
+        width: 6cm;
+        height: 6cm;
+        object-fit: cover;
+        border-radius: 8px;
+        box-shadow: 0 6px 18px rgba(11, 20, 22, 0.06);
+      }
+      
+      /* reviews & events */
+      .panels {
+        display: flex;
+        gap: 22px;
+        margin-top: 18px;
+        align-items: flex-start;
+      }
+      .col-left {
+        flex: 1;
+      }
+      .col-right {
+        width: 430px;
+        flex: 0 0 430px;
+      }
+      .card {
+        background: var(--card);
+        padding: 16px;
+        border-radius: 10px;
+        box-shadow: 0 8px 20px rgba(12, 27, 30, 0.04);
+      }
+      .review-stars {
+        font-size: 20px;
+        margin-bottom: 8px;
+      }
+      .review-author {
+        color: #1f6a76;
+        font-weight: 800;
+        margin-top: 8px;
+      }
+      
+      .event-card img {
+        width: 100%;
+        height: 170px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-bottom: 10px;
+      }
+      
+      /* footer */
+      footer.site-footer {
+        background: linear-gradient(180deg, #50c5d8, #46a7bf);
+        color: white;
+        padding: 34px 18px;
+        margin-top: 28px;
+      }
+      .footer-inner {
+        max-width: var(--maxWidth);
+        margin: 0 auto;
+        display: flex;
+        gap: 22px;
+        align-items: flex-start;
+        justify-content: space-between;
+        padding: 0 20px;
+      }
+      .footer-left {
+        max-width: 680px;
+      }
+      .footer-left p {
+        margin: 8px 0;
+        color: rgba(255, 255, 255, 0.95);
+      }
+      .map {
+        width: 320px;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+      }
+      
+      /* mobile */
+      @media (max-width: 1000px) {
+        .nav-center {
+          display: none;
+        }
+        .hamburger {
+          display: block;
+        }
+        .intro {
+          flex-direction: column;
+        }
+        .col-right {
+          width: 100%;
+        }
+        .intro-right {
+          width: 100%;
+          order: 2;
+        }
+        .intro-left {
+          order: 1;
+        }
+        .gallery img {
+          width: 92px;
+          height: 62px;
+        }
+        .map {
+          width: 100%;
+        }
+      }
+      
+      /* mobile menu overlay */
+      .mobile-menu {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.88);
+        color: white;
+        z-index: 2000;
+        display: none;
+        padding: 28px 20px;
+      }
+      .mobile-menu .close {
+        font-size: 20px;
+        float: right;
+        cursor: pointer;
+        background: transparent;
+        border: none;
+        color: white;
+      }
+      .mobile-menu ul {
+        list-style: none;
+        margin-top: 40px;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+      }
+      .mobile-menu a {
+        color: white;
+        font-size: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAVBAR: fixed top -->
+    <header class="site-header" role="banner" id="siteHeader">
+      <div class="nav-inner">
+        <div class="nav-left">
+          <img src="logo.png" alt="Nomad logo" class="logo" />
+          <div class="brand">JORO RESORT</div>
+        </div>
+        <nav class="nav-center" role="navigation" aria-label="Primary">
+          <a href="#">Home</a>
+          <div class="dropdown">
+            <a href="#">Restaurant and Dishes</a>
+            <div class="dropdown-content">
+              <a href="#indian-cuisine">Indian Cuisine</a>
+              <a href="#traditional-luo-cuisine">Traditional Luo Cuisine</a>
+              <a href="#swahili-dishes">Swahili Dishes</a>
+            </div>
+          </div>
+          <div class="dropdown">
+            <a href="#">Water Activities</a>
+            <div class="dropdown-content">
+              <a href="#swimming">Swimming</a>
+              <a href="#snorkeling">Snorkeling</a>
+              <a href="#jet-skiing">Jet Skiing</a>
+              <a href="#kayaking">Kayaking</a>
+              <a href="#diving">Scuba Diving</a>
+            </div>
+          </div>
+          <div class="dropdown">
+            <a href="#">Indoor Games</a>
+            <div class="dropdown-content">
+              <a href="#pool-table">Pool Table</a>
+              <a href="#table-tennis">Table Tennis</a>
+              <a href="#board-games">Board Games</a>
+              <a href="#card-games">Card Games</a>
+              <a href="#darts">Darts</a>
+            </div>
+          </div>
+          <div class="dropdown">
+            <a href="#">Outdoor Activities</a>
+            <div class="dropdown-content">
+              <a href="#beach-volleyball">Beach Volleyball</a>
+              <a href="#beach-soccer">Beach Soccer</a>
+              <a href="#fishing">Deep Sea Fishing</a>
+              <a href="#boat-trips">Boat Trips</a>
+              <a href="#nature-walks">Nature Walks</a>
+            </div>
+          </div>
+          <a href="#">About</a>
+          <a href="#">Contact</a>
+          <a href="#">Live Performance</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero" aria-label="restourant.png"></section>
+
+    <!-- AQUA INFO BAND -->
+    <div class="info-band" role="region" aria-label="Tide and weather info">
+      <div class="info-wrap">
+        <div class="info-item">
+          <span class="val">1.50</span>
+          <small>TIDE LEVEL</small>
+        </div>
+
+        <div class="info-item">
+          <span class="val">TODAY / TOM</span>
+          <small>WAVE CHART</small>
+        </div>
+
+        <div class="info-item">
+          <span class="val">6</span>
+          <small>WIND (KNOTS)</small>
+        </div>
+
+        <div class="info-item">
+          <span class="val">S</span>
+          <small>WIND DIR</small>
+        </div>
+
+        <div class="info-item">
+          <span class="val">25.2°C</span>
+          <small>TEMP</small>
+        </div>
+
+        <div class="info-item">
+          <span class="val">🌙</span>
+          <small>MOON</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main class="main" role="main">
+      <h1 class="hero-title">JORO RESORT MOST POPULAR RESTAURANT</h1>
+
+      <section class="intro" aria-labelledby="intro-heading">
+        <div class="intro-left">
+          <p class="lead">Karibu!JORO Beach Bar and Restaurant enjoys an enviable location on Kenya’s stunning Diani Beach. With a stylish outside seating area and a la carte restaurant, it is the perfect place for a relaxed afternoon or a moonlit dining experience.</p>
+
+          <div class="features" role="list">
+            <div class="feature" role="listitem">
+              <div class="circle">⏰</div>
+              <div>
+                <strong>Open 08:00 - 22:00</strong><small>Daily opening hours</small>
+              </div>
+            </div>
+
+            <div class="feature" role="listitem">
+              <div class="circle">🍕</div>
+              <div>
+                <strong>Authentic Italian Style</strong><small>Pizzas & more</small>
+              </div>
+            </div>
+
+            <div class="feature" role="listitem">
+              <div class="circle">🐟</div>
+              <div>
+                <strong>Fresh, Local Sea Food</strong><small>Daily catch</small>
+              </div>
+            </div>
+
+            <div class="feature" role="listitem">
+              <div class="circle">🍣</div>
+              <div>
+                <strong>Fresh Handmade Sushi</strong><small>Sushi & creative plates</small>
+              </div>
+            </div>
+
+            <div class="feature" role="listitem">
+              <div class="circle">🌾</div>
+              <div>
+                <strong>Organic Produce</strong><small>From Joro's Farm</small>
+              </div>
+            </div>
+
+            <div class="feature" role="listitem">
+              <div class="circle">🍷</div>
+              <div>
+                <strong>Largest Wine Collection</strong><small>South Coast selection</small>
+              </div>
+            </div>
+
+            <div class="feature" role="listitem">
+              <div class="circle">🍨</div>
+              <div>
+                <strong>Home Made Ice Cream</strong><small>Daily specials</small>
+              </div>
+            </div>
+
+            <div class="feature" role="listitem">
+              <div class="circle">🍹</div>
+              <div>
+                <strong>Extensive Cocktails</strong><small>Sundowners & mocktails</small>
+              </div>
+            </div>
+          </div>
+
+          <p style="color:#274f52; margin-top:6px;">Serving breakfast, lunch & dinner, Joro resort is a perfect spot at any time of the day for a light bite or full meal. Drop by for a cocktail whilst the sun sets and enjoy live entertainment.</p>
+
+          <div class="cta">
+            <a href="#restaurant-menu" class="btn primary">VIEW RESTAURANT MENU</a>
+            <a href="#drinks-menu" class="btn ghost">VIEW DRINKS MENU</a>
+          </div>
+        </div>
+
+        <aside class="intro-right" aria-label="Restaurant image">
+          <img src="restaurant.jpg" alt="Restaurant seating" style="border-radius:12px; box-shadow:0 8px 24px rgba(6,20,24,0.08); width:100%; height:100%; object-fit:cover" />
+        </aside>
+      </section>
+
+      <!-- small gallery strip -->
+      <div class="gallery" aria-hidden="false">
+        <img src="image two.png" alt="dish 1" />
+        <img src="image three.png" alt="dish 2" />
+        <img src="image one.png" alt="dish 3" />
+        <img src="image four.webp" alt="dish 4" />
+        <img src="image five.webp" alt="dish 5" />
+      </div>
+
+      <!-- reviews and events -->
+      <section class="panels" aria-label="Reviews and Events">
+        <div class="col-left">
+          <h3 style="font-family:Montserrat, sans-serif; color:#0e3b3f; margin-bottom:12px;">RECENT REVIEWS</h3>
+          <div class="card">
+            <div class="review-stars">★★★★★</div>
+            <div style="font-weight:800; color:#123a3f">望住由椰的海景吃午饭，心情舒畅</div>
+            <div class="review-author"></div>
+            <div style="margin-top:8px; color:var(--muted); font-size:13px;">“Lovely view and great food.”</div>
+          </div>
+        </div>
+
+        <div class="col-right">
+          <h3 style="font-family:Montserrat, sans-serif; color:#0e3b3f; margin-bottom:12px;">UPCOMING EVENTS</h3>
+          <div class="card event-card">
+            <img src="chuchu.jpg" alt="Chuchu live music" />
+            <h4 style="font-family:Montserrat;margin:6px 0;">LIVE PERFORMANCE</h4>
+            <p style="color:var(--muted); margin:0 0 12px;">27th Sep 2025 — 7:00pm</p>
+            <button class="view-events-btn" style="background:var(--navy); color:white; padding:10px 14px; border:0; font-weight:800; border-radius:6px;">VIEW ALL EVENTS</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer" role="contentinfo">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
+            <img src="logo.png" alt="Nomad" style="height:44px" />
+            <div style="font-weight:800; font-family:Montserrat">Joro resort</div>
+          </div>
+
+          <p>Offering quality local and international dishes, Joro resort is perfectly placed on Kenya’s award-winning Lake side Beach.</p>
+          <p>
+            <strong>Reservations</strong>
+          </p>
+          <p>📞 +254 738 333 888 &nbsp; +254 746 774 675</p>
+          <p>WhatsApp: +254 738 333 888</p>
+          <p>info@nomadbeachbar.com</p>
+          <p style="margin-top:6px; font-size:13px; opacity:0.95">Open: 08:00 - 22:00 (Every day)</p>
+        </div>
+
+        <div class="map">
+          <img src="map.png" alt="Map placeholder" />
+        </div>
+      </div>
+    </footer>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobileMenu" class="mobile-menu" aria-hidden="true">
+      <button class="close" id="closeMobile" aria-label="Close menu">✕</button>
+      <ul>
+        <li>
+          <a href="#">Home</a>
+        </li>
+        <li>
+          <a href="#">Restaurant & Bar</a>
+        </li>
+        <li>
+          <a href="#">Events</a>
+        </li>
+        <li>
+          <a href="#">Ocean Fun</a>
+        </li>
+        <li>
+          <a href="#">Boutique</a>
+        </li>
+        <li>
+          <a href="#">Contact</a>
+        </li>
+        <li>
+          <a href="#">Live Cam</a>
+        </li>
+      </ul>
+    </div>
+
+    <script>
+      // Mobile menu toggle
+      const hamburger = document.getElementById('hamburger')
+      const mobileMenu = document.getElementById('mobileMenu')
+      const closeMobile = document.getElementById('closeMobile')
+      
+      hamburger &&
+        hamburger.addEventListener('click', () => {
+          mobileMenu.style.display = 'block'
+          mobileMenu.setAttribute('aria-hidden', 'false')
+        })
+      closeMobile &&
+        closeMobile.addEventListener('click', () => {
+          mobileMenu.style.display = 'none'
+          mobileMenu.setAttribute('aria-hidden', 'true')
+        })
+      
+      // Change nav background on scroll (so navbar becomes white and readable)
+      const header = document.getElementById('siteHeader')
+      const hero = document.querySelector('.hero')
+      const heroHeight = hero ? hero.clientHeight : 420
+      
+      function onScroll() {
+        if (window.scrollY > heroHeight - 80) {
+          header.classList.add('scrolled')
+        } else {
+          header.classList.remove('scrolled')
+        }
+      }
+      window.addEventListener('scroll', onScroll, { passive: true })
+      onScroll()
+      
+      // Optional: live time in footer (small helpful touch)
+      ;(function showTime() {
+        const el = document.createElement('div')
+        el.style.marginTop = '8px'
+        el.style.fontSize = '13px'
+        el.style.opacity = '0.95'
+        document.querySelector('.footer-left').appendChild(el)
+        function update() {
+          el.textContent = 'Local time: ' + new Date().toLocaleTimeString()
+        }
+        update()
+        setInterval(update, 1000)
+      })()
+    </script>
+  </body>
+</html>
