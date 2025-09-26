@@ -480,41 +480,85 @@
         .nav-center {
           display: none;
           position: fixed;
-          top: 70px;
+          top: 0;
           left: 0;
           right: 0;
+          bottom: 0;
           background: rgba(0, 0, 0, 0.95);
           backdrop-filter: blur(10px);
           flex-direction: column;
-          padding: 20px;
-          z-index: 1000;
+          padding: 80px 20px 20px 20px;
+          z-index: 8888;
+          overflow-y: auto;
+          align-items: stretch;
         }
 
         .nav-center.show {
           display: flex;
         }
 
-        .nav-center a {
+        .nav-center > a {
           color: #fff !important;
-          padding: 15px 0;
+          padding: 18px 20px;
           border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-          text-align: center;
+          text-align: left;
+          font-size: 18px;
+          font-weight: 600;
+          text-decoration: none;
+          transition: background 0.3s ease;
+        }
+
+        .nav-center > a:hover {
+          background: rgba(255, 255, 255, 0.1);
         }
 
         .nav-center .dropdown {
           width: 100%;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-center .dropdown > a {
+          color: #fff !important;
+          padding: 18px 20px;
+          text-align: left;
+          font-size: 18px;
+          font-weight: 600;
+          text-decoration: none;
+          display: block;
+          transition: background 0.3s ease;
+        }
+
+        .nav-center .dropdown > a:hover {
+          background: rgba(255, 255, 255, 0.1);
         }
 
         .nav-center .dropdown-content {
           position: static;
           display: none;
-          background: rgba(255, 255, 255, 0.1);
+          background: rgba(255, 255, 255, 0.05);
           box-shadow: none;
-          margin-top: 10px;
+          margin: 0;
+          padding: 0;
         }
 
-        .nav-center .dropdown:hover .dropdown-content {
+        .nav-center .dropdown.active .dropdown-content {
           display: block;
+        }
+
+        .nav-center .dropdown-content a {
+          color: #ccc !important;
+          padding: 12px 40px;
+          font-size: 16px;
+          font-weight: 400;
+          display: block;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+          text-decoration: none;
+          transition: all 0.3s ease;
+        }
+
+        .nav-center .dropdown-content a:hover {
+          background: rgba(255, 255, 255, 0.1);
+          color: #fff !important;
         }
 
         .nav-right {
@@ -523,20 +567,20 @@
 
         .hamburger {
           display: flex !important;
-          background: #ff0000 !important;
-          border: 3px solid #fff !important;
-          border-radius: 5px;
+          background: rgba(0, 0, 0, 0.8) !important;
+          border: 2px solid rgba(255, 255, 255, 0.8) !important;
+          border-radius: 8px;
           z-index: 9999 !important;
-          position: fixed !important;
-          top: 20px !important;
-          right: 20px !important;
-          width: 50px !important;
-          height: 50px !important;
+          position: relative !important;
+          width: 45px !important;
+          height: 45px !important;
+          padding: 8px !important;
         }
 
         .hamburger span {
           background: #fff !important;
-          height: 4px !important;
+          height: 3px !important;
+          border-radius: 2px;
         }
 
         .intro {
@@ -878,10 +922,42 @@
           console.log('Menu is now:', isOpen ? 'open' : 'closed')
           mobileMenu.setAttribute('aria-hidden', !isOpen)
           hamburger.setAttribute('aria-expanded', isOpen)
+          
+          // Prevent body scrolling when menu is open
+          if (isOpen) {
+            document.body.style.overflow = 'hidden'
+          } else {
+            document.body.style.overflow = ''
+          }
         })
       } else {
         console.error('Hamburger element not found!')
       }
+
+      // Handle dropdown clicks in mobile menu
+      const dropdowns = document.querySelectorAll('.nav-center .dropdown > a')
+      dropdowns.forEach(dropdown => {
+        dropdown.addEventListener('click', (e) => {
+          // Only prevent default on mobile
+          if (window.innerWidth <= 1000) {
+            e.preventDefault()
+            const parent = dropdown.closest('.dropdown')
+            parent.classList.toggle('active')
+            console.log('Dropdown toggled:', parent.classList.contains('active'))
+          }
+        })
+      })
+
+      // Close menu when clicking outside
+      document.addEventListener('click', (e) => {
+        if (mobileMenu.classList.contains('show') && 
+            !mobileMenu.contains(e.target) && 
+            !hamburger.contains(e.target)) {
+          mobileMenu.classList.remove('show')
+          document.body.style.overflow = ''
+          hamburger.setAttribute('aria-expanded', 'false')
+        }
+      })
       
       // Change nav background on scroll (so navbar becomes white and readable)
       const header = document.getElementById('siteHeader')
