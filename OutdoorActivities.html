@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Jura Resort — Outdoor Activities</title>
+  <style>
+    /* Jura Resort Outdoor Activities
+       Colorful, animated, and responsive single-file page.
+       Includes 6 activity slots, descriptions, booking form (EmailJS-ready), and rich CSS animations.
+    */
+
+    :root{
+      --bg-1: #e9f7ff;
+      --bg-2: #fff9f0;
+      --brand: #004c73; /* Jura blue */
+      --sun: #ffd36b;
+      --wave1: #0bb7d6;
+      --wave2: #0a9db0;
+      --accent: #ff6b6b;
+      --muted: #334b57;
+      --panel: #fff;
+      --radius: 12px;
+      --shadow: 0 14px 40px rgba(15,24,34,0.08);
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{background:linear-gradient(180deg,var(--bg-1),var(--bg-2));color:var(--muted);line-height:1.6}
+    a{color:inherit;text-decoration:none}
+
+    /* HERO with dramatic animated sun + water waves + sailing boat */
+    header{position:relative;height:54vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}
+
+    /* sky gradient */
+    .sky{position:absolute;inset:0;background:linear-gradient(180deg,#bfefff 0%, #fffaf0 60%);z-index:0}
+
+    /* animated sun */
+    .sun{position:absolute;top:8%;left:8%;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle at 30% 30%, #fff9d6, var(--sun));box-shadow:0 24px 80px rgba(255,211,107,0.26);filter:drop-shadow(0 14px 30px rgba(255,180,60,0.12));animation:spin-sun 16s linear infinite;z-index:1}
+    @keyframes spin-sun{0%{transform:rotate(0) scale(1)}50%{transform:rotate(18deg) scale(1.02)}100%{transform:rotate(0) scale(1)}}
+
+    /* waves using SVG-like CSS shapes */
+    .waves{position:absolute;left:0;right:0;bottom:0;height:36vh;z-index:2;pointer-events:none}
+    .wave{position:absolute;left:0;right:0;bottom:0;height:36vh;background:linear-gradient(180deg,transparent,rgba(10,159,176,0.06));}
+    .wave::before{content:'';position:absolute;left:-10%;right:-10%;top:-40%;height:200%;background:radial-gradient(circle at 50% 20%, rgba(11,183,214,0.18), transparent 30%)}
+
+    /* animated layered waves */
+    .wave.layer1{background:linear-gradient(180deg, rgba(11,183,214,0.14), rgba(10,157,176,0.06));transform-origin:center;animation:wave-anim 10s linear infinite}
+    .wave.layer2{background:linear-gradient(180deg, rgba(11,183,214,0.09), rgba(10,157,176,0.03));animation:wave-anim 14s linear infinite reverse;opacity:0.9}
+    @keyframes wave-anim{0%{transform:translateX(0) translateY(0)}50%{transform:translateX(-6%) translateY(6px)}100%{transform:translateX(0) translateY(0)}}
+
+    /* sailing boat — CSS + simple path animation */
+    .boat{position:absolute;bottom:22vh;left:10%;width:220px;height:80px;z-index:3;transform-origin:center;animation:boat-sail 12s ease-in-out infinite}
+    @keyframes boat-sail{0%{transform:translateX(0) translateY(0) rotate(-2deg)}50%{transform:translateX(12%) translateY(-6px) rotate(2deg)}100%{transform:translateX(0) translateY(0) rotate(-2deg)}}
+    .boat .hull{width:100%;height:40px;background:linear-gradient(90deg,#0b86a3,#00607a);border-radius:18px 18px 6px 6px;position:absolute;bottom:0}
+    .boat .sail{position:absolute;left:30%;bottom:40px;width:0;height:0;border-left:0 solid transparent;border-right:70px solid transparent;border-bottom:80px solid #fff;filter:drop-shadow(0 6px 12px rgba(0,0,0,0.08));transform-origin:bottom right;}
+
+    /* hero content */
+    .hero-inner{position:relative;z-index:4;max-width:980px;padding:28px}
+    .hero-inner h1{font-size:2.4rem;color:#062532;margin-bottom:6px}
+    .hero-inner p{font-size:1.05rem;color:#083640;margin-bottom:14px}
+    .hero-cta{display:flex;gap:12px;justify-content:center}
+    .btn{padding:10px 14px;border-radius:10px;border:none;font-weight:800;cursor:pointer}
+    .btn.primary{background:linear-gradient(90deg,var(--brand),#0b86a3);color:white}
+    .btn.ghost{background:transparent;border:2px solid rgba(8,36,59,0.06);color:var(--brand)}
+
+    /* PAGE WRAP */
+    .wrap{max-width:1180px;margin:28px auto;padding:0 18px}
+    .section{padding:30px 0}
+    .section h2{font-size:1.5rem;color:#073642;margin-bottom:10px}
+    .lead{color:var(--muted);max-width:900px}
+
+    /* ACTIVITY SLOTS (6) with descriptions above each image */
+    .activity-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-top:16px}
+    .activity{background:var(--panel);border-radius:12px;padding:14px;box-shadow:var(--shadow);border:1px solid rgba(8,26,46,0.03);overflow:hidden;position:relative}
+    .activity .title{font-weight:800;color:#082b36;margin-bottom:6px}
+    .activity .brief{font-size:14px;color:var(--muted);margin-bottom:10px}
+    .activity .img-wrap{height:180px;border-radius:10px;overflow:hidden;box-shadow:inset 0 -40px 80px rgba(0,0,0,0.04)}
+    .activity img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s cubic-bezier(.2,.9,.2,1)}
+    .activity:hover img{transform:scale(1.08)}
+    .label{position:absolute;left:14px;top:14px;background:rgba(255,255,255,0.9);padding:6px 10px;border-radius:8px;font-weight:800;color:#062532}
+
+    /* FEATURE CARDS */
+    .features{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+    .feat{background:linear-gradient(180deg,#fff,#fbfeff);border-radius:12px;padding:16px;box-shadow:var(--shadow);display:flex;gap:12px;align-items:center}
+    .feat img{width:160px;height:110px;object-fit:cover;border-radius:10px}
+    .feat .meta{flex:1}
+
+    /* animated bonfire icon */
+    .bonfire{width:56px;height:56px;border-radius:50%;display:inline-grid;place-items:center;background:linear-gradient(180deg,#fff4e6,#fff1d9);box-shadow:0 6px 18px rgba(255,150,60,0.08)}
+    .flame{width:22px;height:34px;border-radius:50% 50% 40% 40%;background:linear-gradient(180deg,#ffb86b,#ff6b6b);position:relative;animation:flicker 1.2s infinite}
+    .flame::after{content:'';position:absolute;left:7px;top:6px;width:8px;height:16px;border-radius:50%;background:linear-gradient(180deg,#fff1b0,#ffd36b);}
+    @keyframes flicker{0%{transform:scale(1)}50%{transform:scale(1.06)}100%{transform:scale(1)}}
+
+    /* INTERACTIVE small demos and buttons */
+    .actions{margin-top:12px;display:flex;gap:8px}
+    .small{padding:8px 10px;border-radius:8px;border:none;font-weight:800;cursor:pointer}
+    .small.info{background:linear-gradient(90deg,var(--sun),#ffd27a)}
+    .small.book{background:linear-gradient(90deg,var(--accent),#ff8b8b);color:white}
+
+    /* BOOKING FORM */
+    .booking{background:var(--panel);padding:20px;border-radius:12px;box-shadow:var(--shadow);border:1px solid rgba(8,26,46,0.03);margin-top:18px}
+    .form-row{display:flex;gap:12px}
+    .form-group{flex:1;margin-bottom:12px}
+    label{display:block;font-weight:700;margin-bottom:6px;color:#073642}
+    input,select,textarea{width:100%;padding:10px;border-radius:8px;border:2px solid #eef7fb}
+    textarea{min-height:110px}
+
+    /* LOCATION + MAP */
+    .location{display:flex;gap:18px;margin-top:18px}
+    .loc-info{flex:1;background:linear-gradient(180deg,var(--brand),#0b86a3);color:white;padding:18px;border-radius:12px}
+    .loc-map{flex:1;background:var(--panel);padding:18px;border-radius:12px;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center}
+    .map-placeholder{border:2px dashed #e6eef4;padding:24px;border-radius:8px;color:var(--muted)}
+
+    /* FOOTER */
+    footer{margin-top:26px;background:linear-gradient(90deg,var(--brand),#0b86a3);color:white;padding:18px;border-radius:8px;text-align:center}
+
+    /* Responsive */
+    @media(max-width:900px){.features{grid-template-columns:1fr}.form-row{flex-direction:column}.location{flex-direction:column}}
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="sky"></div>
+    <div class="sun" aria-hidden="true"></div>
+    <div class="waves">
+      <div class="wave layer1"></div>
+      <div class="wave layer2"></div>
+    </div>
+
+    <div class="boat" aria-hidden="true">
+      <div class="hull"></div>
+      <div class="sail"></div>
+    </div>
+
+    <div class="hero-inner">
+      <h1>Jura Resort — Outdoor Activities</h1>
+      <p class="lead">Adventure, fun and lakeside relaxation. From water sports to bonfire nights — Jura Resort has unforgettable outdoor experiences for every guest.</p>
+      <div class="hero-cta">
+        <a class="btn primary" href="#activities">EXPLORE ACTIVITIES</a>
+        <a class="btn ghost" href="#book" style="border-color:rgba(8,36,59,0.08)">BOOK AN ACTIVITY</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- ABOUT -->
+    <section class="section" id="about">
+      <h2>About Jura Resort Outdoor Activities</h2>
+      <p class="lead">Jura Resort is situated on the stunning Lake Side Beach. Our outdoor program blends adrenaline activities, calm nature experiences and evenings by the bonfire — perfectly curated for families, couples and adventurous guests.</p>
+    </section>
+
+    <!-- ACTIVITY SLOTS (6) -->
+    <section class="section" id="activities">
+      <h2>Activities & Experiences</h2>
+
+      <div class="activity-grid">
+
+        <!-- 1: Water Sport / Kayaking -->
+        <div class="activity" id="act-1">
+          <div class="label">Water Sport</div>
+          <div class="title">Kayaking</div>
+          <div class="brief">Paddle through serene waters and explore hidden coves around Lake Side Beach. Guided and solo options available.</div>
+          <div class="img-wrap"><img src="water2.webp" alt="Kayaking at Jura Resort" onerror="this.style.opacity=.12"/></div>
+          <div class="actions"><button class="small info" data-id="1">LEARN MORE</button><button class="small book" data-id="1">BOOK</button></div>
+        </div>
+
+        <!-- 2: Bonfire -->
+        <div class="activity" id="act-2">
+          <div class="label">Evening</div>
+          <div class="title">Bonfire Night</div>
+          <div class="brief">Gather around a roaring bonfire on the beach. Live music, marshmallows, and stories under the stars — a Jura Resort tradition.</div>
+          <div class="img-wrap"><img src="bonfire.webp" alt="Bonfire Night" onerror="this.style.opacity=.12"/></div>
+          <div class="actions"><button class="small info" data-id="2">LEARN MORE</button><button class="small book" data-id="2">BOOK</button></div>
+        </div>
+
+        <!-- 3: Cruising Boat -->
+        <div class="activity" id="act-3">
+          <div class="label">Cruise</div>
+          <div class="title">Cruising Boat</div>
+          <div class="brief">Take a relaxing cruise on our comfortable boat. Sunset cruises, wildlife spotting and private charters make unforgettable memories.</div>
+          <div class="img-wrap"><img src="cruisingboat.jpeg" alt="Cruising Boat" onerror="this.style.opacity=.12"/></div>
+          <div class="actions"><button class="small info" data-id="3">LEARN MORE</button><button class="small book" data-id="3">BOOK</button></div>
+        </div>
+
+        <!-- 4: Sand Bathing / Beach Relaxation -->
+        <div class="activity" id="act-4">
+          <div class="label">Relax</div>
+          <div class="title">Sand Bathing</div>
+          <div class="brief">Enjoy warm sand therapy and gentle lakeside sunbathing — a soothing, natural way to unwind at Jura Resort.</div>
+          <div class="img-wrap"><img src="sandbathing.jpeg" alt="Sand Bathing" onerror="this.style.opacity=.12"/></div>
+          <div class="actions"><button class="small info" data-id="4">LEARN MORE</button><button class="small book" data-id="4">BOOK</button></div>
+        </div>
+
+        <!-- 5: Water Sport / Swimming -->
+        <div class="activity" id="act-5">
+          <div class="label">Water Sport</div>
+          <div class="title">Swimming</div>
+          <div class="brief">Dive into crystal-clear water — choose between supervised beach zones and our resort pool for laps and leisure.</div>
+          <div class="img-wrap"><img src="swimming.jpeg" alt="Swimming" onerror="this.style.opacity=.12"/></div>
+          <div class="actions"><button class="small info" data-id="5">LEARN MORE</button><button class="small book" data-id="5">BOOK</button></div>
+        </div>
+
+        <!-- 6: Nature / Guided Walks -->
+        <div class="activity" id="act-6">
+          <div class="label">Nature</div>
+          <div class="title">Nature Walks</div>
+          <div class="brief">Explore scenic trails with our expert guides. Birdwatching, flora tours and sunset walks are family-friendly activities at Jura Resort.</div>
+          <div class="img-wrap"><img src="walks.jpg" alt="Nature Walks" onerror="this.style.opacity=.12"/></div>
+          <div class="actions"><button class="small info" data-id="6">LEARN MORE</button><button class="small book" data-id="6">BOOK</button></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FEATURES / HIGHLIGHTS -->
+    <section class="section">
+      <h2>Highlights</h2>
+      <div class="features">
+        <div class="feat">
+          <img src="volleyball.webp" alt="Beach Volleyball" onerror="this.style.opacity=.12"/>
+          <div class="meta">
+            <h3 style="margin:0 0 6px">Adventure of the Week — Kayaking</h3>
+            <p style="margin:0;color:var(--muted)">Explore secret coves and scenic spots with our guided kayak tours. Perfect for all skill levels.</p>
+            <div style="margin-top:8px"><button class="btn primary" onclick="openActivity(1)">LEARN MORE</button></div>
+          </div>
+        </div>
+
+        <div class="feat">
+          <img src="bonfire-hero.jpg" alt="Bonfire" onerror="this.style.opacity=.12"/>
+          <div class="meta">
+            <h3 style="margin:0 0 6px">Top Pick — Bonfire Night</h3>
+            <p style="margin:0;color:var(--muted)">An evening program with music, food and the warm glow of a beach bonfire — family-friendly and romantic.</p>
+            <div style="margin-top:8px"><button class="btn ghost" onclick="openActivity(2)">BOOK NOW</button></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BOOKING FORM -->
+    <section class="section" id="book">
+      <h2>Book an Outdoor Activity</h2>
+      <div class="booking">
+        <form id="book-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input id="name" name="name" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" required />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="activity">Select Activity</label>
+              <select id="activity" name="activity">
+                <option>Kayaking</option>
+                <option>Bonfire Night</option>
+                <option>Cruising Boat</option>
+                <option>Sand Bathing</option>
+                <option>Swimming</option>
+                <option>Nature Walks</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="people">Number of People</label>
+              <input id="people" name="people" type="number" min="1" max="20" value="2" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="notes">Notes (date/time, special requests)</label>
+            <textarea id="notes" name="notes" placeholder="e.g. 28 Sep, 4pm — 3 people"></textarea>
+          </div>
+
+          <div style="display:flex;gap:12px;align-items:center">
+            <button type="submit" class="btn primary">SEND BOOKING REQUEST</button>
+            <div id="booking-status" style="color:var(--muted);font-weight:700"></div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- LOCATION / LIVE LOBBY -->
+    <section class="section">
+      <div class="location">
+        <div class="loc-info">
+          <h3 style="margin-top:0">Jura Resort Outdoor Hub</h3>
+          <p>Meet at the outdoor activities desk by the main beach entrance. Equipment and safety briefings are provided for all water sports.</p>
+          <p style="margin-top:10px">Contact: +254 738 333 888 • Activities Desk</p>
+        </div>
+        <div class="loc-map">
+          <div class="map-placeholder">
+            <strong>Live Map / Lobby</strong>
+            <p style="margin-top:8px;color:var(--muted)">Embed a live map, lobby status, or online booking widget here (Google Maps, Mapbox, or a real-time dashboard).</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p style="margin:0">&copy; 2025 Jura Resort — Outdoor Activities • <a href="#" style="color:#fff;text-decoration:underline">Back to Jura Resort Main</a></p>
+    </div>
+  </footer>
+
+  <!-- MODAL -->
+  <div id="modal" style="display:none;position:fixed;inset:0;background:rgba(2,6,23,0.6);align-items:center;justify-content:center;padding:20px;z-index:60">
+    <div style="background:var(--panel);border-radius:12px;max-width:820px;width:100%;padding:18px;box-shadow:var(--shadow);position:relative">
+      <button onclick="closeModal()" style="position:absolute;right:12px;top:12px;background:none;border:none;font-size:18px;cursor:pointer">✕</button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>
+    // Activities dataset (matching the 6 slots)
+    const activities = [
+      {id:1,key:'Kayaking',title:'Kayaking',desc:'Paddle through serene waters and explore hidden coves around Lake Side Beach. Guided and solo options available.'},
+      {id:2,key:'Bonfire',title:'Bonfire Night',desc:'Gather around a roaring bonfire on the beach with live music, local snacks and starry nights.'},
+      {id:3,key:'Cruise',title:'Cruising Boat',desc:'Relax on a scenic cruise — sunset trips, wildlife spotting and private charters available.'},
+      {id:4,key:'SandBath',title:'Sand Bathing',desc:'Warm sand therapy and gentle lakeside sunbathing for a soothing natural relaxation.'},
+      {id:5,key:'Swimming',title:'Swimming',desc:'Crystal-clear waters and a resort pool for lap swimming and leisure zones.'},
+      {id:6,key:'Nature',title:'Nature Walks',desc:'Guided scenic trails with birdwatching and native flora explanations.'}
+    ];
+
+    // open modal for activity
+    function openActivity(id){
+      const a = activities.find(x=>x.id===id);
+      if(!a) return;
+      const html = `
+        <h2 style="margin-top:0">${a.title}</h2>
+        <p style="color:var(--muted)">${a.desc}</p>
+        <div style="margin-top:12px;display:flex;gap:10px">
+          <button class="small book" onclick="bookFromModal('${a.title}')">BOOK ${a.title.toUpperCase()}</button>
+          <button class="small info" onclick="startMiniDemo(${a.id})">TRY MINI DEMO</button>
+        </div>
+        <div id="mini-demo" style="margin-top:14px"></div>
+      `;
+      document.getElementById('modal-body').innerHTML=html; document.getElementById('modal').style.display='flex'; document.body.style.overflow='hidden';
+    }
+
+    function closeModal(){ document.getElementById('modal').style.display='none'; document.body.style.overflow='auto'; }
+
+    // attach buttons
+    document.querySelectorAll('.activity .info').forEach(b=>{ b.addEventListener('click', e=>{ const id=+e.currentTarget.dataset.id; openActivity(id); }); });
+    document.querySelectorAll('.activity .book').forEach(b=>{ b.addEventListener('click', e=>{ const id=+e.currentTarget.dataset.id; openActivity(id); }); });
+
+    // simple mini demos
+    function startMiniDemo(id){
+      const mini = document.getElementById('mini-demo'); mini.innerHTML='';
+      if(id===1){ // kayaking path animation
+        mini.innerHTML = `<div style="height:120px;background:linear-gradient(180deg,#dff8ff,#f7fffd);border-radius:10px;overflow:hidden;position:relative"><div style=\"position:absolute;left:-10%;top:40%;width:120px;height:40px;border-radius:18px;background:linear-gradient(90deg,#0bb7d6,#0a9db0);transform:rotate(-6deg);animation:kayak 6s linear infinite\"></div></div>
+        <style>@keyframes kayak{0%{transform:translateX(0) translateY(0) rotate(-6deg)}50%{transform:translateX(60%) translateY(-8px) rotate(2deg)}100%{transform:translateX(0) translateY(0) rotate(-6deg)}}</style>`;
+      } else if(id===2){ // bonfire flicker + sound hint
+        mini.innerHTML = `<div style="display:flex;gap:12px;align-items:center"><div class=\"bonfire\"><div class=\"flame\"></div></div><div><p style=\"margin:0;color:var(--muted)\">Feel the warmth: bonfire nights at Jura include live acoustic sets and marshmallow toasting.</p></div></div>`;
+      } else if(id===3){
+        mini.innerHTML = `<div style="height:120px;background:linear-gradient(180deg,#eefaff,#fffaf0);border-radius:10px;display:flex;align-items:center;justify-content:center;position:relative"><svg width=220 height=80 viewBox=\"0 0 220 80\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M0 60 Q55 40 110 60 T220 60 V80 H0 Z\" fill=\"#dff8ff\"></path><rect x=20 y=18 width=60 height=20 rx=8 fill=\"#0b86a3\" style=\"animation:boat2 8s linear infinite\"></rect></svg></div><style>@keyframes boat2{0%{transform:translateX(-4px)}50%{transform:translateX(38px)}100%{transform:translateX(-4px)}}</style>`;
+      } else if(id===4){
+        mini.innerHTML = `<div style="height:120px;background:linear-gradient(180deg,#fff6ec,#fff8f4);border-radius:10px;display:flex;align-items:center;justify-content:center"><div style=\"width:180px;height:36px;border-radius:999px;background:linear-gradient(90deg,#f7d9a8,#ffd36b);box-shadow:inset 0 -12px 30px rgba(0,0,0,0.06);\">&nbsp;</div></div>`;
+      } else if(id===5){
+        mini.innerHTML = `<div style="height:120px;background:linear-gradient(180deg,#e9fbff,#f7fffd);border-radius:10px;display:flex;align-items:center;justify-content:center"><button class=\"small info\" onclick=\"alert('You swam 10 virtual laps! 🏊')\">TAKE A LAP</button></div>`;
+      } else {
+        mini.innerHTML = `<div style="height:120px;border-radius:10px;background:linear-gradient(180deg,#f2fff0,#f9fff5);display:flex;align-items:center;justify-content:center;color:var(--muted)">Seasonal surprise events rotate weekly — check back for details.</div>`;
+      }
+    }
+
+    function bookFromModal(title){ closeModal(); document.getElementById('activity').value = title; window.scrollTo({top:document.getElementById('book').offsetTop - 40, behavior:'smooth'}); }
+
+    // BOOK FORM (EmailJS integration optional)
+    const bookForm = document.getElementById('book-form');
+    bookForm.addEventListener('submit', function(e){
+      e.preventDefault();
+      const payload = { name:this.name.value, email:this.email.value, activity:this.activity.value, people:this.people.value, notes:this.notes.value };
+      const status = document.getElementById('booking-status'); status.textContent='SENDING...';
+
+      if(window.emailjs){
+        emailjs.init('YOUR_EMAILJS_PUBLIC_KEY');
+        emailjs.send('YOUR_SERVICE_ID','YOUR_TEMPLATE_ID', payload).then(()=>{ status.textContent='✅ Request sent — we will confirm via email.'; bookForm.reset(); setTimeout(()=>status.textContent='',6000); }).catch(()=>{ status.textContent='❌ Error sending — try again later.'; setTimeout(()=>status.textContent='',6000); });
+      } else {
+        // demo fallback
+        setTimeout(()=>{ status.textContent='✅ (Demo) Booking recorded. Add EmailJS keys to enable emails.'; bookForm.reset(); setTimeout(()=>status.textContent='',6000); },800);
+      }
+    });
+
+    // Accessibility: ESC closes modal
+    document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeModal(); });
+
+    // link activity slot images to modal
+    document.querySelectorAll('.activity').forEach((el,i)=>{ el.addEventListener('click', ev=>{ // avoid clicking inner buttons
+        const btn = ev.target.closest('button'); if(btn) return; openActivity(i+1);
+      }); });
+
+  </script>
+</body>
+</html>
