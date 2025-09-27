@@ -3,34 +3,187 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jura's Restaurant</title>
+  <title>Jura's Restaurant - Lake Victoria's Premier Dining</title>
   
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet" />
   
   <style>
+    :root {
+      --navy: #004c73;
+      --primary: #007BFF;
+      --aqua: #29b7d0;
+      --success: #28a745;
+      --muted: #6b8086;
+      --card: #f8f9fa;
+      --gradient-primary: linear-gradient(135deg, #007BFF, #004c73);
+      --gradient-secondary: linear-gradient(135deg, #29b7d0, #004c73);
+      --gradient-success: linear-gradient(135deg, #28a745, #20c997);
+      --shadow-soft: 0 8px 30px rgba(0, 0, 0, 0.1);
+      --shadow-hover: 0 15px 40px rgba(0, 123, 255, 0.2);
+    }
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
-      background: #fff;
+      background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
       color: #333;
-      line-height: 1.6;
+      line-height: 1.8;
       font-family: 'Open Sans', Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(180deg); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -200px 0; }
+      100% { background-position: 200px 0; }
+    }
+
+    @keyframes ripple {
+      0% {
+        transform: scale(0);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }
+
+    /* Scroll animations */
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.8s ease-out;
+    }
+
+    .animate-on-scroll.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .slide-left {
+      opacity: 0;
+      transform: translateX(-50px);
+      transition: all 0.8s ease-out;
+    }
+
+    .slide-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .slide-right {
+      opacity: 0;
+      transform: translateX(50px);
+      transition: all 0.8s ease-out;
+    }
+
+    .slide-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* Loading Overlay */
+    .loading-overlay {
+      position: fixed;
+      inset: 0;
+      background: var(--gradient-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease;
+    }
+
+    .loading-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .loader {
+      width: 60px;
+      height: 60px;
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-top: 4px solid white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
     /* NAVIGATION BAR */
     .navbar {
-      background: #f8f9fa;
-      padding: 10px 0;
-      border-bottom: 1px solid #e0e0e0;
+      background: rgba(248, 249, 250, 0.95);
+      backdrop-filter: blur(20px);
+      padding: 15px 0;
+      border-bottom: 1px solid rgba(224, 224, 224, 0.5);
       position: fixed;
       width: 100%;
       top: 0;
       z-index: 1000;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar.scrolled {
+      padding: 10px 0;
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
     }
 
     .nav-container {
@@ -45,19 +198,30 @@
     .nav-logo {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 15px;
+      animation: slideInLeft 1s ease-out;
     }
 
     .nav-logo img {
-      height: 80px;
-      border-radius: 4px;
+      height: 60px;
+      border-radius: 8px;
+      transition: transform 0.3s ease;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .nav-logo img:hover {
+      transform: scale(1.05) rotate(3deg);
     }
 
     .nav-brand {
       font-family: 'Montserrat', sans-serif;
       font-weight: 800;
-      font-size: 18px;
-      color: #007BFF;
+      font-size: 20px;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: 1px;
     }
 
     .nav-menu {
@@ -65,26 +229,46 @@
       list-style: none;
       gap: 30px;
       align-items: center;
+      animation: fadeInUp 1s ease-out 0.3s both;
     }
 
     .nav-menu a {
       text-decoration: none;
-      color: #007BFF;
+      color: var(--primary);
       font-weight: 600;
       font-size: 14px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      padding: 8px 12px;
-      border-radius: 4px;
-      transition: background 0.3s;
+      padding: 12px 16px;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nav-menu a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .nav-menu a:hover::before {
+      left: 100%;
     }
 
     .nav-menu a:hover {
-      background: #007BFF;
+      background: var(--gradient-primary);
       color: white;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
     }
 
-    /* Dropdown */
+    /* Enhanced Dropdown */
     .dropdown {
       position: relative;
     }
@@ -95,28 +279,37 @@
       top: 100%;
       left: 0;
       background: white;
-      min-width: 200px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      border-radius: 4px;
-      padding: 10px 0;
-      margin-top: 5px;
+      min-width: 220px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+      border-radius: 15px;
+      padding: 15px 0;
+      margin-top: 8px;
+      transform: translateY(-10px);
+      opacity: 0;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
     }
 
     .dropdown-content a {
       display: block;
-      padding: 10px 15px;
+      padding: 12px 20px;
       color: #333;
       text-transform: none;
-      font-size: 13px;
+      font-size: 14px;
+      border-radius: 0;
+      background: transparent;
     }
 
     .dropdown-content a:hover {
-      background: #f8f9fa;
-      color: #007BFF;
+      background: var(--card);
+      color: var(--primary);
+      transform: translateX(10px);
     }
 
     .dropdown:hover .dropdown-content {
       display: block;
+      transform: translateY(0);
+      opacity: 1;
     }
 
     /* Mobile menu */
@@ -124,9 +317,77 @@
       display: none;
       background: none;
       border: none;
-      font-size: 20px;
-      color: #007BFF;
+      font-size: 24px;
+      color: var(--primary);
       cursor: pointer;
+      padding: 10px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .hamburger:hover {
+      background: rgba(0, 123, 255, 0.1);
+      transform: scale(1.1);
+    }
+
+    /* Mobile Menu Overlay */
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.95);
+      color: white;
+      z-index: 2000;
+      display: none;
+      padding: 30px 20px;
+      backdrop-filter: blur(10px);
+    }
+
+    .mobile-menu.show {
+      display: block;
+      animation: fadeInUp 0.3s ease-out;
+    }
+
+    .mobile-menu .close {
+      font-size: 28px;
+      float: right;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      color: white;
+      padding: 10px;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+
+    .mobile-menu .close:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: rotate(90deg);
+    }
+
+    .mobile-menu ul {
+      list-style: none;
+      margin-top: 80px;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .mobile-menu ul li a {
+      color: white;
+      font-size: 18px;
+      padding: 15px 20px;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      display: block;
+      background: rgba(255, 255, 255, 0.05);
+      border-left: 4px solid transparent;
+    }
+
+    .mobile-menu ul li a:hover {
+      background: rgba(0, 123, 255, 0.2);
+      border-left-color: var(--primary);
+      transform: translateX(10px);
     }
 
     @media (max-width: 768px) {
@@ -139,152 +400,442 @@
       }
     }
 
-    /* Main content with top margin for fixed nav */
+    /* Main content with enhanced spacing */
     .main-content {
-      margin-top: 70px;
+      margin-top: 90px;
     }
 
-    /* Hero Section */
+    /* Enhanced Hero Section */
     .hero {
-      background: url('restourant.png') no-repeat center center/cover;
-      height: 50vh;
+      background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 76, 115, 0.3)), url('restourant.png') no-repeat center center/cover;
+      height: 70vh;
+      min-height: 500px;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
       color: #fff;
       position: relative;
+      overflow: hidden;
+      background-attachment: fixed;
     }
 
-    .hero::after {
-      content: "";
+    .hero::before {
+      content: '';
       position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.3);
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 30% 70%, rgba(41, 183, 208, 0.2) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 30%, rgba(0, 76, 115, 0.3) 0%, transparent 50%);
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      padding: 0 20px;
     }
 
     .hero h1 {
-      font-size: 3rem;
-      z-index: 1;
-      position: relative;
+      font-size: clamp(3rem, 6vw, 5rem);
       font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      margin-bottom: 20px;
+      text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.7);
+      background: linear-gradient(45deg, #ffffff, #29b7d0, #ffffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: fadeInUp 1.5s ease-out, float 4s ease-in-out infinite 2s;
     }
 
-    /* Sections */
+    .hero-subtitle {
+      font-size: clamp(1.2rem, 3vw, 1.5rem);
+      margin-bottom: 30px;
+      opacity: 0.9;
+      animation: fadeInUp 1.5s ease-out 0.5s both;
+    }
+
+    .hero-cta {
+      animation: fadeInUp 1.5s ease-out 1s both;
+    }
+
+    /* Floating elements in hero */
+    .hero-decoration {
+      position: absolute;
+      color: rgba(255, 255, 255, 0.1);
+      font-size: 4rem;
+      animation: float 4s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .hero-decoration:nth-child(1) {
+      top: 20%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+
+    .hero-decoration:nth-child(2) {
+      top: 60%;
+      right: 15%;
+      animation-delay: 2s;
+    }
+
+    .hero-decoration:nth-child(3) {
+      bottom: 30%;
+      left: 20%;
+      animation-delay: 4s;
+    }
+
+    /* Enhanced Sections */
     .section {
-      padding: 3rem 10%;
+      padding: 80px 10%;
       text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(41, 183, 208, 0.03) 0%, transparent 70%);
+      animation: float 8s ease-in-out infinite;
+      pointer-events: none;
     }
 
     .section h2 {
-      margin-bottom: 1rem;
-      font-size: 2rem;
+      margin-bottom: 30px;
+      font-size: clamp(2rem, 4vw, 3rem);
       font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      position: relative;
     }
 
+    .section h2::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: var(--gradient-primary);
+      border-radius: 2px;
+    }
+
+    .section p {
+      max-width: 800px;
+      margin: 0 auto 20px;
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #555;
+    }
+
+    /* Enhanced Button Styles */
     .btn {
-      background: #004c73;
+      background: var(--gradient-primary);
       color: white;
-      padding: 0.75rem 1.5rem;
+      padding: 15px 30px;
       border: none;
       text-decoration: none;
-      border-radius: 4px;
-      font-weight: bold;
-      transition: 0.3s;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
       display: inline-block;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transition: all 0.4s ease;
+      transform: translate(-50%, -50%);
+    }
+
+    .btn:hover::before {
+      width: 300px;
+      height: 300px;
     }
 
     .btn:hover {
-      background: #0073a8;
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-hover);
     }
 
-    /* Food Gallery */
+    /* Enhanced Food Gallery */
     .gallery {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 10px;
-      margin-top: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin-top: 50px;
+      padding: 20px;
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      transition: all 0.4s ease;
+      background: white;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
     }
 
     .gallery img {
       width: 100%;
-      height: auto;
-      border-radius: 6px;
+      height: 300px;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.1);
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, rgba(0, 123, 255, 0.8), rgba(41, 183, 208, 0.8));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+    }
+
+    .gallery-overlay-text {
+      color: white;
+      font-size: 1.2rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transform: translateY(20px);
+      transition: transform 0.3s ease 0.1s;
+    }
+
+    .gallery-item:hover .gallery-overlay-text {
+      transform: translateY(0);
+    }
+
+    /* Cuisine Section Headers */
+    .cuisine-header {
+      background: var(--gradient-primary);
+      color: white;
+      padding: 60px 20px;
+      margin: 60px 0 40px;
+      border-radius: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cuisine-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="70" r="1" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+      animation: float 10s ease-in-out infinite;
+    }
+
+    .cuisine-header h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     }
 
     /* Beach Section */
     .beach {
-      background: #fafafa;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      border-radius: 20px;
+      margin: 60px 0;
+      position: relative;
     }
 
-    /* Specials Section */
+    .beach::before {
+      content: '🏖️';
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 3rem;
+      opacity: 0.3;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    /* Enhanced Specials Cards */
     .specials {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 2rem;
-      margin-top: 2rem;
+      gap: 40px;
+      margin-top: 60px;
     }
 
     .card {
-      flex: 1 1 300px;
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      padding: 1rem;
+      flex: 1 1 350px;
+      max-width: 400px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: var(--shadow-soft);
+      padding: 30px;
       text-align: center;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gradient-primary);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
     }
 
     .card img {
       width: 100%;
-      border-radius: 6px;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 15px;
+      margin-bottom: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover img {
+      transform: scale(1.05);
     }
 
     .card h3 {
-      margin: 1rem 0 0.5rem;
+      margin: 20px 0 15px;
       font-family: 'Montserrat', sans-serif;
+      font-size: 1.4rem;
+      color: var(--navy);
     }
 
-    /* Booking Section */
+    .card p {
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    /* Enhanced Booking Section */
     .booking-section {
-      background: #f8f9fa;
-      border-top: 3px solid #004c73;
+      background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+      border: none;
+      border-radius: 30px;
+      margin: 60px 0;
+      padding: 80px 10%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .booking-section::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      left: -100px;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: var(--gradient-primary);
+      opacity: 0.1;
+      animation: float 6s ease-in-out infinite;
     }
 
     .booking-form {
       max-width: 600px;
       margin: 0 auto;
       text-align: left;
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      z-index: 2;
     }
 
     .form-group {
-      margin-bottom: 1.5rem;
+      margin-bottom: 25px;
     }
 
     .form-group label {
       display: block;
-      margin-bottom: 0.5rem;
-      font-weight: bold;
-      color: #333;
+      margin-bottom: 8px;
+      font-weight: 700;
+      color: var(--navy);
+      font-size: 1rem;
     }
 
     .form-group input,
     .form-group textarea {
       width: 100%;
-      padding: 0.75rem;
-      border: 2px solid #ddd;
-      border-radius: 6px;
+      padding: 15px 20px;
+      border: 2px solid #e9ecef;
+      border-radius: 15px;
       font-size: 1rem;
       font-family: inherit;
-      transition: border-color 0.3s;
+      transition: all 0.3s ease;
+      background: #f8f9fa;
     }
 
     .form-group input:focus,
     .form-group textarea:focus {
       outline: none;
-      border-color: #004c73;
-      box-shadow: 0 0 0 2px rgba(0, 76, 115, 0.1);
+      border-color: var(--primary);
+      background: white;
+      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+      transform: translateY(-2px);
     }
 
     .form-group textarea {
@@ -293,128 +844,185 @@
     }
 
     .btn-booking {
-      background: #28a745;
-      font-size: 1.1rem;
-      padding: 1rem 2rem;
-      margin-top: 1rem;
+      background: var(--gradient-success);
+      font-size: 1.2rem;
+      padding: 18px 40px;
+      margin-top: 20px;
       width: 100%;
+      position: relative;
+      overflow: hidden;
     }
 
     .btn-booking:hover {
-      background: #218838;
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(40, 167, 69, 0.3);
     }
 
     .btn-booking:disabled {
       background: #6c757d;
       cursor: not-allowed;
+      transform: none;
     }
 
     .form-messages {
-      margin-bottom: 1.5rem;
+      margin-bottom: 30px;
       text-align: center;
     }
 
+    .success-message, .error-message {
+      padding: 20px;
+      border-radius: 15px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
     .success-message {
-      background: #d4edda;
+      background: linear-gradient(135deg, #d4edda, #c3e6cb);
       color: #155724;
-      padding: 1rem;
-      border-radius: 6px;
       border: 1px solid #c3e6cb;
     }
 
     .error-message {
-      background: #f8d7da;
+      background: linear-gradient(135deg, #f8d7da, #f5c6cb);
       color: #721c24;
-      padding: 1rem;
-      border-radius: 6px;
       border: 1px solid #f5c6cb;
     }
 
-    /* Location Section */
+    /* Enhanced Location Section */
     .location-container {
       display: flex;
-      min-height: 300px;
+      min-height: 400px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      margin: 60px 0;
     }
 
     .location {
-      background: #004c73;
+      background: var(--gradient-primary);
       color: #fff;
       text-align: center;
-      padding: 2.5rem 2rem;
+      padding: 60px 40px;
       flex: 1;
       display: flex;
       flex-direction: column;
       justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .location::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M0,50 Q25,30 50,50 T100,50 V100 H0 Z" fill="rgba(255,255,255,0.1)"/></svg>') no-repeat bottom center;
+      background-size: cover;
+    }
+
+    .location-content {
+      position: relative;
+      z-index: 2;
     }
 
     .location h2 {
       font-family: 'Montserrat', sans-serif;
-      font-size: 1.6rem;
+      font-size: 2rem;
       text-transform: uppercase;
-      margin-bottom: 0.8rem;
-      letter-spacing: 1px;
-      font-weight: bold;
+      margin-bottom: 20px;
+      letter-spacing: 2px;
+      font-weight: 800;
     }
 
     .location p {
-      margin-bottom: 1rem;
-      font-size: 0.95rem;
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+      opacity: 0.9;
     }
 
     .address {
       font-size: 1rem;
-      line-height: 1.6;
+      line-height: 1.8;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
     }
 
     .address h3 {
-      font-size: 1.1rem;
-      margin-bottom: 0.5rem;
+      font-size: 1.3rem;
+      margin-bottom: 15px;
+      color: #ffffff;
     }
 
     .coords {
-      margin-top: 0.8rem;
+      margin-top: 15px;
       font-size: 0.9rem;
+      opacity: 0.8;
+      font-style: italic;
     }
 
-    /* Live Location Placeholder */
+    /* Enhanced Map Section */
     .map {
       flex: 1;
-      min-height: 300px;
-      background: #f8f9fa;
+      min-height: 400px;
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
       display: flex;
       align-items: center;
       justify-content: center;
+      position: relative;
     }
 
     .location-placeholder {
       text-align: center;
-      padding: 2rem;
+      padding: 40px;
       color: #666;
+      background: white;
+      border-radius: 15px;
+      box-shadow: var(--shadow-soft);
+      max-width: 80%;
     }
 
     .location-placeholder h3 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      color: #004c73;
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      color: var(--navy);
+      font-family: 'Montserrat', sans-serif;
     }
 
     .location-placeholder p {
-      margin-bottom: 1.5rem;
+      margin-bottom: 15px;
       font-style: italic;
+      font-size: 1.1rem;
     }
 
     /* Mobile responsive */
     @media (max-width: 768px) {
+      .main-content {
+        margin-top: 80px;
+      }
+
+      .hero {
+        height: 60vh;
+        background-attachment: scroll;
+      }
+
+      .section {
+        padding: 60px 5%;
+      }
+
       .location-container {
         flex-direction: column;
       }
       
       .location {
-        padding: 2rem 1rem;
+        padding: 40px 20px;
       }
       
       .map {
-        min-height: 250px;
+        min-height: 300px;
       }
 
       .specials {
@@ -423,23 +1031,110 @@
       }
 
       .card {
-        max-width: 400px;
+        max-width: 100%;
+      }
+
+      .gallery {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        padding: 10px;
+      }
+
+      .booking-form {
+        padding: 30px 20px;
       }
     }
 
+    /* Scroll to top button */
+    .scroll-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: var(--gradient-primary);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 1000;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .scroll-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .scroll-top:hover {
+      transform: translateY(-3px) scale(1.1);
+      box-shadow: var(--shadow-hover);
+    }
+
+    /* Footer */
     footer {
-      background: #004c73;
+      background: var(--gradient-primary);
       color: #fff;
       text-align: center;
-      padding: 1.5rem;
-      margin-top: 3rem;
+      padding: 40px 20px;
+      margin-top: 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M0,30 Q50,0 100,30 V100 H0 Z" fill="rgba(255,255,255,0.1)"/></svg>') no-repeat top center;
+      background-size: cover;
+    }
+
+    footer p {
+      font-size: 1.1rem;
+      font-weight: 600;
+      position: relative;
+      z-index: 2;
+      margin: 0;
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--gradient-primary);
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--navy);
     }
   </style>
 </head>
 <body>
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="loader"></div>
+  </div>
 
   <!-- NAVIGATION BAR -->
-  <nav class="navbar">
+  <nav class="navbar" id="navbar">
     <div class="nav-container">
       <div class="nav-logo">
         <img src="0eddf86f-8023-4db7-aeb1-529bcd41a970.jpg" alt="Jura logo" />
@@ -447,9 +1142,9 @@
       </div>
       
       <ul class="nav-menu">
-        <li><a href="#">HOME</a></li>
+        <li><a href="index.html">HOME</a></li>
         <li class="dropdown">
-          <a href="#">RESTAURANT AND DISHES</a>
+          <a href="RestaurantandDishes.html">RESTAURANT AND DISHES</a>
           <div class="dropdown-content">
             <a href="#indian-cuisine">Indian Cuisine</a>
             <a href="#traditional-luo-cuisine">Traditional Luo Cuisine</a>
@@ -457,7 +1152,7 @@
           </div>
         </li>
         <li class="dropdown">
-          <a href="#">WATER ACTIVITIES</a>
+          <a href="WaterActivities.html">WATER ACTIVITIES</a>
           <div class="dropdown-content">
             <a href="#swimming">Swimming</a>
             <a href="#snorkeling">Snorkeling</a>
@@ -467,7 +1162,7 @@
           </div>
         </li>
         <li class="dropdown">
-          <a href="#">INDOOR GAMES</a>
+          <a href="IndoorGames.html">INDOOR GAMES</a>
           <div class="dropdown-content">
             <a href="#pool-table">Pool Table</a>
             <a href="#table-tennis">Table Tennis</a>
@@ -477,7 +1172,7 @@
           </div>
         </li>
         <li class="dropdown">
-          <a href="#">OUTDOOR ACTIVITIES</a>
+          <a href="OutdoorActivities.html">OUTDOOR ACTIVITIES</a>
           <div class="dropdown-content">
             <a href="#beach-volleyball">Beach Volleyball</a>
             <a href="#beach-soccer">Beach Soccer</a>
@@ -491,115 +1186,201 @@
         <li><a href="#live-performance">LIVE PERFORMANCE</a></li>
       </ul>
       
-      <button class="hamburger">☰</button>
+      <button class="hamburger" id="hamburger">☰</button>
     </div>
   </nav>
 
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="close" id="closeMobile">✕</button>
+    <ul>
+      <li><a href="index.html">HOME</a></li>
+      <li><a href="RestaurantandDishes.html">RESTAURANT AND DISHES</a></li>
+      <li><a href="WaterActivities.html">WATER ACTIVITIES</a></li>
+      <li><a href="IndoorGames.html">INDOOR GAMES</a></li>
+      <li><a href="OutdoorActivities.html">OUTDOOR ACTIVITIES</a></li>
+      <li><a href="#about">ABOUT</a></li>
+      <li><a href="#contact">CONTACT</a></li>
+      <li><a href="#live-performance">LIVE PERFORMANCE</a></li>
+    </ul>
+  </div>
+
   <!-- MAIN CONTENT -->
   <div class="main-content">
-    <!-- Hero Section -->
+    <!-- Enhanced Hero Section -->
     <section class="hero">
-      <h1>JURA RESTAURANT</h1>
+      <div class="hero-decoration">🍽️</div>
+      <div class="hero-decoration">🍷</div>
+      <div class="hero-decoration">⭐</div>
+      <div class="hero-content">
+        <h1>JURA RESTAURANT</h1>
+        <p class="hero-subtitle">Exquisite Lake Victoria Dining Experience</p>
+        <div class="hero-cta">
+          <a href="#contact" class="btn">MAKE RESERVATION</a>
+        </div>
+      </div>
     </section>
 
     <!-- Restaurant Intro -->
-    <section class="section">
+    <section class="section animate-on-scroll">
+      <h2>Welcome to Culinary Paradise</h2>
       <p>
-        Offering quality local and international dishes, the Juro Restaurant is perfectly placed on Kenya's Lake Side Beach. Providing an idyllic spot to relax between water sport sessions, enjoy sundowners with friends and savour a romantic, moonlight dinner, Juro Resort is the place to be on Lake Side Beach.
+        Offering quality local and international dishes, the Jura Restaurant is perfectly placed on Kenya's stunning Lake Victoria shores in Migori. Providing an idyllic spot to relax between water sport sessions, enjoy sundowners with friends and savour a romantic, moonlight dinner, Jura Resort is the place to be on Lake Victoria Beach.
       </p>
       <p>
-        Our extensive à-la-carte menu offers a fantastic choice of seafood, pizza and fine dining options, accompanied by an extensive wine selection and drinks menu. Younger diners will love our kids' menu and delicious homemade ice-creams.
+        Our extensive à-la-carte menu offers a fantastic choice of fresh lake fish, authentic Indian cuisine, traditional Luo dishes, Swahili specialties, and fine dining options, accompanied by an extensive wine selection and cocktail menu. Younger diners will love our kids' menu and delicious homemade ice-creams.
       </p>
       <p>
-        Available for private functions, the Jura Restaurant is also the ideal place to celebrate a special occasion or corporate event.
+        Available for private functions, the Jura Restaurant is also the ideal place to celebrate a special occasion or corporate event with breathtaking lake views.
       </p>
       <a href="#" class="btn">VIEW RESTAURANT MENU</a>
     </section>
 
-    <!-- Food Gallery -->
-    <section class="section" id="indian-cuisine">
-        <h1>INDIAN CUISINE</h1>
+    <!-- Indian Cuisine Section -->
+    <section class="section slide-left" id="indian-cuisine">
+      <div class="cuisine-header">
+        <h1>AUTHENTIC INDIAN CUISINE</h1>
+      </div>
       <div class="gallery">
-        <img src="INDIAN CSINE.jpeg" alt="Indian Dish">
-        <img src="INDIAN THREE.jpeg" alt="Indian Dish">
-        <img src="INDIAN TWO.jpeg" alt="Indian Dish">
-        <img src="INDIAN.jpeg" alt="Indian Dish">
-        <img src="INDIAN4.jpeg" alt="Indian Dish">
+        <div class="gallery-item">
+          <img src="INDIAN CSINE.jpeg" alt="Authentic Indian Dish">
+          <div class="gallery-overlay">
+            <div class="gallery-overlay-text">Spice Paradise</div>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="INDIAN THREE.jpeg" alt="Traditional Indian Curry">
+          <div class="gallery-overlay">
+            <div class="gallery-overlay-text">Traditional Flavors</div>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="INDIAN TWO.jpeg" alt="Indian Specialty">
+          <div class="gallery-overlay">
+            <div class="gallery-overlay-text">Aromatic Delights</div>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="INDIAN.jpeg" alt="Indian Feast">
+          <div class="gallery-overlay">
+            <div class="gallery-overlay-text">Royal Feast</div>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="INDIAN4.jpeg" alt="Indian Delicacy">
+          <div class="gallery-overlay">
+            <div class="gallery-overlay-text">Exotic Tastes</div>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- Beach Restaurant -->
-    <section class="section beach">
-      <h2>THE BEST ON THE BEACH</h2>
+    <section class="section beach animate-on-scroll">
+      <h2>THE BEST ON LAKE VICTORIA</h2>
+      <p>Experience unparalleled dining with panoramic views of Africa's largest lake</p>
     </section>
 
     <!-- LUO Cuisine Gallery -->
-    <section class="section" id="traditional-luo-cuisine">
-      <h1>LUO CUISINE</h1>
+    <section class="section slide-right" id="traditional-luo-cuisine">
+      <div class="cuisine-header">
+        <h1>TRADITIONAL LUO CUISINE</h1>
+      </div>
       <div class="gallery">
-        <img src="LUO5.jpg" alt="Luo Dish">
-        <img src="LUO2.jpeg" alt="Luo Dish">
-        <img src="LUO3.jpeg" alt="Luo Dish">
-        <img src="LUO4.jpeg" alt="Luo Dish">
-        <img src="LUO1.webp" alt="Luo Dish">
+        <div class="gallery-item">
+          <img src="LUO5.jpg" alt="Traditional Luo Dish">
+          <div class="gallery-overlay">
+            <div class="gallery-overlay-text">Cultural Heritage</div>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="LUO2.jpeg" alt="Luo Specialty">
+          <div class="gallery-overlay">
+            <div class="gallery-overlay-text">Ancestral Recipes</div>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="LUO3.jpeg" alt="Traditional Luo Meal">
+          <div class="gallery-overlay">
+            <div class="gallery-overlay-text">Local Traditions</div>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="LUO4.jpeg" alt="Luo Delicacy">
+          <div class="gallery-overlay">
+            <div class="gallery-overlay-text">Authentic Flavors</div>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="LUO1.webp" alt="Luo Traditional Food">
+          <div class="gallery-overlay">
+            <div class="gallery-overlay-text">Time-Honored Taste</div>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- Specials -->
-    <section class="section">
+    <section class="section animate-on-scroll">
+      <h2>Chef's Specialties</h2>
       <div class="specials">
         <div class="card">
           <img src="sushi_sept_23_16_9.webp" alt="Jura Restaurant Sushi">
           <h3>CHEF'S SPECIAL OF THE MONTH</h3>
           <p>
-            Enjoy a fantastic selection of fresh sushi prepared by our Chef using fresh, locally caught fish by our local fishermen.
+            Enjoy a fantastic selection of fresh sushi prepared by our Chef using fresh, locally caught fish from Lake Victoria by our local fishermen. A unique fusion of Japanese technique with African freshness.
           </p>
         </div>
         <div class="card">
           <img src="image two.png" alt="Fresh local ingredients">
           <h3>FRESH LOCAL INGREDIENTS</h3>
           <p>
-            Jura Restaurant is committed to supporting local farmers and producers. Our extensive à-la-carte menu boasts an eclectic combination of local and international dishes made from the freshest local ingredients.
+            Jura Restaurant is committed to supporting local farmers and producers around Lake Victoria. Our extensive à-la-carte menu boasts an eclectic combination of local and international dishes made from the freshest local ingredients.
           </p>
           <a href="#" class="btn">THINKING GREEN</a>
         </div>
       </div>
     </section>
 
-    <!-- Booking Section -->
-    <section class="section booking-section" id="contact">
-      <h2>MAKE A RESERVATION</h2>
-      <p>Book your table at Jura Restaurant and experience our exceptional cuisine</p>
+    <!-- Enhanced Booking Section -->
+    <section class="section booking-section animate-on-scroll" id="contact">
+      <h2>Make Your Lake Victoria Reservation</h2>
+      <p>Book your table at Jura Restaurant and experience our exceptional lakeside cuisine</p>
       
       <!-- Status Messages -->
       <div id="form-messages" class="form-messages" style="display: none;">
         <div id="success-message" class="success-message">
-          ✅ Booking request sent successfully! We'll contact you soon.
+          ✅ Booking request sent successfully! We'll contact you soon to confirm your Lake Victoria dining experience.
         </div>
         <div id="error-message" class="error-message">
-          ❌ Sorry, there was an error sending your request. Please try again.
+          ❌ Sorry, there was an error sending your request. Please try again or call us directly.
         </div>
       </div>
       
       <form class="booking-form" id="booking-form">
         <div class="form-group">
           <label for="from_name">Full Name:</label>
-          <input type="text" id="from_name" name="from_name" required>
+          <input type="text" id="from_name" name="from_name" placeholder="Enter your full name" required>
         </div>
         
         <div class="form-group">
-          <label for="from_email">Email:</label>
-          <input type="email" id="from_email" name="from_email" required>
+          <label for="from_email">Email Address:</label>
+          <input type="email" id="from_email" name="from_email" placeholder="your.email@example.com" required>
         </div>
         
         <div class="form-group">
           <label for="contact">Contact Number:</label>
-          <input type="tel" id="contact" name="contact" required>
+          <input type="tel" id="contact" name="contact" placeholder="+254 7XX XXX XXX" required>
         </div>
         
         <div class="form-group">
-          <label for="message">Message (Date, Time, Number of Guests, Special Requests):</label>
-          <textarea id="message" name="message" rows="6" placeholder="Please include your preferred date, time, number of guests, and any special requests..." required></textarea>
+          <label for="message">Reservation Details:</label>
+          <textarea id="message" name="message" rows="6" placeholder="Please include:
+• Preferred date and time
+• Number of guests
+• Special dietary requirements
+• Celebration details (if any)
+• Seating preferences (lakeside, indoor, etc.)" required></textarea>
         </div>
         
         <button type="submit" class="btn btn-booking" id="submit-btn">
@@ -609,48 +1390,215 @@
       </form>
     </section>
 
-    <!-- LOCATION SECTION -->
-    <div class="location-container">
+    <!-- Enhanced Location Section -->
+    <div class="location-container animate-on-scroll">
       <section class="location">
-        <div>
-          <h2>LOCATION</h2>
-          <p>Jura Beach Bar and Restaurant is located on Kenya's Famous Lake Side Beach.</p>
+        <div class="location-content">
+          <h2>FIND US ON LAKE VICTORIA</h2>
+          <p>Jura Beach Bar and Restaurant is located on Kenya's stunning Lake Victoria shores in Migori County, offering breathtaking sunset views and fresh lake breezes.</p>
 
           <div class="address">
-            <h3>JURA BEACH BAR</h3>
-            <p>Lake Side Beach Road, Lake Side Beach, Kenya</p>
-            <p>Restaurant Reservations: +254 738 333 888</p>
-            <p>Hotel Enquiries: +254 709 538 888</p>
+            <h3>🏖️ JURA BEACH BAR & RESTAURANT</h3>
+            <p>📍 Lake Victoria Beach, Migori County, Kenya</p>
+            <p>🍽️ Restaurant Reservations: +254 700 000 000</p>
+            <p>🏨 Hotel Enquiries: +254 700 000 000</p>
+            <p>💬 WhatsApp: +254 700 000 000</p>
             <div class="coords">
-              Longitude: 39.572763 &nbsp;&nbsp; Latitude: -4.326899
+              🗺️ Coordinates: Longitude: 34.4712° E, Latitude: 1.0636° S
             </div>
           </div>
         </div>
       </section>
 
-      <!-- LIVE LOCATION PLACEHOLDER -->
+      <!-- Enhanced Map Placeholder -->
       <div class="map">
         <div class="location-placeholder">
-          <h3>📍 Live Location</h3>
-          <p>Insert your live location/map component here</p>
-          <p><strong>Current Location:</strong> Lake Side Beach Road, Lake Side Beach, Kenya</p>
+          <h3>🗺️ Interactive Lake Victoria Map</h3>
+          <p>Discover our prime location on Africa's largest lake</p>
+          <p><strong>📍 Current Location:</strong> Lake Victoria Beach, Migori County, Kenya</p>
+          <p><em>Perfect lakeside dining with panoramic water views</em></p>
         </div>
       </div>
     </div>
 
     <!-- Footer -->
     <footer>
-      <p>&copy; 2025 Jura Restaurant - All Rights Reserved</p>
+      <p>&copy; 2025 Jura Restaurant - Lake Victoria's Premier Dining Experience - All Rights Reserved</p>
     </footer>
   </div>
 
-  <!-- EmailJS Script -->
+  <!-- Scroll to Top Button -->
+  <button class="scroll-top" id="scrollTop">↑</button>
+
+  <!-- Enhanced JavaScript -->
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   
   <script type="text/javascript">
+    // Loading screen
+    window.addEventListener('load', () => {
+      const loadingOverlay = document.getElementById('loadingOverlay');
+      setTimeout(() => {
+        loadingOverlay.classList.add('hidden');
+      }, 1200);
+    });
+
     // Initialize EmailJS with your public key
-    emailjs.init("YOUR_PUBLIC_KEY");
+    // emailjs.init("YOUR_PUBLIC_KEY"); // Uncomment and add your key
     
+    // Scroll animations observer
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    // Observe all animated elements
+    document.querySelectorAll('.animate-on-scroll, .slide-left, .slide-right').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    }, { passive: true });
+
+    // Mobile menu functionality
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const closeMobile = document.getElementById('closeMobile');
+
+    hamburger?.addEventListener('click', () => {
+      mobileMenu.classList.toggle('show');
+      document.body.style.overflow = mobileMenu.classList.contains('show') ? 'hidden' : '';
+    });
+
+    closeMobile?.addEventListener('click', () => {
+      mobileMenu.classList.remove('show');
+      document.body.style.overflow = '';
+    });
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (mobileMenu.classList.contains('show') && 
+          !mobileMenu.contains(e.target) && 
+          !hamburger.contains(e.target)) {
+        mobileMenu.classList.remove('show');
+        document.body.style.overflow = '';
+      }
+    });
+
+    // Scroll to top functionality
+    const scrollTopBtn = document.getElementById('scrollTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        scrollTopBtn.classList.add('visible');
+      } else {
+        scrollTopBtn.classList.remove('visible');
+      }
+    }, { passive: true });
+
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // Enhanced button interactions with ripple effect
+    document.querySelectorAll('.btn, .btn-booking').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        const ripple = document.createElement('span');
+        const rect = this.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = e.clientX - rect.left - size / 2;
+        const y = e.clientY - rect.top - size / 2;
+        
+        ripple.style.cssText = `
+          position: absolute;
+          width: ${size}px;
+          height: ${size}px;
+          left: ${x}px;
+          top: ${y}px;
+          background: rgba(255, 255, 255, 0.6);
+          border-radius: 50%;
+          transform: scale(0);
+          animation: ripple 0.6s linear;
+          pointer-events: none;
+        `;
+        
+        this.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 600);
+      });
+    });
+
+    // Gallery lightbox effect
+    document.querySelectorAll('.gallery img').forEach(img => {
+      img.addEventListener('click', () => {
+        const overlay = document.createElement('div');
+        overlay.style.cssText = `
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0,0,0,0.9);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 9999;
+          cursor: pointer;
+          backdrop-filter: blur(5px);
+        `;
+        
+        const imgClone = img.cloneNode();
+        imgClone.style.cssText = `
+          max-width: 90%;
+          max-height: 90%;
+          border-radius: 15px;
+          box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+          transform: scale(0.8);
+          transition: transform 0.3s ease;
+        `;
+        
+        overlay.appendChild(imgClone);
+        document.body.appendChild(overlay);
+        
+        // Animate in
+        setTimeout(() => {
+          imgClone.style.transform = 'scale(1)';
+        }, 10);
+        
+        overlay.addEventListener('click', () => {
+          imgClone.style.transform = 'scale(0.8)';
+          setTimeout(() => {
+            document.body.removeChild(overlay);
+          }, 300);
+        });
+      });
+    });
+
+    // Parallax effect for hero
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      const hero = document.querySelector('.hero');
+      if (hero && scrolled < hero.offsetHeight) {
+        hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+      }
+    }, { passive: true });
+
     // Booking form functionality
     document.getElementById('booking-form').addEventListener('submit', function(event) {
       event.preventDefault();
@@ -668,29 +1616,47 @@
       loadingText.style.display = 'inline';
       formMessages.style.display = 'none';
       
-      // Prepare template parameters
+      // Simulate sending (replace with actual EmailJS code)
+      setTimeout(() => {
+        // Show success message (replace this simulation with actual EmailJS)
+        formMessages.style.display = 'block';
+        successMessage.style.display = 'block';
+        errorMessage.style.display = 'none';
+        
+        // Reset form
+        this.reset();
+        
+        // Reset button
+        submitBtn.disabled = false;
+        btnText.style.display = 'inline';
+        loadingText.style.display = 'none';
+        
+        // Auto hide message after 5 seconds
+        setTimeout(() => {
+          formMessages.style.display = 'none';
+        }, 5000);
+      }, 2000);
+
+      /* Uncomment this section when you have EmailJS set up:
+      
       const templateParams = {
         from_name: document.getElementById('from_name').value,
         from_email: document.getElementById('from_email').value,
         contact: document.getElementById('contact').value,
         message: document.getElementById('message').value,
-        to_email: 'staff@jurarestaurant.com'
+        to_email: 'reservations@juraresort.com'
       };
       
-      // Send email using EmailJS
       emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
         .then(function(response) {
           console.log('SUCCESS!', response.status, response.text);
           
-          // Show success message
           formMessages.style.display = 'block';
           successMessage.style.display = 'block';
           errorMessage.style.display = 'none';
           
-          // Reset form
           document.getElementById('booking-form').reset();
           
-          // Reset button
           submitBtn.disabled = false;
           btnText.style.display = 'inline';
           loadingText.style.display = 'none';
@@ -698,18 +1664,52 @@
         }, function(error) {
           console.log('FAILED...', error);
           
-          // Show error message
           formMessages.style.display = 'block';
           successMessage.style.display = 'none';
           errorMessage.style.display = 'block';
           
-          // Reset button
           submitBtn.disabled = false;
           btnText.style.display = 'inline';
           loadingText.style.display = 'none';
         });
+      */
     });
-  </script>
 
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          const offsetTop = target.offsetTop - 100; // Account for fixed navbar
+          window.scrollTo({
+            top: offsetTop,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    // Add staggered animation to gallery items
+    const galleryObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0) scale(1)';
+          }, index * 100);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.gallery-item').forEach((item, index) => {
+      item.style.opacity = '0';
+      item.style.transform = 'translateY(30px) scale(0.9)';
+      item.style.transition = `all 0.6s ease ${index * 0.1}s`;
+      galleryObserver.observe(item);
+    });
+
+    console.log('🍽️ Jura Restaurant - Enhanced Experience Loaded! 🌊');
+  </script>
 </body>
 </html>
