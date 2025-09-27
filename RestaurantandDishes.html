@@ -712,48 +712,66 @@
       btnText.style.display = 'none';
       loadingText.style.display = 'inline';
       
-      // Get form data
-      const formData = {
-        timestamp: new Date().toLocaleString('en-US', {
-          timeZone: 'Africa/Nairobi',
-          year: 'numeric',
-          month: '2-digit',
-          day: '2-digit',
-          hour: '2-digit',
-          minute: '2-digit',
-          second: '2-digit'
-        }),
-        name: document.getElementById('from_name').value,
-        email: document.getElementById('from_email').value,
-        contact: document.getElementById('contact').value,
-        message: document.getElementById('message').value,
-        source: 'Restaurant Reservation Form',
-        status: 'Pending'
-      };
+      // Get form data directly from form fields
+      const customerName = document.getElementById('from_name').value;
+      const customerEmail = document.getElementById('from_email').value;
+      const customerContact = document.getElementById('contact').value;
+      const customerMessage = document.getElementById('message').value;
+      const bookingTimestamp = new Date().toLocaleString('en-US', {
+        timeZone: 'Africa/Nairobi',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      });
 
       // All bookings go directly to WhatsApp
+      console.log('Form submitted, processing booking...', {customerName, customerEmail, customerContact});
+      
       // Simulate processing for better user experience
       setTimeout(() => {
-        // Show success message
-        alert('✅ Booking request received! Redirecting to WhatsApp for confirmation...');
-        
-        // Reset form
-        document.getElementById('booking-form').reset();
-        
-        // Create WhatsApp message with all booking details
-        const whatsappMessage = `🏨 *RESTAURANT BOOKING REQUEST*\n\n` +
-                               `📅 Date: ${formData.timestamp}\n\n` +
-                               `👤 Name: ${formData.name}\n` +
-                               `📧 Email: ${formData.email}\n` +
-                               `📱 Contact: ${formData.contact}\n\n` +
-                               `📋 Booking Details:\n${formData.message}\n\n` +
-                               `🍽️ Source: Restaurant Page\n` +
-                               `⏰ Please confirm availability and send reservation details.`;
-        
-        const whatsappUrl = `https://wa.me/254722566089?text=${encodeURIComponent(whatsappMessage)}`;
-        
-        // Automatically open WhatsApp
-        window.open(whatsappUrl, '_blank');
+        try {
+          // Show success message
+          alert('✅ Booking request received! Redirecting to WhatsApp for confirmation...');
+          
+          // Reset form
+          document.getElementById('booking-form').reset();
+          
+          // Create WhatsApp message with all booking details
+          const whatsappMessage = `🏨 *RESTAURANT BOOKING REQUEST*\n\n` +
+                                 `📅 Date: ${bookingTimestamp}\n\n` +
+                                 `👤 Name: ${customerName}\n` +
+                                 `📧 Email: ${customerEmail}\n` +
+                                 `📱 Contact: ${customerContact}\n\n` +
+                                 `📋 Booking Details:\n${customerMessage}\n\n` +
+                                 `🍽️ Source: Restaurant Page\n` +
+                                 `⏰ Please confirm availability and send reservation details.`;
+          
+          const whatsappUrl = `https://wa.me/254722566089?text=${encodeURIComponent(whatsappMessage)}`;
+          
+          console.log('Opening WhatsApp URL:', whatsappUrl);
+          
+          // Try multiple methods to open WhatsApp
+          const opened = window.open(whatsappUrl, '_blank');
+          
+          if (!opened) {
+            // Fallback method if popup is blocked
+            window.location.href = whatsappUrl;
+          }
+          
+          // Also provide manual link as backup
+          setTimeout(() => {
+            if (confirm('WhatsApp should have opened. If not, click OK to try again or manually copy the link.')) {
+              prompt('Copy this WhatsApp link and open it manually:', whatsappUrl);
+            }
+          }, 2000);
+          
+        } catch (error) {
+          console.error('Error opening WhatsApp:', error);
+          alert('Error opening WhatsApp. Please check browser settings or try manually.');
+        }
         
         // Reset button state
         submitBtn.disabled = false;

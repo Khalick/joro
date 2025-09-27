@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Test - Jura Resort</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        button {
+            background: #25D366;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+            display: block;
+            width: 100%;
+        }
+        button:hover {
+            background: #1DA851;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            background: #f0f0f0;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🧪 WhatsApp Integration Test</h1>
+        <p>Use this page to test if WhatsApp redirection works on your device/browser.</p>
+        
+        <hr>
+        
+        <h3>Test 1: Simple WhatsApp Link</h3>
+        <button onclick="testSimpleWhatsApp()">📱 Test Basic WhatsApp Link</button>
+        
+        <h3>Test 2: WhatsApp with Message</h3>
+        <button onclick="testWhatsAppWithMessage()">💬 Test WhatsApp with Pre-filled Message</button>
+        
+        <h3>Test 3: Custom Booking Form</h3>
+        <input type="text" id="test-name" placeholder="Your Name" value="Test Customer">
+        <input type="email" id="test-email" placeholder="Your Email" value="test@example.com">
+        <textarea id="test-message" placeholder="Booking details...">Table for 2 people tomorrow at 7 PM</textarea>
+        <button onclick="testBookingForm()">🍽️ Test Complete Booking Form</button>
+        
+        <h3>Test 4: Different Methods</h3>
+        <button onclick="testWindowOpen()">🔗 Test window.open()</button>
+        <button onclick="testLocationHref()">🔗 Test location.href</button>
+        <button onclick="testClickLink()">🔗 Test Click Link Method</button>
+        
+        <div id="result" class="result" style="display:none;"></div>
+        
+        <hr>
+        <h3>Troubleshooting Info:</h3>
+        <p><strong>Your Browser:</strong> <span id="browser-info"></span></p>
+        <p><strong>Device Type:</strong> <span id="device-info"></span></p>
+        <p><strong>WhatsApp Number:</strong> +254 722 566 089</p>
+    </div>
+
+    <script>
+        // Show browser and device info
+        document.getElementById('browser-info').textContent = navigator.userAgent;
+        document.getElementById('device-info').textContent = /Mobile|Android|iPhone|iPad/.test(navigator.userAgent) ? 'Mobile Device' : 'Desktop/Laptop';
+        
+        function showResult(message, type = 'info') {
+            const result = document.getElementById('result');
+            result.style.display = 'block';
+            result.style.background = type === 'success' ? '#d4edda' : type === 'error' ? '#f8d7da' : '#f0f0f0';
+            result.innerHTML = message;
+            console.log(message);
+        }
+        
+        function testSimpleWhatsApp() {
+            showResult('🧪 Testing simple WhatsApp link...');
+            const url = 'https://wa.me/254722566089';
+            console.log('Opening:', url);
+            
+            try {
+                const opened = window.open(url, '_blank');
+                if (opened) {
+                    showResult('✅ WhatsApp link opened successfully!', 'success');
+                } else {
+                    showResult('❌ Popup blocked. Trying redirect...', 'error');
+                    window.location.href = url;
+                }
+            } catch (error) {
+                showResult('❌ Error: ' + error.message, 'error');
+            }
+        }
+        
+        function testWhatsAppWithMessage() {
+            showResult('🧪 Testing WhatsApp with pre-filled message...');
+            const message = '🏨 *Test Booking Request*\\n\\nThis is a test message from Jura Resort website.\\n\\n⏰ Please confirm if you received this message.';
+            const url = `https://wa.me/254722566089?text=${encodeURIComponent(message)}`;
+            console.log('Opening:', url);
+            
+            try {
+                const opened = window.open(url, '_blank');
+                if (opened) {
+                    showResult('✅ WhatsApp with message opened successfully!', 'success');
+                } else {
+                    showResult('❌ Popup blocked. Trying redirect...', 'error');
+                    window.location.href = url;
+                }
+            } catch (error) {
+                showResult('❌ Error: ' + error.message, 'error');
+            }
+        }
+        
+        function testBookingForm() {
+            showResult('🧪 Testing complete booking form...');
+            
+            const name = document.getElementById('test-name').value;
+            const email = document.getElementById('test-email').value;
+            const details = document.getElementById('test-message').value;
+            const timestamp = new Date().toLocaleString();
+            
+            const message = `🏨 *RESTAURANT BOOKING REQUEST*\\n\\n` +
+                           `📅 Date: ${timestamp}\\n\\n` +
+                           `👤 Name: ${name}\\n` +
+                           `📧 Email: ${email}\\n\\n` +
+                           `📋 Booking Details:\\n${details}\\n\\n` +
+                           `🍽️ Source: Test Page\\n` +
+                           `⏰ Please confirm availability and send reservation details.`;
+            
+            const url = `https://wa.me/254722566089?text=${encodeURIComponent(message)}`;
+            console.log('Generated URL:', url);
+            
+            try {
+                const opened = window.open(url, '_blank');
+                if (opened) {
+                    showResult('✅ Complete booking form test successful!', 'success');
+                } else {
+                    showResult('❌ Popup blocked. Trying redirect...', 'error');
+                    window.location.href = url;
+                }
+            } catch (error) {
+                showResult('❌ Error: ' + error.message, 'error');
+            }
+        }
+        
+        function testWindowOpen() {
+            showResult('🧪 Testing window.open() method...');
+            const url = 'https://wa.me/254722566089?text=Test%20using%20window.open()';
+            
+            try {
+                const result = window.open(url, '_blank', 'noopener,noreferrer');
+                showResult(result ? '✅ window.open() worked!' : '❌ window.open() blocked', result ? 'success' : 'error');
+            } catch (error) {
+                showResult('❌ window.open() error: ' + error.message, 'error');
+            }
+        }
+        
+        function testLocationHref() {
+            showResult('🧪 Testing location.href method... (will redirect page)');
+            setTimeout(() => {
+                window.location.href = 'https://wa.me/254722566089?text=Test%20using%20location.href';
+            }, 2000);
+        }
+        
+        function testClickLink() {
+            showResult('🧪 Testing programmatic link click...');
+            const link = document.createElement('a');
+            link.href = 'https://wa.me/254722566089?text=Test%20using%20click%20method';
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+            
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            showResult('✅ Link click method executed!', 'success');
+        }
+        
+        // Log page load
+        console.log('WhatsApp test page loaded');
+        showResult('Ready for testing! Try the buttons above.');
+    </script>
+</body>
+</html>
