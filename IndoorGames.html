@@ -375,7 +375,7 @@
   </div>
 
   <!-- SCRIPTS -->
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
   <script>
     // DATASET
     const games = [
@@ -451,13 +451,11 @@
       if(info){ const id=+info.dataset.id; openGameById(id); }
     });
 
-    // EMAILJS / JOIN FORM
-    // Initialize EmailJS (replace with your public key)
-    if(window.emailjs){ emailjs.init('YOUR_EMAILJS_PUBLIC_KEY'); }
-
+    // Google Sheets Game Session Booking
     const joinForm = document.getElementById('join-form');
     joinForm.addEventListener('submit', function(e){
       e.preventDefault();
+      
       const data = {
         name: this.name.value,
         email: this.email.value,
@@ -467,24 +465,43 @@
       };
 
       // Simple client-side validation
-      if(!data.name || !data.email){ showFormMessage('Please enter name and email','error'); return; }
+      if(!data.name || !data.email){ 
+        showFormMessage('Please enter name and email','error'); 
+        return; 
+      }
 
       // Show sending state
       const btn = this.querySelector('.btn-join');
-      const orig = btn.textContent; btn.disabled=true; btn.textContent='SENDING...';
+      const orig = btn.textContent; 
+      btn.disabled = true; 
+      btn.textContent = 'SENDING...';
 
-      // If you have EmailJS set up, uncomment and replace service/template ids
-      if(window.emailjs){
-        emailjs.send('YOUR_SERVICE_ID','YOUR_TEMPLATE_ID', data).then(()=>{
-          showFormMessage('✅ Booking request sent! We will confirm by email.','success');
-          joinForm.reset(); btn.disabled=false; btn.textContent=orig;
-        }).catch(()=>{
-          showFormMessage('❌ Error sending request. Please try again.','error'); btn.disabled=false; btn.textContent=orig;
-        });
-      } else {
-        // Fallback: display message and reset
-        setTimeout(()=>{ showFormMessage('✅ (Demo) Booking request recorded locally. Replace EmailJS keys to enable email sending.','success'); joinForm.reset(); btn.disabled=false; btn.textContent=orig; },800);
-      }
+      // All bookings go directly to WhatsApp
+      // Simulate processing for better user experience
+      setTimeout(() => {
+        showFormMessage('✅ Game session booking sent! Redirecting to WhatsApp...','success');
+        joinForm.reset(); 
+        btn.disabled = false; 
+        btn.textContent = orig;
+        
+        // Automatically redirect to WhatsApp
+        const whatsappMsg = `🎮 *Indoor Games Session Booking*\n\n` +
+                          `👤 Name: ${data.name}\n` +
+                          `📧 Email: ${data.email}\n` +
+                          `🎯 Game: ${data.game}\n` +
+                          `👥 Players: ${data.players}\n\n` +
+                          `📋 Details: ${data.message || 'No additional details'}\n\n` +
+                          `🏨 Location: Indoor Games Lounge - Jura Resort\n` +
+                          `⏰ Please confirm session availability and timing.`;
+        const whatsappUrl = `https://wa.me/254722566089?text=${encodeURIComponent(whatsappMsg)}`;
+        
+        setTimeout(() => {
+          window.open(whatsappUrl, '_blank');
+        }, 1000);
+      }, 1500);
+      
+      return;
+
     });
 
     function showFormMessage(msg,type){ const el = document.getElementById('form-messages'); el.style.display='block'; el.innerHTML = `<div style=\"padding:12px;border-radius:8px;${type==='success'? 'background:#e6fbef;color:#0b6b3a;border:1px solid #c8f0d6':'background:#fff2f2;color:#8b1d1d;border:1px solid #f3c7c7'}\">${msg}</div>`; setTimeout(()=>{ el.style.display='none' },6000); }

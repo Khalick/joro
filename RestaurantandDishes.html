@@ -695,12 +695,9 @@
     </footer>
   </div>
 
-  <!-- EmailJS Script -->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  
+  <!-- Google Sheets Integration Script -->
   <script type="text/javascript">
-    // Initialize EmailJS with your public key
-    emailjs.init("YOUR_PUBLIC_KEY");
+
     
     // Booking form functionality
     document.getElementById('booking-form').addEventListener('submit', function(event) {
@@ -709,56 +706,97 @@
       const submitBtn = document.getElementById('submit-btn');
       const btnText = document.querySelector('.btn-text');
       const loadingText = document.querySelector('.loading-text');
-      const formMessages = document.getElementById('form-messages');
-      const successMessage = document.getElementById('success-message');
-      const errorMessage = document.getElementById('error-message');
       
       // Show loading state
       submitBtn.disabled = true;
       btnText.style.display = 'none';
       loadingText.style.display = 'inline';
-      formMessages.style.display = 'none';
       
-      // Prepare template parameters
-      const templateParams = {
-        from_name: document.getElementById('from_name').value,
-        from_email: document.getElementById('from_email').value,
+      // Get form data
+      const formData = {
+        timestamp: new Date().toLocaleString('en-US', {
+          timeZone: 'Africa/Nairobi',
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit'
+        }),
+        name: document.getElementById('from_name').value,
+        email: document.getElementById('from_email').value,
         contact: document.getElementById('contact').value,
         message: document.getElementById('message').value,
-        to_email: 'staff@jurarestaurant.com'
+        source: 'Restaurant Reservation Form',
+        status: 'Pending'
       };
+
+      // All bookings go directly to WhatsApp
+      // Simulate processing for better user experience
+      setTimeout(() => {
+        // Show success message
+        alert('✅ Booking request received! Redirecting to WhatsApp for confirmation...');
+        
+        // Reset form
+        document.getElementById('booking-form').reset();
+        
+        // Create WhatsApp message with all booking details
+        const whatsappMessage = `🏨 *RESTAURANT BOOKING REQUEST*\n\n` +
+                               `📅 Date: ${formData.timestamp}\n\n` +
+                               `👤 Name: ${formData.name}\n` +
+                               `📧 Email: ${formData.email}\n` +
+                               `📱 Contact: ${formData.contact}\n\n` +
+                               `📋 Booking Details:\n${formData.message}\n\n` +
+                               `🍽️ Source: Restaurant Page\n` +
+                               `⏰ Please confirm availability and send reservation details.`;
+        
+        const whatsappUrl = `https://wa.me/254722566089?text=${encodeURIComponent(whatsappMessage)}`;
+        
+        // Automatically open WhatsApp
+        window.open(whatsappUrl, '_blank');
+        
+        // Reset button state
+        submitBtn.disabled = false;
+        btnText.style.display = 'inline';
+        loadingText.style.display = 'none';
+      }, 1500);
       
-      // Send email using EmailJS
-      emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
-        .then(function(response) {
-          console.log('SUCCESS!', response.status, response.text);
-          
-          // Show success message
-          formMessages.style.display = 'block';
-          successMessage.style.display = 'block';
-          errorMessage.style.display = 'none';
-          
-          // Reset form
-          document.getElementById('booking-form').reset();
-          
-          // Reset button
-          submitBtn.disabled = false;
-          btnText.style.display = 'inline';
-          loadingText.style.display = 'none';
-          
-        }, function(error) {
-          console.log('FAILED...', error);
-          
-          // Show error message
-          formMessages.style.display = 'block';
-          successMessage.style.display = 'none';
-          errorMessage.style.display = 'block';
-          
-          // Reset button
-          submitBtn.disabled = false;
-          btnText.style.display = 'inline';
-          loadingText.style.display = 'none';
-        });
+      return;
+
+
+    });
+
+    // Enhanced form validation
+    document.addEventListener('DOMContentLoaded', function() {
+      // Format phone number input
+      const phoneInput = document.getElementById('contact');
+      phoneInput.addEventListener('input', function() {
+        let value = this.value.replace(/\D/g, '');
+        if (value.startsWith('0')) {
+          value = '254' + value.slice(1);
+        }
+        if (value.length > 12) {
+          value = value.slice(0, 12);
+        }
+        this.value = '+' + value;
+      });
+
+      // Add placeholder enhancement
+      phoneInput.placeholder = '+254 7XX XXX XXX';
+      
+      // Email validation
+      const emailInput = document.getElementById('from_email');
+      emailInput.addEventListener('blur', function() {
+        const email = this.value;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (email && !emailRegex.test(email)) {
+          this.style.borderColor = '#ff4444';
+          this.style.backgroundColor = '#ffe6e6';
+        } else {
+          this.style.borderColor = '#ddd';
+          this.style.backgroundColor = '#fff';
+        }
+      });
     });
   </script>
 

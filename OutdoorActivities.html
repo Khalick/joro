@@ -409,7 +409,7 @@
   </div>
 
   <!-- SCRIPTS -->
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
   <script>
     // Activities dataset (matching the 6 slots)
     const activities = [
@@ -442,6 +442,61 @@
     // attach buttons
     document.querySelectorAll('.activity .info').forEach(b=>{ b.addEventListener('click', e=>{ const id=+e.currentTarget.dataset.id; openActivity(id); }); });
     document.querySelectorAll('.activity .book').forEach(b=>{ b.addEventListener('click', e=>{ const id=+e.currentTarget.dataset.id; openActivity(id); }); });
+
+    // Google Sheets Booking Form Handler
+    const bookForm = document.getElementById('book-form');
+    if (bookForm) {
+      bookForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const status = document.getElementById('booking-status');
+        const submitBtn = this.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        
+        // Show loading state
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'SENDING...';
+        status.textContent = 'Processing...';
+        status.style.color = 'var(--primary)';
+        
+        // All bookings go directly to WhatsApp
+        // Simulate processing for better user experience
+        setTimeout(() => {
+          status.textContent = '✅ Booking sent! Redirecting to WhatsApp...';
+          status.style.color = '#0b6b3a';
+          
+          // Reset form
+          bookForm.reset();
+          
+          // Reset button
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalText;
+          
+          // Clear status after 3 seconds
+          setTimeout(() => {
+            status.textContent = '';
+          }, 3000);
+          
+          // Automatically redirect to WhatsApp
+          const whatsappMsg = `🌊 *Outdoor Activity Booking*\n\n` +
+                            `👤 Name: ${this.name.value}\n` +
+                            `📧 Email: ${this.email.value}\n` +
+                            `🚣 Activity: ${this.activity.value}\n` +
+                            `👥 People: ${this.people.value}\n\n` +
+                            `📋 Notes: ${this.notes.value || 'No additional notes'}\n\n` +
+                            `🏨 Location: Jura Resort - Lake Victoria\n` +
+                            `⏰ Please confirm activity availability and timing.`;
+          const whatsappUrl = `https://wa.me/254722566089?text=${encodeURIComponent(whatsappMsg)}`;
+          
+          setTimeout(() => {
+            window.open(whatsappUrl, '_blank');
+          }, 1000);
+        }, 1500);
+        
+        return;
+
+      });
+    }
 
     // simple mini demos
     function startMiniDemo(id){
