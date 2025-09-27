@@ -70,9 +70,10 @@
     .hero-inner h1{font-size:2.4rem;color:#062532;margin-bottom:6px}
     .hero-inner p{font-size:1.05rem;color:#083640;margin-bottom:14px}
     .hero-cta{display:flex;gap:12px;justify-content:center}
-    .btn{padding:10px 14px;border-radius:10px;border:none;font-weight:800;cursor:pointer}
+    .btn{padding:10px 14px;border-radius:10px;border:none;font-weight:800;cursor:pointer;transition:all 0.3s ease}
     .btn.primary{background:linear-gradient(90deg,var(--brand),#0b86a3);color:white}
     .btn.ghost{background:transparent;border:2px solid rgba(8,36,59,0.06);color:var(--brand)}
+    .btn:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(0,0,0,0.1)}
 
     /* PAGE WRAP */
     .wrap{max-width:1180px;margin:28px auto;padding:0 18px}
@@ -80,15 +81,56 @@
     .section h2{font-size:1.5rem;color:#073642;margin-bottom:10px}
     .lead{color:var(--muted);max-width:900px}
 
-    /* ACTIVITY SLOTS (6) with descriptions above each image */
+    /* ACTIVITY SLOTS (6) with descriptions above each image - ENHANCED */
     .activity-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-top:16px}
-    .activity{background:var(--panel);border-radius:12px;padding:14px;box-shadow:var(--shadow);border:1px solid rgba(8,26,46,0.03);overflow:hidden;position:relative}
+    .activity{background:var(--panel);border-radius:12px;padding:14px;box-shadow:var(--shadow);border:1px solid rgba(8,26,46,0.03);overflow:hidden;position:relative;transition:all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)}
+    .activity:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 25px 80px rgba(15,24,34,0.2)}
     .activity .title{font-weight:800;color:#082b36;margin-bottom:6px}
     .activity .brief{font-size:14px;color:var(--muted);margin-bottom:10px}
-    .activity .img-wrap{height:180px;border-radius:10px;overflow:hidden;box-shadow:inset 0 -40px 80px rgba(0,0,0,0.04)}
+    .activity .img-wrap{height:220px;border-radius:10px;overflow:hidden;box-shadow:inset 0 -40px 80px rgba(0,0,0,0.04)}
     .activity img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s cubic-bezier(.2,.9,.2,1)}
     .activity:hover img{transform:scale(1.08)}
     .label{position:absolute;left:14px;top:14px;background:rgba(255,255,255,0.9);padding:6px 10px;border-radius:8px;font-weight:800;color:#062532}
+
+    /* DETAILED SECTIONS STYLING */
+    .detail-section{margin-top:40px;padding:30px 0}
+    .detail-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px;margin-top:20px}
+    .detail-card{background:var(--panel);border-radius:16px;padding:20px;box-shadow:var(--shadow);border:1px solid rgba(8,26,46,0.03);position:relative;transition:all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)}
+    .detail-card:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 25px 80px rgba(15,24,34,0.2)}
+    .detail-card .detail-img{height:200px;border-radius:12px;overflow:hidden;margin-bottom:15px;background:linear-gradient(45deg,#f0f9ff,#e0f2fe);display:flex;align-items:center;justify-content:center;color:#64748b;font-weight:600;text-align:center;position:relative}
+    .detail-card .detail-img::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.1),transparent);pointer-events:none}
+    .detail-card h3{margin:0 0 10px;color:#073642;font-size:1.1rem}
+    .detail-card p{color:var(--muted);font-size:14px;line-height:1.5;margin-bottom:12px}
+    .detail-badge{position:absolute;top:15px;right:15px;background:var(--accent);color:white;padding:4px 8px;border-radius:12px;font-size:12px;font-weight:700}
+
+    /* NATURE WALKS ANIMATIONS */
+    .walk-mountain{background:linear-gradient(45deg,#fef3c7,#fde68a);animation:mountainGlow 3s ease-in-out infinite alternate}
+    .walk-safari{background:linear-gradient(45deg,#fef7ff,#fae8ff);animation:safariPulse 2s ease-in-out infinite}
+    .walk-lake{background:linear-gradient(45deg,#e0f2fe,#dbeafe);animation:waveMotion 4s ease-in-out infinite}
+
+    @keyframes mountainGlow{0%{box-shadow:inset 0 0 20px rgba(251,191,36,0.3)}100%{box-shadow:inset 0 0 40px rgba(251,191,36,0.1)}}
+    @keyframes safariPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}
+    @keyframes waveMotion{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+
+    /* CAMPING ANIMATIONS */
+    .camp-luxury{background:linear-gradient(45deg,#fff7ed,#fed7aa);animation:luxuryShimmer 4s ease-in-out infinite}
+    .camp-safari{background:linear-gradient(45deg,#ecfdf5,#d1fae5);animation:safariBreeze 3s ease-in-out infinite}
+    .camp-mountain{background:linear-gradient(45deg,#f3f4f6,#e5e7eb);animation:mountainMist 5s ease-in-out infinite}
+
+    @keyframes luxuryShimmer{0%,100%{background-position:0% 0%}50%{background-position:100% 100%}}
+    @keyframes safariBreeze{0%,100%{transform:translateX(0)}33%{transform:translateX(-2px)}66%{transform:translateX(2px)}}
+    @keyframes mountainMist{0%,100%{opacity:0.9}50%{opacity:1}}
+
+    /* ADDITIONAL ANIMATIONS */
+    @keyframes circuitGlow{0%{box-shadow:inset 0 0 20px rgba(75,85,99,0.2)}100%{box-shadow:inset 0 0 40px rgba(75,85,99,0.1)}}
+    @keyframes photoFlash{0%,100%{transform:scale(1)}50%{transform:scale(1.01);box-shadow:0 0 30px rgba(34,197,94,0.3)}}
+    @keyframes culturalPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.005);filter:brightness(1.05)}}
+    @keyframes heritageGlow{0%{box-shadow:inset 0 0 25px rgba(251,191,36,0.3)}100%{box-shadow:inset 0 0 45px rgba(251,191,36,0.1)}}
+    @keyframes glamGlow{0%,100%{box-shadow:0 0 20px rgba(124,58,237,0.2)}50%{box-shadow:0 0 40px rgba(124,58,237,0.1)}}
+    @keyframes adventurePulse{0%,100%{transform:scale(1)}50%{transform:scale(1.01)}}
+    @keyframes familyJoy{0%{filter:hue-rotate(0deg)}100%{filter:hue-rotate(10deg)}}
+    @keyframes romanticGlow{0%,100%{box-shadow:0 0 30px rgba(190,24,93,0.15)}50%{box-shadow:0 0 50px rgba(190,24,93,0.05)}}
+    @keyframes starTwinkle{0%,100%{box-shadow:inset 0 0 30px rgba(251,191,36,0.3)}33%{box-shadow:inset 0 0 20px rgba(251,191,36,0.1)}66%{box-shadow:inset 0 0 40px rgba(251,191,36,0.2)}}
 
     /* FEATURE CARDS */
     .features{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
@@ -104,9 +146,10 @@
 
     /* INTERACTIVE small demos and buttons */
     .actions{margin-top:12px;display:flex;gap:8px}
-    .small{padding:8px 10px;border-radius:8px;border:none;font-weight:800;cursor:pointer}
+    .small{padding:8px 10px;border-radius:8px;border:none;font-weight:800;cursor:pointer;transition:all 0.2s ease}
     .small.info{background:linear-gradient(90deg,var(--sun),#ffd27a)}
     .small.book{background:linear-gradient(90deg,var(--accent),#ff8b8b);color:white}
+    .small:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,0.1)}
 
     /* BOOKING FORM */
     .booking{background:var(--panel);padding:20px;border-radius:12px;box-shadow:var(--shadow);border:1px solid rgba(8,26,46,0.03);margin-top:18px}
@@ -178,6 +221,7 @@
       .nav-inner{padding:0 12px}
       .hero-inner h1{font-size:2rem}
       .activity-grid{grid-template-columns:1fr}
+      .detail-grid{grid-template-columns:1fr}
       .whatsapp-float {
         width: 55px;
         height: 55px;
@@ -304,6 +348,253 @@
       </div>
     </section>
 
+    <!-- DETAILED NATURE WALKS SECTION -->
+    <section class="section detail-section" id="nature-walks-detail">
+      <h2>Epic Kenya Expeditions - Nature Walks</h2>
+      <p class="lead">Embark on legendary journeys from the shores of Lake Victoria through Kenya's most iconic destinations. Our expertly guided nature walks combine adventure, wildlife encounters, cultural immersion, and breathtaking landscapes.</p>
+
+      <div class="detail-grid">
+        
+        <!-- Migori Hills & Valleys -->
+        <div class="detail-card walk-lake">
+          <div class="detail-badge">2 Days</div>
+          <div class="detail-img">
+            <img src="HILLS.jpg" alt="Migori Hills & Valleys - Beautiful rolling hills with panoramic Lake Victoria views" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div style="font-size: 24px; color: #0891b2; display: none; width: 100%; height: 100%; align-items: center; justify-content: center;">🏞️ Migori Hills Adventure</div>
+          </div>
+          <h3>Migori Hills & Valleys</h3>
+          <p><strong>Starting Point:</strong> Jura Resort, Lake Victoria<br>
+          <strong>Route:</strong> Rolling hills expedition through traditional Luo homesteads<br>
+          <strong>Highlights:</strong> Panoramic Lake Victoria views, cultural village visits, traditional fishing techniques, local craft workshops<br>
+          <strong>Wildlife:</strong> Endemic birds, small antelopes, rich plant diversity<br>
+          <strong>Accommodation:</strong> Traditional homesteads and eco-lodges</p>
+          <div class="actions">
+            <button class="small book" onclick="bookSpecialty('Migori Hills Nature Walk')">BOOK MIGORI</button>
+          </div>
+        </div>
+
+        <!-- Maasai Mara Safari Walk -->
+        <div class="detail-card walk-safari">
+          <div class="detail-badge">Big Five</div>
+          <div class="detail-img">
+            <img src="masaiwalk.jpg" alt="Maasai Mara Safari - Lions, elephants and Big Five wildlife encounters" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div style="font-size: 24px; color: #7c3aed; display: none; width: 100%; height: 100%; align-items: center; justify-content: center;">🦁 Maasai Mara Safari</div>
+          </div>
+          <h3>Maasai Mara Safari Walk</h3>
+          <p><strong>Distance:</strong> 180km from Migori (3-day expedition)<br>
+          <strong>Experience:</strong> Walking safaris with authentic Maasai warriors<br>
+          <strong>Big Five:</strong> Lions, leopards, elephants, buffalo, rhinos<br>
+          <strong>Cultural:</strong> Manyatta village stays, traditional ceremonies, warrior training<br>
+          <strong>Seasonal:</strong> Great Migration viewing (July-October)<br>
+          <strong>Photography:</strong> Professional wildlife photography opportunities</p>
+          <div class="actions">
+            <button class="small book" onclick="bookSpecialty('Maasai Mara Safari Walk')">BOOK SAFARI</button>
+          </div>
+        </div>
+
+        <!-- Kilimanjaro Foothills Trek -->
+        <div class="detail-card walk-mountain">
+          <div class="detail-badge">5,895m</div>
+          <div class="detail-img">
+            <img src="lilimanjaro.webp" alt="Mount Kilimanjaro - Foothills trek with Kibo and Mawenzi peak views" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div style="font-size: 24px; color: #ea580c; display: none; width: 100%; height: 100%; align-items: center; justify-content: center;">🏔️ Kilimanjaro Trek</div>
+          </div>
+          <h3>Kilimanjaro Foothills Trek</h3>
+          <p><strong>Altitude:</strong> Montane forest zones (1,800-2,700m)<br>
+          <strong>Route:</strong> Machame and Marangu gate approaches<br>
+          <strong>Culture:</strong> Chagga villages, traditional coffee plantations<br>
+          <strong>Views:</strong> Kibo and Mawenzi peak panoramas<br>
+          <strong>Wildlife:</strong> Colobus monkeys, endemic birds, unique flora<br>
+          <strong>Duration:</strong> 4-day trek with mountain lodge accommodation</p>
+          <div class="actions">
+            <button class="small book" onclick="bookSpecialty('Kilimanjaro Foothills Trek')">BOOK KILIMANJARO</button>
+          </div>
+        </div>
+
+        <!-- Complete Kenya Circuit -->
+        <div class="detail-card" style="background: linear-gradient(45deg, #f3f4f6, #e5e7eb); animation: circuitGlow 4s ease-in-out infinite alternate;">
+          <div class="detail-badge">7 Days</div>
+          <div class="detail-img">
+            <img src="kenya circuit.webp" alt="Kenya Circuit Map - Complete expedition route from Lake Victoria to Kilimanjaro" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div style="font-size: 24px; color: #374151; display: none; width: 100%; height: 100%; align-items: center; justify-content: center;">🗺️ Kenya Circuit</div>
+          </div>
+          <h3>Complete Kenya Circuit</h3>
+          <p><strong>Ultimate Expedition:</strong> Lake Victoria → Maasai Mara → Kilimanjaro<br>
+          <strong>Total Distance:</strong> 400+ kilometers of diverse landscapes<br>
+          <strong>Day 1-2:</strong> Migori Hills cultural immersion<br>
+          <strong>Day 3-5:</strong> Maasai Mara wildlife encounters<br>
+          <strong>Day 6-7:</strong> Kilimanjaro foothills adventure<br>
+          <strong>Special:</strong> Professional photographer, luxury camping, all meals included</p>
+          <div class="actions">
+            <button class="small book" onclick="bookSpecialty('Complete Kenya Circuit')">BOOK CIRCUIT</button>
+          </div>
+        </div>
+
+        <!-- Wildlife Photography Tour -->
+        <div class="detail-card" style="background: linear-gradient(45deg, #ecfdf5, #d1fae5); animation: photoFlash 2s ease-in-out infinite;">
+          <div class="detail-badge">Pro Gear</div>
+          <div class="detail-img">
+            <img src="wirldlife.webp" alt="Wildlife Photography - Professional camera gear and Big Five photo opportunities" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div style="font-size: 24px; color: #065f46; display: none; width: 100%; height: 100%; align-items: center; justify-content: center;">📸 Photography Tour</div>
+          </div>
+          <h3>Wildlife Photography Tour</h3>
+          <p><strong>Equipment:</strong> Professional cameras and telephoto lenses provided<br>
+          <strong>Instruction:</strong> Wildlife photography masterclasses<br>
+          <strong>Locations:</strong> Golden hour shoots at all three destinations<br>
+          <strong>Subjects:</strong> Big Five, landscapes, cultural portraits<br>
+          <strong>Bonus:</strong> Photo editing workshops and portfolio creation<br>
+          <strong>Group Size:</strong> Maximum 6 photographers for personalized attention</p>
+          <div class="actions">
+            <button class="small book" onclick="bookSpecialty('Wildlife Photography Tour')">BOOK PHOTO TOUR</button>
+          </div>
+        </div>
+
+        <!-- Cultural Immersion Walk -->
+        <div class="detail-card" style="background: linear-gradient(45deg, #fff7ed, #fed7aa); animation: culturalPulse 3s ease-in-out infinite;">
+          <div class="detail-badge">Cultural</div>
+          <div class="detail-img">
+            <img src="cultural1.jpg" alt="Cultural Immersion - Luo, Maasai and Chagga community experiences" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div style="font-size: 24px; color: #c2410c; display: none; width: 100%; height: 100%; align-items: center; justify-content: center;">🏛️ Cultural Walk</div>
+          </div>
+          <h3>Cultural Immersion Walk</h3>
+          <p><strong>Communities:</strong> Luo, Maasai, and Chagga peoples<br>
+          <strong>Activities:</strong> Traditional hunting techniques, craft workshops<br>
+          <strong>Ceremonies:</strong> Authentic cultural performances and rituals<br>
+          <strong>Learning:</strong> Language basics, traditional medicine, folklore<br>
+          <strong>Contribution:</strong> Community development projects support<br>
+          <strong>Accommodation:</strong> Family homestays and cultural centers</p>
+          <div class="actions">
+            <button class="small book" onclick="bookSpecialty('Cultural Immersion Walk')">BOOK CULTURAL</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- DETAILED CAMPING SECTION -->
+    <section class="section detail-section" id="camping-detail">
+      <h2>Luxury Camping Experiences Across Kenya</h2>
+      <p class="lead">Experience Kenya's wilderness in unparalleled comfort. Our camping cottages and luxury tents provide five-star amenities while maintaining authentic connection with nature across the country's most spectacular locations.</p>
+
+      <div class="detail-grid">
+        
+        <!-- Lake Victoria Lakeside Safari Cottages -->
+        <div class="detail-card camp-safari">
+          <div class="detail-badge">Lakeside</div>
+          <div class="detail-img">
+            <img src="lake camp.jpg" alt="Lake Victoria Cottages - Solar-powered eco-cottages with private beach access" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div style="font-size: 24px; color: #059669; display: none; width: 100%; height: 100%; align-items: center; justify-content: center;">🏖️ Lakeside Cottages</div>
+          </div>
+          <h3>Lake Victoria - Lakeside Safari Cottages</h3>
+          <p><strong>Location:</strong> Private beach frontage on Lake Victoria<br>
+          <strong>Accommodation:</strong> Solar-powered eco-cottages with lake views<br>
+          <strong>Activities:</strong> Hippo watching, fishing excursions, sunset cruises<br>
+          <strong>Amenities:</strong> Private decks, outdoor showers, gourmet dining<br>
+          <strong>Wildlife:</strong> Hippos, diverse water birds, monitor lizards<br>
+          <strong>Special:</strong> Traditional dhow sailing and cultural fishing experiences</p>
+          <div class="actions">
+            <button class="small book" onclick="bookCamping('Lake Victoria Cottages')">BOOK LAKESIDE</button>
+          </div>
+        </div>
+
+        <!-- Maasai Mara Safari Bush Camps -->
+        <div class="detail-card camp-luxury">
+          <div class="detail-badge">Big Five</div>
+          <div class="detail-img">
+            <img src="mara camp.jpeg" alt="Maasai Mara Bush Camps - Luxury tented camps with Big Five encounters" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div style="font-size: 24px; color: #dc2626; display: none; width: 100%; height: 100%; align-items: center; justify-content: center;">🏕️ Safari Camps</div>
+          </div>
+          <h3>Maasai Mara - Safari Bush Camps</h3>
+          <p><strong>Setting:</strong> Luxury tented camps within the game reserve<br>
+          <strong>Experience:</strong> Wake to lion roars and elephant visits<br>
+          <strong>Security:</strong> Maasai warrior guides and 24/7 protection<br>
+          <strong>Dining:</strong> Authentic bush cuisine and campfire meals<br>
+          <strong>Game Drives:</strong> Dawn and dusk wildlife encounters<br>
+          <strong>Cultural:</strong> Traditional Maasai ceremonies and storytelling</p>
+          <div class="actions">
+            <button class="small book" onclick="bookCamping('Maasai Mara Bush Camps')">BOOK SAFARI CAMP</button>
+          </div>
+        </div>
+
+        <!-- Kilimanjaro Mountain Forest Lodges -->
+        <div class="detail-card camp-mountain">
+          <div class="detail-badge">High Altitude</div>
+          <div class="detail-img">
+            <img src="kiliforest.png" alt="Kilimanjaro Forest Lodges - Wooden cottages with fireplace and mountain views" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div style="font-size: 24px; color: #7c2d12; display: none; width: 100%; height: 100%; align-items: center; justify-content: center;">🏔️ Mountain Lodges</div>
+          </div>
+          <h3>Kilimanjaro - Mountain Forest Lodges</h3>
+          <p><strong>Elevation:</strong> Montane forest zones (2,000-2,500m)<br>
+          <strong>Architecture:</strong> Wooden cottages with stone fireplaces<br>
+          <strong>Wildlife:</strong> Colobus monkey visits and endemic birds<br>
+          <strong>Views:</strong> Spectacular Kibo and Mawenzi peak panoramas<br>
+          <strong>Activities:</strong> Forest walks, coffee plantation tours<br>
+          <strong>Climate:</strong> Cool mountain air and crisp starry nights</p>
+          <div class="actions">
+            <button class="small book" onclick="bookCamping('Kilimanjaro Mountain Lodges')">BOOK MOUNTAIN</button>
+          </div>
+        </div>
+
+        <!-- Luxury Glamping Experience -->
+        <div class="detail-card" style="background: linear-gradient(45deg, #f3e8ff, #e9d5ff); animation: glamGlow 3s ease-in-out infinite;">
+          <div class="detail-badge">5-Star</div>
+          <div class="detail-img">
+            <img src="luxury glamp.jpg" alt="Luxury Glamping - Five-star amenities with butler service and king-size beds" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div style="font-size: 24px; color: #7c3aed; display: none; width: 100%; height: 100%; align-items: center; justify-content: center;">✨ Luxury Glamping</div>
+          </div>
+          <h3>Luxury Glamping Experience</h3>
+          <p><strong>Service:</strong> Personal butler and concierge service<br>
+          <strong>Accommodation:</strong> King-size beds and premium linens<br>
+          <strong>Amenities:</strong> Private bathrooms, climate control, WiFi<br>
+          <strong>Dining:</strong> Gourmet meals and fine wine selection<br>
+          <strong>Wellness:</strong> In-tent spa treatments and massage services<br>
+          <strong>Location:</strong> Available at all three main destinations</p>
+          <div class="actions">
+            <button class="small book" onclick="bookCamping('Luxury Glamping')">BOOK GLAMPING</button>
+          </div>
+        </div>
+
+        <!-- Stargazing Observatory Camps -->
+        <div class="detail-card" style="background: linear-gradient(45deg, #0f172a, #1e293b); color: white; animation: starTwinkle 3s ease-in-out infinite;">
+          <div class="detail-badge" style="background: #fbbf24; color: #0f172a;">Dark Sky</div>
+          <div class="detail-img" style="background: linear-gradient(45deg, #1e293b, #334155);">
+            <img src="star gazing.webp" alt="Stargazing Observatory - Professional telescopes under dark skies for astronomy" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div style="font-size: 24px; color: #fbbf24; display: none; width: 100%; height: 100%; align-items: center; justify-content: center;">🔭 Observatory Camps</div>
+          </div>
+          <h3>Stargazing Observatory Camps</h3>
+          <p><strong>Location:</strong> Dark-sky preserves with minimal light pollution<br>
+          <strong>Equipment:</strong> Professional telescopes and observation decks<br>
+          <strong>Guides:</strong> Qualified astronomy experts and astrophotographers<br>
+          <strong>Events:</strong> Meteor shower viewing and celestial phenomenon tracking<br>
+          <strong>Learning:</strong> Constellation identification and space photography<br>
+          <strong>Special:</strong> New moon camping for optimal stargazing conditions</p>
+          <div class="actions">
+            <button class="small book" onclick="bookCamping('Stargazing Observatory')">BOOK STARGAZING</button>
+          </div>
+        </div>
+
+        <!-- Family Camping Compounds -->
+        <div class="detail-card" style="background: linear-gradient(45deg, #dbeafe, #bfdbfe); animation: familyJoy 4s ease-in-out infinite alternate;">
+          <div class="detail-badge">Family</div>
+          <div class="detail-img">
+            <img src="family camp.jpg" alt="Family Camping - Child-friendly compounds with playgrounds and educational programs" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div style="font-size: 24px; color: #1d4ed8; display: none; width: 100%; height: 100%; align-items: center; justify-content: center;">👨‍👩‍👧‍👦 Family Camping</div>
+          </div>
+          <h3>Family Camping Compounds</h3>
+          <p><strong>Safety:</strong> Child-friendly environments with secure perimeters<br>
+          <strong>Education:</strong> Nature education programs and junior ranger activities<br>
+          <strong>Facilities:</strong> Playground areas and family recreation zones<br>
+          <strong>Accommodation:</strong> Multi-bedroom cottages and connecting tents<br>
+          <strong>Services:</strong> Babysitting services and children's meal options<br>
+          <strong>Activities:</strong> Family game drives, nature crafts, storytelling sessions</p>
+          <div class="actions">
+            <button class="small book" onclick="bookCamping('Family Camping')">BOOK FAMILY</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
     <!-- FEATURES / HIGHLIGHTS -->
     <section class="section">
       <h2>Highlights</h2>
@@ -354,6 +645,18 @@
                 <option>Sand Bathing</option>
                 <option>Swimming</option>
                 <option>Nature Walks</option>
+                <option>Migori Hills Nature Walk</option>
+                <option>Maasai Mara Safari Walk</option>
+                <option>Kilimanjaro Foothills Trek</option>
+                <option>Complete Kenya Circuit</option>
+                <option>Wildlife Photography Tour</option>
+                <option>Cultural Immersion Walk</option>
+                <option>Lake Victoria Cottages</option>
+                <option>Maasai Mara Bush Camps</option>
+                <option>Kilimanjaro Mountain Lodges</option>
+                <option>Luxury Glamping</option>
+                <option>Stargazing Observatory</option>
+                <option>Family Camping</option>
               </select>
             </div>
             <div class="form-group">
@@ -409,9 +712,8 @@
   </div>
 
   <!-- SCRIPTS -->
-
   <script>
-    // Activities dataset (matching the 6 slots)
+    // Activities dataset (original 6 activities preserved)
     const activities = [
       {id:1,key:'Kayaking',title:'Kayaking',desc:'Paddle through serene waters and explore hidden coves around Lake Side Beach. Guided and solo options available.'},
       {id:2,key:'Bonfire',title:'Bonfire Night',desc:'Gather around a roaring bonfire on the beach with live music, local snacks and starry nights.'},
@@ -420,6 +722,37 @@
       {id:5,key:'Swimming',title:'Swimming',desc:'Crystal-clear waters and a resort pool for lap swimming and leisure zones.'},
       {id:6,key:'Nature',title:'Nature Walks',desc:'Guided scenic trails with birdwatching and native flora explanations.'}
     ];
+
+    // Enhanced booking functions for specialty activities
+    function bookSpecialty(activityName) {
+      const whatsappMsg = `🌍 *Nature Walk Booking*\n\n` +
+                        `🥾 Activity: ${activityName}\n` +
+                        `🏨 Resort: Jura Resort - Lake Victoria\n` +
+                        `📍 Starting Point: Jura Resort Outdoor Activities Hub\n\n` +
+                        `Please provide:\n` +
+                        `• Preferred dates\n` +
+                        `• Number of participants\n` +
+                        `• Experience level\n` +
+                        `• Special requirements\n\n` +
+                        `We'll confirm availability and provide detailed itinerary!`;
+      const whatsappUrl = `https://wa.me/254722566089?text=${encodeURIComponent(whatsappMsg)}`;
+      window.open(whatsappUrl, '_blank');
+    }
+
+    function bookCamping(campType) {
+      const whatsappMsg = `🏕️ *Camping Accommodation Booking*\n\n` +
+                        `🏠 Camp Type: ${campType}\n` +
+                        `🏨 Resort: Jura Resort\n` +
+                        `📍 Location: Lake Victoria & Kenya Circuit\n\n` +
+                        `Please provide:\n` +
+                        `• Check-in/Check-out dates\n` +
+                        `• Number of guests\n` +
+                        `• Accommodation preferences\n` +
+                        `• Special requests\n\n` +
+                        `We'll confirm availability and luxury amenities!`;
+      const whatsappUrl = `https://wa.me/254722566089?text=${encodeURIComponent(whatsappMsg)}`;
+      window.open(whatsappUrl, '_blank');
+    }
 
     // open modal for activity
     function openActivity(id){
@@ -434,16 +767,45 @@
         </div>
         <div id="mini-demo" style="margin-top:14px"></div>
       `;
-      document.getElementById('modal-body').innerHTML=html; document.getElementById('modal').style.display='flex'; document.body.style.overflow='hidden';
+      document.getElementById('modal-body').innerHTML=html; 
+      document.getElementById('modal').style.display='flex'; 
+      document.body.style.overflow='hidden';
     }
 
-    function closeModal(){ document.getElementById('modal').style.display='none'; document.body.style.overflow='auto'; }
+    function closeModal(){ 
+      document.getElementById('modal').style.display='none'; 
+      document.body.style.overflow='auto'; 
+    }
+
+    function bookFromModal(activityTitle) {
+      const whatsappMsg = `🌊 *Activity Booking*\n\n` +
+                        `🎯 Activity: ${activityTitle}\n` +
+                        `🏨 Location: Jura Resort - Lake Victoria\n\n` +
+                        `Please confirm:\n` +
+                        `• Preferred date and time\n` +
+                        `• Number of participants\n` +
+                        `• Any special requirements\n\n` +
+                        `Looking forward to your adventure!`;
+      const whatsappUrl = `https://wa.me/254722566089?text=${encodeURIComponent(whatsappMsg)}`;
+      window.open(whatsappUrl, '_blank');
+      closeModal();
+    }
 
     // attach buttons
-    document.querySelectorAll('.activity .info').forEach(b=>{ b.addEventListener('click', e=>{ const id=+e.currentTarget.dataset.id; openActivity(id); }); });
-    document.querySelectorAll('.activity .book').forEach(b=>{ b.addEventListener('click', e=>{ const id=+e.currentTarget.dataset.id; openActivity(id); }); });
+    document.querySelectorAll('.activity .info').forEach(b=>{
+      b.addEventListener('click', e=>{ 
+        const id=+e.currentTarget.dataset.id; 
+        openActivity(id); 
+      }); 
+    });
+    document.querySelectorAll('.activity .book').forEach(b=>{ 
+      b.addEventListener('click', e=>{ 
+        const id=+e.currentTarget.dataset.id; 
+        openActivity(id); 
+      }); 
+    });
 
-    // Google Sheets Booking Form Handler
+    // Enhanced booking form handler
     const bookForm = document.getElementById('book-form');
     if (bookForm) {
       bookForm.addEventListener('submit', function(e) {
@@ -459,7 +821,6 @@
         status.textContent = 'Processing...';
         status.style.color = 'var(--primary)';
         
-        // All bookings go directly to WhatsApp
         // Simulate processing for better user experience
         setTimeout(() => {
           status.textContent = '✅ Booking sent! Redirecting to WhatsApp...';
@@ -492,26 +853,55 @@
             window.open(whatsappUrl, '_blank');
           }, 1000);
         }, 1500);
-        
-        return;
-
       });
     }
 
-    // simple mini demos
+    // Enhanced mini demos with nature walks and camping
     function startMiniDemo(id){
-      const mini = document.getElementById('mini-demo'); mini.innerHTML='';
+      const mini = document.getElementById('mini-demo'); 
+      mini.innerHTML='';
+      
       if(id===1){ // kayaking path animation
-        mini.innerHTML = `<div style="height:120px;background:linear-gradient(180deg,#dff8ff,#f7fffd);border-radius:10px;overflow:hidden;position:relative"><div style=\"position:absolute;left:-10%;top:40%;width:120px;height:40px;border-radius:18px;background:linear-gradient(90deg,#0bb7d6,#0a9db0);transform:rotate(-6deg);animation:kayak 6s linear infinite\"></div></div>
+        mini.innerHTML = `<div style="height:140px;background:linear-gradient(180deg,#dff8ff,#f7fffd);border-radius:10px;overflow:hidden;position:relative">
+          <div style="position:absolute;left:-10%;top:40%;width:120px;height:40px;border-radius:18px;background:linear-gradient(90deg,#0bb7d6,#0a9db0);transform:rotate(-6deg);animation:kayak 6s linear infinite"></div>
+          <div style="position:absolute;top:10px;left:10px;color:#0891b2;font-weight:600;">🚣‍♂️ Lake Victoria Kayaking</div>
+        </div>
         <style>@keyframes kayak{0%{transform:translateX(0) translateY(0) rotate(-6deg)}50%{transform:translateX(60%) translateY(-8px) rotate(2deg)}100%{transform:translateX(0) translateY(0) rotate(-6deg)}}</style>`;
       } else if(id===2){ // bonfire flicker + sound hint
-        mini.innerHTML = `<div style="display:flex;gap:12px;align-items:center"><div class=\"bonfire\"><div class=\"flame\"></div></div><div><p style=\"margin:0;color:var(--muted)\">Feel the warmth: bonfire nights at Jura include live acoustic sets and marshmallow toasting.</p></div></div>`;
+        mini.innerHTML = `<div style="display:flex;gap:12px;align-items:center;padding:20px;background:linear-gradient(180deg,#1f2937,#374151);border-radius:12px;color:white;">
+          <div class="bonfire"><div class="flame"></div></div>
+          <div><p style="margin:0;">🎵 Feel the warmth: bonfire nights at Jura include live acoustic sets, marshmallow toasting, and traditional storytelling under the stars.</p></div>
+        </div>`;
       } else if(id===3){
-        mini.innerHTML = `<div style="height:120px;background:linear-gradient(180deg,#eefaff,#fffaf0);border-radius:10px;display:flex;align-items:center;justify-content:center;position:relative"><svg width=220 height=80 viewBox=\"0 0 220 80\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M0 60 Q55 40 110 60 T220 60 V80 H0 Z\" fill=\"#dff8ff\"></path><rect x=20 y=18 width=60 height=20 rx=8 fill=\"#0b86a3\" style=\"animation:boat2 8s linear infinite\"></rect></svg></div><style>@keyframes boat2{0%{transform:translateX(-4px)}50%{transform:translateX(38px)}100%{transform:translateX(-4px)}}</style>`;
+        mini.innerHTML = `<div style="height:140px;background:linear-gradient(180deg,#eefaff,#fffaf0);border-radius:10px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;">
+          <svg width="280" height="120" viewBox="0 0 280 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 80 Q70 60 140 80 T280 80 V120 H0 Z" fill="#dff8ff" opacity="0.6"></path>
+            <path d="M0 85 Q70 65 140 85 T280 85 V120 H0 Z" fill="#bfefff" opacity="0.4"></path>
+            <rect x="30" y="30" width="80" height="25" rx="12" fill="#0b86a3" style="animation:cruise 10s linear infinite"></rect>
+            <polygon points="70,20 90,30 90,55 70,45" fill="white" opacity="0.9" style="animation:cruise 10s linear infinite"></polygon>
+          </svg>
+          <div style="position:absolute;top:15px;left:15px;color:#0891b2;font-weight:600;font-size:14px;">🛥️ Lake Victoria Cruises</div>
+        </div>
+        <style>@keyframes cruise{0%{transform:translateX(-10px)}50%{transform:translateX(50px)}100%{transform:translateX(-10px)}}</style>`;
       } else if(id===4){
-        mini.innerHTML = `<div style="height:120px;background:linear-gradient(180deg,#fff6ec,#fff8f4);border-radius:10px;display:flex;align-items:center;justify-content:center"><div style=\"width:180px;height:36px;border-radius:999px;background:linear-gradient(90deg,#f7d9a8,#ffd36b);box-shadow:inset 0 -12px 30px rgba(0,0,0,0.06);\">&nbsp;</div></div>`;
+        mini.innerHTML = `<div style="height:140px;background:linear-gradient(180deg,#fff6ec,#fff8f4);border-radius:10px;display:flex;align-items:center;justify-content:center">
+          <div style="width:180px;height:36px;border-radius:999px;background:linear-gradient(90deg,#f7d9a8,#ffd36b);box-shadow:inset 0 -12px 30px rgba(0,0,0,0.06);">&nbsp;</div>
+        </div>`;
       } else if(id===5){
-        mini.innerHTML = `<div style="height:120px;background:linear-gradient(180deg,#e9fbff,#f7fffd);border-radius:10px;display:flex;align-items:center;justify-content:center">Water Activities</div>`;
+        mini.innerHTML = `<div style="height:140px;background:linear-gradient(180deg,#e9fbff,#f7fffd);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#0891b2;font-weight:600;">🏊‍♂️ Crystal Clear Water Activities</div>`;
+      } else if(id===6){ // Enhanced nature walks
+        mini.innerHTML = `<div style="height:140px;background:linear-gradient(180deg,#ecfdf5,#d1fae5);border-radius:12px;padding:20px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;">
+          <h4 style="margin:0 0 10px;color:#065f46;">🌍 Epic Kenya Circuit</h4>
+          <div style="display:flex;gap:15px;align-items:center;">
+            <div style="font-size:24px;animation:bounce 2s infinite;">🏞️</div>
+            <div style="font-size:20px;">➡️</div>
+            <div style="font-size:24px;animation:bounce 2s infinite 0.5s;">🦁</div>
+            <div style="font-size:20px;">➡️</div>
+            <div style="font-size:24px;animation:bounce 2s infinite 1s;">🏔️</div>
+          </div>
+          <p style="margin:8px 0 0;font-size:12px;color:#047857;">Migori Hills → Maasai Mara → Kilimanjaro</p>
+        </div>
+        <style>@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}</style>`;
       }
     }
   </script>
