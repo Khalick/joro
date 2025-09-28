@@ -643,8 +643,8 @@
       <h1>Jura Resort — Indoor Games</h1>
       <p class="lead">Unwind, compete, and connect with timeless indoor games at Jura Resort. Join a session or explore our curated games for family nights and friendly competitions.</p>
       <div class="cta">
-        <a class="btn" href="#games">EXPLORE GAMES</a>
-        <a class="btn secondary" href="#join" style="margin-left:10px">JOIN A SESSION</a>
+        <a class="btn" href="index.html">EXPLORE GAMES</a>
+        <a class="btn secondary" href="https://wa.me/254722566089?text=Hello! I would like to join an indoor games session at Jura Resort. Please let me know about available times and games." target="_blank" style="margin-left:10px">JOIN A SESSION</a>
       </div>
     </div>
   </header>
@@ -657,7 +657,7 @@
       <p class="lead">At Jura Resort, indoor fun never ends. Our game lounges are crafted to bring guests together — whether you want an energetic table tennis rally, a relaxed pool match, or a cozy board game afternoon.</p>
       <p class="lead">Our curated selection includes table tennis, pool, board games, card games, darts and rotating seasonal challenges. Perfect for families, groups and solo practice sessions.</p>
       <p class="lead">Explore the games below and book a session with our friendly staff — or join one of our live community events.</p>
-      <div style="margin-top:14px"><a class="btn" href="#games">EXPLORE GAMES</a></div>
+      <div style="margin-top:14px"><a class="btn" href="index.html">EXPLORE GAMES</a></div>
     </section>
 
     <!-- TOP GALLERY (3 slots) -->
@@ -695,7 +695,7 @@
           <div class="meta-block">
             <h3 style="margin:0 0 8px">Game of the Week — Table Tennis</h3>
             <p style="margin:0 0 12px;color:var(--muted)">Fast-paced rallies, quick reflexes and lots of smiles. Our indoor courts at Jura Resort are kept tournament-ready.</p>
-            <a class="btn" href="#" onclick="openGameById(1);return false">LEARN MORE</a>
+            <a class="btn" href="https://wa.me/254722566089?text=Hello! I'm interested in learning more about Table Tennis at Jura Resort. Can you provide more details about the facilities and booking?" target="_blank">LEARN MORE</a>
           </div>
         </div>
 
@@ -704,7 +704,7 @@
           <div class="meta-block">
             <h3 style="margin:0 0 8px">Top Pick — Pool Table</h3>
             <p style="margin:0 0 12px;color:var(--muted)">Perfect for friendly competition. Sharpen strategy and aim while enjoying drinks from Jura's bar.</p>
-            <a class="btn" href="#" onclick="openGameById(2);return false">PLAY NOW</a>
+            <a class="btn" href="https://wa.me/254722566089?text=Hello! I would like to play pool at Jura Resort. Can you help me book a table and let me know the availability?" target="_blank">PLAY NOW</a>
           </div>
         </div>
       </div>
@@ -770,7 +770,7 @@
           <textarea id="message" name="message" placeholder="e.g. 26 Sep, 4pm — 4 players"></textarea>
         </div>
 
-        <button class="btn-join" type="submit">JOIN SESSION AT JURA RESORT</button>
+        <a class="btn-join" href="https://wa.me/254722566089?text=Hello! I would like to join an indoor games session at Jura Resort. Please let me know about available times and games." target="_blank" style="display:inline-block; text-decoration:none;">JOIN SESSION AT JURA RESORT</a>
       </form>
     </section>
 
@@ -912,8 +912,8 @@
           <div class="meta">${g.meta}</div>
           <p class="desc">${g.desc}</p>
           <div class="actions">
-            <button class="small play" data-id="${g.id}">PLAY</button>
-            <button class="small info" data-id="${g.id}">INFO</button>
+            <a class="small play" href="https://wa.me/254722566089?text=Hello! I would like to play ${g.title} at Jura Resort. Can you help me book a session?" target="_blank" style="text-decoration:none; display:inline-block;">PLAY</a>
+            <a class="small info" href="https://wa.me/254722566089?text=Hello! Can you provide more information about ${g.title} at Jura Resort? I'd like to know more details." target="_blank" style="text-decoration:none; display:inline-block;">INFO</a>
           </div>
         `;
         grid.appendChild(el);
