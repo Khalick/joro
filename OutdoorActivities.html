@@ -40,13 +40,21 @@
     .nav-menu .current{border-bottom-color:var(--brand);color:var(--brand)}
 
     /* HERO with dramatic animated sun + water waves + sailing boat */
-    header{position:relative;height:54vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}
+    header{position:relative;height:54vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;
+           /* Mobile performance optimization */
+           -webkit-transform: translateZ(0);
+           transform: translateZ(0);
+           will-change: transform}
 
     /* sky gradient */
     .sky{position:absolute;inset:0;background:linear-gradient(180deg,#bfefff 0%, #fffaf0 60%);z-index:0}
 
     /* animated sun */
-    .sun{position:absolute;top:8%;left:8%;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle at 30% 30%, #fff9d6, var(--sun));box-shadow:0 24px 80px rgba(255,211,107,0.26);filter:drop-shadow(0 14px 30px rgba(255,180,60,0.12));animation:spin-sun 16s linear infinite;z-index:1}
+    .sun{position:absolute;top:8%;left:8%;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle at 30% 30%, #fff9d6, var(--sun));box-shadow:0 24px 80px rgba(255,211,107,0.26);filter:drop-shadow(0 14px 30px rgba(255,180,60,0.12));animation:spin-sun 16s linear infinite;z-index:1;
+         /* Mobile optimization */
+         -webkit-transform: translateZ(0);
+         transform: translateZ(0);
+         will-change: transform}
     @keyframes spin-sun{0%{transform:rotate(0) scale(1)}50%{transform:rotate(18deg) scale(1.02)}100%{transform:rotate(0) scale(1)}}
 
     /* waves using SVG-like CSS shapes */
@@ -88,8 +96,22 @@
     .activity .title{font-weight:800;color:#082b36;margin-bottom:6px}
     .activity .brief{font-size:14px;color:var(--muted);margin-bottom:10px}
     .activity .img-wrap{height:220px;border-radius:10px;overflow:hidden;box-shadow:inset 0 -40px 80px rgba(0,0,0,0.04)}
-    .activity img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s cubic-bezier(.2,.9,.2,1)}
+    .activity img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s cubic-bezier(.2,.9,.2,1);
+                   /* Mobile image optimization */
+                   -webkit-transform: translateZ(0);
+                   transform: translateZ(0)}
     .activity:hover img{transform:scale(1.08)}
+    
+    /* Reduce animations on mobile for performance */
+    @media (prefers-reduced-motion: reduce) {
+      .activity img, .sun, .wave, .boat, .bonfire .flame {
+        animation: none !important;
+        transition: none !important;
+      }
+      .activity:hover img {
+        transform: none;
+      }
+    }
     .label{position:absolute;left:14px;top:14px;background:rgba(255,255,255,0.9);padding:6px 10px;border-radius:8px;font-weight:800;color:#062532}
 
     /* DETAILED SECTIONS STYLING */
@@ -168,13 +190,118 @@
     /* FOOTER */
     footer{margin-top:26px;background:linear-gradient(90deg,var(--brand),#0b86a3);color:white;padding:18px;border-radius:8px;text-align:center}
 
-    /* Responsive */
+    /* Mobile Navigation - Hamburger Menu */
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 6px;
+      transition: background 0.3s ease;
+    }
+    
+    .nav-toggle:hover {
+      background: rgba(0,76,115,0.1);
+    }
+    
+    .nav-toggle span {
+      display: block;
+      width: 25px;
+      height: 3px;
+      background: var(--brand);
+      margin: 5px 0;
+      transition: 0.3s;
+      border-radius: 2px;
+    }
+    
+    .nav-toggle.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 6px);
+    }
+    
+    .nav-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+    
+    .nav-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -6px);
+    }
+
+    /* Enhanced Responsive Design - Large Tablets */
+    @media(max-width:1024px){
+      .wrap { padding: 0 15px; }
+      .activity-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+      .detail-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+      .hero-inner h1 { font-size: 2.5rem; }
+      .features { grid-template-columns: 1fr; }
+    }
+
+    /* Medium Screens - Tablets */
     @media(max-width:900px){
       .features{grid-template-columns:1fr}
       .form-row{flex-direction:column}
       .location{flex-direction:column}
       .nav-menu{display:none}
       .logo{font-size:1rem}
+      
+      /* Show hamburger menu */
+      .nav-toggle { display: block; }
+      
+      /* Mobile navigation overlay */
+      .nav-menu.mobile-open {
+        display: flex;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255,255,255,0.98);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 100;
+        gap: 30px;
+        animation: fadeInSlide 0.3s ease;
+      }
+      
+      .nav-menu.mobile-open a {
+        font-size: 1.2rem;
+        padding: 15px 20px;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+      }
+      
+      .nav-menu.mobile-open a:hover {
+        background: var(--bg-1);
+        transform: translateY(-2px);
+      }
+      
+      /* Enhanced hero for tablets */
+      header { height: 45vh; }
+      .hero-inner h1 { font-size: 2.2rem; }
+      .lead { font-size: 0.95rem; }
+      
+      /* Activity grid optimization */
+      .activity-grid { 
+        grid-template-columns: 1fr 1fr; 
+        gap: 12px; 
+      }
+      
+      /* Detail sections */
+      .detail-grid { grid-template-columns: 1fr; }
+      .detail-card { padding: 16px; }
+    }
+
+    @keyframes fadeInSlide {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     /* WhatsApp Floating Button */
@@ -217,17 +344,427 @@
       }
     }
 
+    /* Mobile Devices - Phone & Small Tablets */
     @media(max-width:768px){
       .nav-inner{padding:0 12px}
-      .hero-inner h1{font-size:2rem}
-      .activity-grid{grid-template-columns:1fr}
-      .detail-grid{grid-template-columns:1fr}
+      .hero-inner h1{font-size:1.8rem; line-height: 1.2;}
+      .hero-inner .lead { font-size: 0.9rem; padding: 0 10px; }
+      
+      /* Single column layout for mobile */
+      .activity-grid{grid-template-columns:1fr; gap: 12px;}
+      .detail-grid{grid-template-columns:1fr; gap: 15px;}
+      
+      /* Enhanced mobile hero */
+      header { height: 50vh; padding: 0 10px; }
+      .hero-cta { 
+        display: flex; 
+        flex-direction: column; 
+        gap: 10px; 
+        width: 100%; 
+        max-width: 280px; 
+        margin: 0 auto;
+      }
+      
+      .hero-cta .btn {
+        width: 100%;
+        padding: 12px 20px;
+        font-size: 0.9rem;
+        text-align: center;
+      }
+      
+      /* Mobile-optimized activity cards */
+      .activity {
+        padding: 12px;
+        margin-bottom: 8px;
+      }
+      
+      .activity .img-wrap {
+        height: 180px;
+      }
+      
+      .activity .title {
+        font-size: 1.1rem;
+        line-height: 1.3;
+      }
+      
+      /* Enhanced mobile detail cards */
+      .detail-card {
+        padding: 15px;
+        margin-bottom: 10px;
+      }
+      
+      .detail-card .detail-img {
+        height: 160px;
+        font-size: 0.9rem;
+      }
+      
+      /* Mobile booking form improvements */
+      .booking {
+        padding: 16px;
+        margin: 15px 0;
+      }
+      
+      .form-group {
+        margin-bottom: 15px;
+      }
+      
+      input, select, textarea {
+        padding: 12px;
+        font-size: 16px; /* Prevents zoom on iOS */
+        border-radius: 10px;
+      }
+      
+      textarea {
+        min-height: 90px;
+      }
+      
+      /* Mobile location section */
+      .location {
+        gap: 12px;
+      }
+      
+      .loc-info, .loc-map {
+        padding: 15px;
+      }
+      
+      /* Mobile features */
+      .feat {
+        flex-direction: column;
+        text-align: center;
+        padding: 12px;
+      }
+      
+      .feat img {
+        width: 100%;
+        height: 120px;
+        margin-bottom: 10px;
+      }
+      
+      /* Mobile animations - reduced motion for performance */
+      .activity:hover {
+        transform: translateY(-3px) scale(1.01);
+      }
+      
+      .detail-card:hover {
+        transform: translateY(-3px);
+      }
+      
+      /* Optimized WhatsApp button for mobile */
       .whatsapp-float {
         width: 55px;
         height: 55px;
         font-size: 26px;
         bottom: 15px;
         right: 15px;
+        box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3);
+      }
+      
+      /* Mobile section spacing */
+      .section {
+        padding: 20px 0;
+      }
+      
+      .detail-section {
+        margin-top: 25px;
+        padding: 20px 0;
+      }
+      
+      /* Mobile typography improvements */
+      .section h2 {
+        font-size: 1.3rem;
+        text-align: center;
+        margin-bottom: 15px;
+      }
+      
+      .wrap {
+        padding: 0 10px;
+      }
+    }
+
+    /* Small Mobile Devices */
+    @media(max-width:480px){
+      .nav-inner { padding: 0 8px; }
+      
+      .logo { font-size: 0.9rem; }
+      .logo img { width: 60px; height: 60px; }
+      
+      /* Compact hero for small screens */
+      header { height: 45vh; }
+      .hero-inner h1 { 
+        font-size: 1.5rem; 
+        margin-bottom: 10px;
+      }
+      
+      .hero-inner .lead { 
+        font-size: 0.85rem; 
+        line-height: 1.4;
+      }
+      
+      /* Ultra-compact activity cards */
+      .activity {
+        padding: 10px;
+      }
+      
+      .activity .img-wrap {
+        height: 150px;
+      }
+      
+      .activity .title {
+        font-size: 1rem;
+      }
+      
+      .activity .brief {
+        font-size: 0.8rem;
+      }
+      
+      /* Compact detail cards */
+      .detail-card {
+        padding: 12px;
+      }
+      
+      .detail-card .detail-img {
+        height: 140px;
+      }
+      
+      /* Small screen form optimization */
+      .booking {
+        padding: 12px;
+      }
+      
+      input, select, textarea {
+        padding: 10px;
+        font-size: 16px;
+      }
+      
+      /* Compact buttons */
+      .btn {
+        padding: 10px 16px;
+        font-size: 0.85rem;
+      }
+      
+      /* Smaller WhatsApp button for very small screens */
+      .whatsapp-float {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+        bottom: 12px;
+        right: 12px;
+      }
+      
+      .wrap {
+        padding: 0 8px;
+      }
+      
+      /* Compact sections */
+      .section, .detail-section {
+        padding: 15px 0;
+      }
+    }
+
+    /* Touch-friendly improvements */
+    @media (hover: none) and (pointer: coarse) {
+      /* Touch devices */
+      .activity, .detail-card, .btn, .small {
+        cursor: default;
+      }
+      
+      .activity:active, .detail-card:active {
+        transform: scale(0.98);
+      }
+      
+      .btn:active, .small:active {
+        transform: scale(0.95);
+      }
+      
+      /* Larger touch targets */
+      .nav-menu a {
+        padding: 12px 8px;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    /* High DPI displays */
+    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+      .activity img, .detail-card img {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+      }
+    }
+
+    /* Touch feedback styles */
+    .touching {
+      transform: scale(0.98) !important;
+      transition: transform 0.1s ease !important;
+    }
+
+    /* Loading states for images */
+    .activity img, .detail-card img {
+      transition: opacity 0.3s ease;
+    }
+
+    .activity img.loaded, .detail-card img.loaded {
+      opacity: 1;
+    }
+
+    /* Mobile-specific loading spinner */
+    @media (max-width: 768px) {
+      .loading-spinner {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 3px solid #f3f3f3;
+        border-top: 3px solid var(--accent);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 0 auto;
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    }
+
+    /* Mobile accessibility improvements */
+    @media (max-width: 768px) {
+      /* Larger tap targets */
+      .btn, .small, .nav-menu a {
+        min-height: 44px;
+        min-width: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      /* Better contrast for mobile reading */
+      .activity .brief, .detail-card p, .lead {
+        color: #2d3748;
+        font-weight: 500;
+      }
+      
+      /* Improved form elements for mobile */
+      input:focus, select:focus, textarea:focus {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+        border-color: var(--accent);
+      }
+    }
+
+    /* Landscape orientation optimizations */
+    @media (max-width: 768px) and (orientation: landscape) {
+      header {
+        height: 40vh;
+      }
+      
+      .hero-inner h1 {
+        font-size: 1.6rem;
+      }
+      
+      .activity-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+      
+      .activity .img-wrap {
+        height: 140px;
+      }
+    }
+
+    /* Mobile Menu Overlay Styles */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      backdrop-filter: blur(10px);
+      z-index: 9999;
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .mobile-menu.show {
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+      opacity: 1;
+    }
+
+    .mobile-menu-content {
+      position: relative;
+      text-align: center;
+      width: 90%;
+      max-width: 400px;
+    }
+
+    .mobile-menu .close {
+      position: absolute;
+      top: -20px;
+      right: 20px;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 3rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .mobile-menu .close:hover {
+      transform: rotate(90deg) scale(1.2);
+      color: #ff6b6b;
+    }
+
+    .mobile-menu nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .mobile-menu nav ul li {
+      margin: 1rem 0;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .mobile-menu nav ul li:nth-child(1) { animation-delay: 0.1s; }
+    .mobile-menu nav ul li:nth-child(2) { animation-delay: 0.2s; }
+    .mobile-menu nav ul li:nth-child(3) { animation-delay: 0.3s; }
+    .mobile-menu nav ul li:nth-child(4) { animation-delay: 0.4s; }
+    .mobile-menu nav ul li:nth-child(5) { animation-delay: 0.5s; }
+    .mobile-menu nav ul li:nth-child(6) { animation-delay: 0.6s; }
+    .mobile-menu nav ul li:nth-child(7) { animation-delay: 0.7s; }
+    .mobile-menu nav ul li:nth-child(8) { animation-delay: 0.8s; }
+
+    .mobile-menu nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 1.5rem;
+      font-weight: 600;
+      padding: 1rem 2rem;
+      display: block;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      background: rgba(255, 255, 255, 0.1);
+      margin: 0.5rem 0;
+      border: 2px solid transparent;
+    }
+
+    .mobile-menu nav ul li a:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-3px);
+      border-color: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
     }
   </style>
@@ -241,7 +778,15 @@
         <img src="0eddf86f-8023-4db7-aeb1-529bcd41a970.jpg" alt="Jura Logo" onerror="this.style.display='none'"/>
         <span>JURA RESORT</span>
       </a>
-      <ul class="nav-menu">
+      
+      <!-- Mobile hamburger menu button -->
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      
+      <ul class="nav-menu" id="nav-menu">
         <li><a href="index.html">HOME</a></li>
         <li><a href="RestaurantandDishes.html">RESTAURANT AND DISHES</a></li>
         <li><a href="WaterActivities.html">WATER ACTIVITIES</a></li>
@@ -296,7 +841,7 @@
           <div class="label">Water Sport</div>
           <div class="title">Kayaking</div>
           <div class="brief">Paddle through serene waters and explore hidden coves around Lake Side Beach. Guided and solo options available.</div>
-          <div class="img-wrap"><img src="water2.webp" alt="Kayaking at Jura Resort" onerror="this.style.opacity=.12"/></div>
+          <div class="img-wrap"><img src="water2.webp" alt="Kayaking at Jura Resort" loading="lazy" onerror="this.style.opacity=.12"/></div>
           <div class="actions"><button class="small info" data-id="1">LEARN MORE</button><button class="small book" data-id="1">BOOK</button></div>
         </div>
 
@@ -305,7 +850,7 @@
           <div class="label">Evening</div>
           <div class="title">Bonfire Night</div>
           <div class="brief">Gather around a roaring bonfire on the beach. Live music, marshmallows, and stories under the stars — a Jura Resort tradition.</div>
-          <div class="img-wrap"><img src="bonfire.webp" alt="Bonfire Night" onerror="this.style.opacity=.12"/></div>
+          <div class="img-wrap"><img src="bonfire.webp" alt="Bonfire Night" loading="lazy" onerror="this.style.opacity=.12"/></div>
           <div class="actions"><button class="small info" data-id="2">LEARN MORE</button><button class="small book" data-id="2">BOOK</button></div>
         </div>
 
@@ -856,6 +1401,184 @@
       });
     }
 
+    // Mobile Performance Optimizations
+    function optimizeForMobile() {
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      const isSlowConnection = navigator.connection && (navigator.connection.effectiveType === 'slow-2g' || navigator.connection.effectiveType === '2g');
+      
+      if (isMobile || isSlowConnection) {
+        // Reduce animation complexity on mobile
+        document.documentElement.style.setProperty('--animation-duration', '1s');
+        
+        // Add intersection observer for lazy-loaded elements
+        if ('IntersectionObserver' in window) {
+          const imageObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                const img = entry.target;
+                img.classList.add('loaded');
+                imageObserver.unobserve(img);
+              }
+            });
+          });
+          
+          document.querySelectorAll('.activity img, .detail-card img').forEach(img => {
+            imageObserver.observe(img);
+          });
+        }
+        
+        // Optimize scroll performance
+        let ticking = false;
+        function updateScrollElements() {
+          // Throttled scroll handler for mobile performance
+          if (!ticking) {
+            requestAnimationFrame(() => {
+              // Add scroll-based optimizations here
+              ticking = false;
+            });
+            ticking = true;
+          }
+        }
+        
+        window.addEventListener('scroll', updateScrollElements, { passive: true });
+      }
+      
+      // Add touch feedback
+      document.addEventListener('touchstart', function(e) {
+        if (e.target.closest('.activity, .detail-card, .btn, .small')) {
+          e.target.closest('.activity, .detail-card, .btn, .small').classList.add('touching');
+        }
+      });
+      
+      document.addEventListener('touchend', function(e) {
+        setTimeout(() => {
+          document.querySelectorAll('.touching').forEach(el => {
+            el.classList.remove('touching');
+          });
+        }, 150);
+      });
+    }
+
+    // Initialize mobile optimizations
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', optimizeForMobile);
+    } else {
+      optimizeForMobile();
+    }
+
+    // Mobile Navigation Toggle
+    const navToggle = document.getElementById('nav-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    
+    if (navToggle && navMenu) {
+      navToggle.addEventListener('click', function() {
+        navToggle.classList.toggle('active');
+        navMenu.classList.toggle('mobile-open');
+        
+        // Prevent body scroll when menu is open
+        if (navMenu.classList.contains('mobile-open')) {
+          document.body.style.overflow = 'hidden';
+        } else {
+          document.body.style.overflow = '';
+        }
+      });
+      
+      // Close menu when clicking on a link
+      const navLinks = navMenu.querySelectorAll('a');
+      navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          navToggle.classList.remove('active');
+          navMenu.classList.remove('mobile-open');
+          document.body.style.overflow = '';
+        });
+      });
+      
+      // Close menu when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!navToggle.contains(e.target) && !navMenu.contains(e.target)) {
+          navToggle.classList.remove('active');
+          navMenu.classList.remove('mobile-open');
+          document.body.style.overflow = '';
+        }
+      });
+      
+      // Handle window resize
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 900) {
+          navToggle.classList.remove('active');
+          navMenu.classList.remove('mobile-open');
+          document.body.style.overflow = '';
+        }
+      });
+    }
+
+    // Mobile Menu Overlay functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const mobileMenu = document.getElementById('mobile-menu');
+      const closeBtn = mobileMenu?.querySelector('.close');
+      const mobileMenuLinks = mobileMenu?.querySelectorAll('a');
+
+      // Open mobile menu (integrate with existing nav-toggle)
+      if (navToggle && mobileMenu) {
+        navToggle.addEventListener('click', function(e) {
+          e.preventDefault();
+          mobileMenu.style.display = 'flex';
+          setTimeout(() => {
+            mobileMenu.classList.add('show');
+          }, 10);
+          document.body.style.overflow = 'hidden';
+        });
+      }
+
+      // Close mobile menu
+      if (closeBtn) {
+        closeBtn.addEventListener('click', function() {
+          mobileMenu.classList.remove('show');
+          setTimeout(() => {
+            mobileMenu.style.display = 'none';
+            document.body.style.overflow = '';
+          }, 300);
+        });
+      }
+
+      // Close menu when clicking outside
+      if (mobileMenu) {
+        mobileMenu.addEventListener('click', function(e) {
+          if (e.target === mobileMenu) {
+            mobileMenu.classList.remove('show');
+            setTimeout(() => {
+              mobileMenu.style.display = 'none';
+              document.body.style.overflow = '';
+            }, 300);
+          }
+        });
+      }
+
+      // Close menu when clicking on links
+      if (mobileMenuLinks) {
+        mobileMenuLinks.forEach(link => {
+          link.addEventListener('click', function() {
+            mobileMenu.classList.remove('show');
+            setTimeout(() => {
+              mobileMenu.style.display = 'none';
+              document.body.style.overflow = '';
+            }, 300);
+          });
+        });
+      }
+
+      // Close menu with Escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && mobileMenu.classList.contains('show')) {
+          mobileMenu.classList.remove('show');
+          setTimeout(() => {
+            mobileMenu.style.display = 'none';
+            document.body.style.overflow = '';
+          }, 300);
+        }
+      });
+    });
+
     // Enhanced mini demos with nature walks and camping
     function startMiniDemo(id){
       const mini = document.getElementById('mini-demo'); 
@@ -905,6 +1628,25 @@
       }
     }
   </script>
+
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu" id="mobile-menu">
+    <div class="mobile-menu-content">
+      <button class="close">&times;</button>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="RestaurantandDishes.html">Restaurant & Bar</a></li>
+          <li><a href="WaterActivities.html">Water Activities</a></li>
+          <li><a href="IndoorGames.html">Indoor Games</a></li>
+          <li><a href="OutdoorActivities.html">Outdoor Activities</a></li>
+          <li><a href="joro resto.htm">Events</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
 
   <!-- WhatsApp Floating Button -->
   <a href="https://wa.me/254722566089" class="whatsapp-float" target="_blank" title="Contact us on WhatsApp">

@@ -119,23 +119,276 @@
       display: block;
     }
 
-    /* Mobile menu */
-    .hamburger {
+    /* Enhanced Mobile Navigation */
+    .nav-toggle {
       display: none;
       background: none;
       border: none;
-      font-size: 20px;
-      color: #007BFF;
       cursor: pointer;
+      padding: 8px;
+      border-radius: 6px;
+      transition: background 0.3s ease;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .nav-toggle:hover {
+      background: rgba(0,123,255,0.1);
+    }
+    
+    .nav-toggle span {
+      display: block;
+      width: 25px;
+      height: 3px;
+      background: #007BFF;
+      margin: 3px 0;
+      transition: 0.3s;
+      border-radius: 2px;
+    }
+    
+    .nav-toggle.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 6px);
+    }
+    
+    .nav-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+    
+    .nav-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -6px);
     }
 
-    @media (max-width: 768px) {
+    /* Large Tablets */
+    @media (max-width: 1024px) {
+      .nav-container {
+        padding: 0 15px;
+      }
+      
+      .specials {
+        padding: 0 15px;
+      }
+      
+      .cuisine-section {
+        padding: 40px 15px;
+      }
+    }
+
+    /* Tablets */
+    @media (max-width: 900px) {
       .nav-menu {
         display: none;
       }
       
-      .hamburger {
+      .nav-toggle {
+        display: flex;
+      }
+      
+      /* Mobile navigation overlay */
+      .nav-menu.mobile-open {
+        display: flex;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255,255,255,0.98);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 100;
+        gap: 30px;
+        animation: fadeInSlide 0.3s ease;
+      }
+      
+      .nav-menu.mobile-open li {
+        margin: 0;
+      }
+      
+      .nav-menu.mobile-open a {
+        font-size: 1.2rem;
+        padding: 15px 20px;
+        border-radius: 12px;
+        transition: all 0.3s ease;
         display: block;
+        text-align: center;
+        min-width: 200px;
+      }
+      
+      .nav-menu.mobile-open a:hover {
+        background: #f8f9fa;
+        transform: translateY(-2px);
+      }
+      
+      /* Dropdown in mobile */
+      .nav-menu.mobile-open .dropdown-content {
+        position: static;
+        display: block;
+        background: transparent;
+        box-shadow: none;
+        padding: 10px 0;
+      }
+      
+      .nav-menu.mobile-open .dropdown-content a {
+        font-size: 1rem;
+        padding: 10px 15px;
+        color: #666;
+      }
+    }
+
+    @keyframes fadeInSlide {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Mobile Phones */
+    @media (max-width: 768px) {
+      .nav-container {
+        padding: 0 12px;
+      }
+      
+      .nav-logo img {
+        width: 60px;
+        height: 60px;
+      }
+      
+      .nav-brand {
+        font-size: 1.2rem;
+      }
+      
+      /* Mobile Hero */
+      .hero {
+        height: 45vh;
+        padding: 0 15px;
+      }
+      
+      .hero-overlay {
+        padding: 20px;
+      }
+      
+      .hero h1 {
+        font-size: 2rem;
+        line-height: 1.2;
+      }
+      
+      .hero p {
+        font-size: 0.9rem;
+        margin: 15px 0;
+      }
+      
+      /* Mobile Cuisine Sections */
+      .cuisine-section {
+        padding: 30px 15px;
+      }
+      
+      .cuisine-section h2 {
+        font-size: 1.8rem;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      
+      .cuisine-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      
+      .cuisine-card {
+        padding: 20px 15px;
+      }
+      
+      .cuisine-card h3 {
+        font-size: 1.3rem;
+      }
+      
+      .cuisine-card p {
+        font-size: 0.9rem;
+        line-height: 1.5;
+      }
+      
+      /* Mobile Specials */
+      .specials {
+        padding: 30px 15px;
+        flex-direction: column;
+        gap: 20px;
+      }
+      
+      .card {
+        max-width: 100%;
+        margin: 0;
+      }
+      
+      .card img {
+        height: 200px;
+      }
+      
+      .card h3 {
+        font-size: 1.2rem;
+      }
+      
+      .card p {
+        font-size: 0.85rem;
+      }
+      
+      /* Mobile Location */
+      .location-container {
+        flex-direction: column;
+      }
+      
+      .location {
+        padding: 25px 15px;
+      }
+      
+      .location h2 {
+        font-size: 1.5rem;
+        text-align: center;
+      }
+      
+      .map {
+        min-height: 200px;
+      }
+      
+      /* Mobile Booking Form */
+      .booking-section {
+        padding: 30px 15px;
+      }
+      
+      .booking-form {
+        max-width: 100%;
+      }
+      
+      .form-group {
+        margin-bottom: 15px;
+      }
+      
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        padding: 12px;
+        font-size: 16px;
+        border-radius: 8px;
+      }
+      
+      .form-group textarea {
+        min-height: 100px;
+      }
+      
+      .form-row {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .submit-btn {
+        width: 100%;
+        padding: 14px;
+        font-size: 1rem;
+        min-height: 48px;
       }
     }
 
@@ -403,27 +656,111 @@
       font-style: italic;
     }
 
-    /* Mobile responsive */
-    @media (max-width: 768px) {
-      .location-container {
-        flex-direction: column;
+    /* Small Mobile Devices */
+    @media (max-width: 480px) {
+      .nav-container {
+        padding: 0 8px;
+      }
+      
+      .nav-logo img {
+        width: 50px;
+        height: 50px;
+      }
+      
+      .nav-brand {
+        font-size: 1rem;
+      }
+      
+      /* Compact Hero */
+      .hero {
+        height: 40vh;
+        padding: 0 10px;
+      }
+      
+      .hero h1 {
+        font-size: 1.7rem;
+      }
+      
+      .hero p {
+        font-size: 0.85rem;
+      }
+      
+      /* Compact Sections */
+      .cuisine-section {
+        padding: 25px 10px;
+      }
+      
+      .cuisine-section h2 {
+        font-size: 1.6rem;
+      }
+      
+      .specials {
+        padding: 25px 10px;
+      }
+      
+      .card {
+        padding: 15px;
       }
       
       .location {
-        padding: 2rem 1rem;
+        padding: 20px 10px;
       }
       
-      .map {
-        min-height: 250px;
+      .booking-section {
+        padding: 25px 10px;
       }
+    }
 
+    /* Touch Device Optimizations */
+    @media (hover: none) and (pointer: coarse) {
+      .card:active {
+        transform: scale(0.98);
+      }
+      
+      .submit-btn:active {
+        transform: scale(0.95);
+      }
+      
+      /* Larger touch targets */
+      .nav-toggle {
+        min-width: 44px;
+        min-height: 44px;
+      }
+      
+      .nav-menu.mobile-open a {
+        min-height: 48px;
+      }
+    }
+
+    /* Landscape Orientation */
+    @media (max-width: 768px) and (orientation: landscape) {
+      .hero {
+        height: 50vh;
+      }
+      
+      .cuisine-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+      }
+      
       .specials {
-        flex-direction: column;
-        align-items: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
       }
-
+      
       .card {
-        max-width: 400px;
+        flex: 0 1 calc(50% - 10px);
+        max-width: calc(50% - 10px);
+      }
+    }
+
+    /* Performance Optimizations */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
       }
     }
 
@@ -485,6 +822,60 @@
         right: 15px;
       }
     }
+
+    /* Mobile Menu Overlay */
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.95);
+      color: white;
+      z-index: 2000;
+      display: none;
+      padding: 28px 20px;
+      backdrop-filter: blur(10px);
+    }
+    .mobile-menu.show {
+      display: block;
+      animation: fadeInUp 0.3s ease-out;
+    }
+    .mobile-menu .close {
+      font-size: 24px;
+      float: right;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      color: white;
+      padding: 10px;
+      transition: transform 0.3s ease;
+    }
+    .mobile-menu .close:hover {
+      transform: rotate(90deg);
+    }
+    .mobile-menu ul {
+      list-style: none;
+      margin-top: 60px;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+    .mobile-menu a {
+      color: white;
+      font-size: 20px;
+      padding: 15px 20px;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      display: block;
+      background: rgba(255, 255, 255, 0.05);
+      text-decoration: none;
+    }
+    .mobile-menu a:hover {
+      background: rgba(0, 123, 255, 0.2);
+      transform: translateX(10px);
+    }
   </style>
 </head>
 <body>
@@ -497,7 +888,14 @@
         <div class="nav-brand">JURA RESORT</div>
       </div>
       
-      <ul class="nav-menu">
+      <!-- Mobile hamburger menu button -->
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      
+      <ul class="nav-menu" id="nav-menu">
         <li><a href="index.html">HOME</a></li>
         <li class="dropdown">
           <a href="RestaurantandDishes.html">RESTAURANT AND DISHES</a>
@@ -695,9 +1093,136 @@
     </footer>
   </div>
 
-  <!-- Google Sheets Integration Script -->
+  <!-- Enhanced Mobile Navigation & Booking Script -->
   <script type="text/javascript">
+    // Mobile Navigation Toggle
+    const navToggle = document.getElementById('nav-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const closeMobile = document.getElementById('closeMobile');
+    
+    if (navToggle && navMenu) {
+      navToggle.addEventListener('click', function() {
+        navToggle.classList.toggle('active');
+        navMenu.classList.toggle('mobile-open');
+        
+        // Also show the mobile menu overlay
+        if (mobileMenu) {
+          mobileMenu.classList.toggle('show');
+        }
+        
+        // Prevent body scroll when menu is open
+        if (navMenu.classList.contains('mobile-open')) {
+          document.body.style.overflow = 'hidden';
+        } else {
+          document.body.style.overflow = '';
+        }
+      });
+      
+      // Close menu when clicking on a link
+      const navLinks = navMenu.querySelectorAll('a');
+      navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          navToggle.classList.remove('active');
+          navMenu.classList.remove('mobile-open');
+          if (mobileMenu) {
+            mobileMenu.classList.remove('show');
+          }
+          document.body.style.overflow = '';
+        });
+      });
+      
+      // Handle mobile menu overlay close button
+      if (closeMobile) {
+        closeMobile.addEventListener('click', () => {
+          navToggle.classList.remove('active');
+          navMenu.classList.remove('mobile-open');
+          mobileMenu.classList.remove('show');
+          document.body.style.overflow = '';
+        });
+      }
+      
+      // Handle mobile menu overlay links
+      if (mobileMenu) {
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+          link.addEventListener('click', () => {
+            navToggle.classList.remove('active');
+            navMenu.classList.remove('mobile-open');
+            mobileMenu.classList.remove('show');
+            document.body.style.overflow = '';
+          });
+        });
+      }
+      
+      // Close menu when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!navToggle.contains(e.target) && !navMenu.contains(e.target) && 
+            (!mobileMenu || !mobileMenu.contains(e.target))) {
+          navToggle.classList.remove('active');
+          navMenu.classList.remove('mobile-open');
+          if (mobileMenu) {
+            mobileMenu.classList.remove('show');
+          }
+          document.body.style.overflow = '';
+        }
+      });
+      
+      // Handle window resize
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 900) {
+          navToggle.classList.remove('active');
+          navMenu.classList.remove('mobile-open');
+          document.body.style.overflow = '';
+        }
+      });
+    }
 
+    // Mobile Performance Optimizations
+    function optimizeForMobile() {
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      
+      if (isMobile) {
+        // Add lazy loading to images
+        const images = document.querySelectorAll('img');
+        if ('IntersectionObserver' in window) {
+          const imageObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                const img = entry.target;
+                img.loading = 'lazy';
+                imageObserver.unobserve(img);
+              }
+            });
+          });
+          
+          images.forEach(img => imageObserver.observe(img));
+        }
+        
+        // Add touch feedback
+        document.addEventListener('touchstart', function(e) {
+          if (e.target.closest('.card, .cuisine-card, .submit-btn')) {
+            e.target.closest('.card, .cuisine-card, .submit-btn').style.transform = 'scale(0.98)';
+          }
+        });
+        
+        document.addEventListener('touchend', function(e) {
+          setTimeout(() => {
+            const elements = document.querySelectorAll('.card, .cuisine-card, .submit-btn');
+            elements.forEach(el => {
+              el.style.transform = '';
+            });
+          }, 150);
+        });
+      }
+    }
+
+    // Initialize mobile optimizations
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', optimizeForMobile);
+    } else {
+      optimizeForMobile();
+    }
     
     // Booking form functionality
     document.getElementById('booking-form').addEventListener('submit', function(event) {
@@ -817,6 +1342,21 @@
       });
     });
   </script>
+
+  <!-- Mobile Menu Overlay -->
+  <div id="mobileMenu" class="mobile-menu" aria-hidden="true">
+    <button class="close" id="closeMobile" aria-label="Close menu">✕</button>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="RestaurantandDishes.html">Restaurant & Bar</a></li>
+      <li><a href="WaterActivities.html">Water Activities</a></li>
+      <li><a href="IndoorGames.html">Indoor Games</a></li>
+      <li><a href="OutdoorActivities.html">Outdoor Activities</a></li>
+      <li><a href="liveperformance.html">Events</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </div>
 
   <!-- WhatsApp Floating Button -->
   <a href="https://wa.me/254722566089" class="whatsapp-float" target="_blank" title="Contact us on WhatsApp">

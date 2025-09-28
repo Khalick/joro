@@ -1065,7 +1065,21 @@
         transform: scale(1.02);
       }
       
-      /* mobile */
+      /* Enhanced Mobile Design - Large Tablets */
+      @media (max-width: 1200px) {
+        .nav-inner {
+          padding: 0 15px;
+        }
+        .features {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 20px;
+        }
+        .gallery img {
+          width: 220px;
+        }
+      }
+
+      /* Tablets */
       @media (max-width: 1000px) {
         .nav-center {
           display: none;
@@ -1075,9 +1089,15 @@
         }
         .hero-content h1 {
           font-size: 2.5rem;
+          line-height: 1.2;
+        }
+        .hero-content p {
+          font-size: 1.1rem;
+          margin: 20px 0;
         }
         .intro {
           flex-direction: column;
+          gap: 30px;
         }
         .col-right, .intro-right {
           width: 100%;
@@ -1090,14 +1110,22 @@
         }
         .features {
           grid-template-columns: 1fr;
+          gap: 20px;
         }
         .gallery {
           overflow-x: auto;
           justify-content: flex-start;
           padding: 0 20px;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+        }
+        .gallery::-webkit-scrollbar {
+          display: none;
         }
         .gallery img {
           width: 200px;
+          flex-shrink: 0;
           height: 150px;
           flex-shrink: 0;
         }
@@ -1284,14 +1312,318 @@
         }
       }
 
-      /* Responsive adjustments */
+      /* Enhanced Mobile Design - Phones & Small Tablets */
       @media (max-width: 768px) {
+        .nav-inner {
+          padding: 0 12px;
+        }
+        
+        .logo {
+          width: 60px;
+          height: 60px;
+        }
+        
+        .brand {
+          font-size: 1.2rem;
+        }
+        
+        /* Mobile Hero Optimization */
+        .hero {
+          height: 60vh;
+          padding: 0 15px;
+        }
+        
+        .hero-content {
+          text-align: center;
+          max-width: 100%;
+        }
+        
+        .hero-content h1 {
+          font-size: 2rem;
+          line-height: 1.1;
+          margin-bottom: 15px;
+        }
+        
+        .hero-content p {
+          font-size: 0.95rem;
+          line-height: 1.5;
+          margin: 15px 0 25px;
+        }
+        
+        .cta-buttons {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+          width: 100%;
+          max-width: 280px;
+          margin: 0 auto;
+        }
+        
+        .cta-primary, .cta-secondary {
+          width: 100%;
+          padding: 14px 20px;
+          font-size: 0.9rem;
+          text-align: center;
+          min-height: 48px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        
+        /* Mobile Content Sections */
+        .intro {
+          padding: 40px 15px;
+          gap: 25px;
+        }
+        
+        .intro h2 {
+          font-size: 1.6rem;
+          text-align: center;
+        }
+        
+        .intro p {
+          font-size: 0.9rem;
+          line-height: 1.6;
+          color: #2d3748;
+        }
+        
+        /* Mobile Features */
+        .features {
+          padding: 0 15px;
+          gap: 15px;
+        }
+        
+        .feature {
+          padding: 20px 15px;
+          text-align: center;
+        }
+        
+        .feature h3 {
+          font-size: 1.2rem;
+          margin-bottom: 10px;
+        }
+        
+        .feature p {
+          font-size: 0.85rem;
+          line-height: 1.5;
+        }
+        
+        /* Mobile Gallery */
+        .gallery {
+          padding: 0 12px;
+          gap: 12px;
+        }
+        
+        .gallery img {
+          width: 180px;
+          height: 120px;
+        }
+        
+        /* Mobile Booking Section */
+        .booking {
+          padding: 30px 15px;
+        }
+        
+        .booking h2 {
+          font-size: 1.5rem;
+          text-align: center;
+          margin-bottom: 20px;
+        }
+        
+        .booking-form {
+          max-width: 100%;
+        }
+        
+        .form-group {
+          margin-bottom: 15px;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+          padding: 12px;
+          font-size: 16px; /* Prevents zoom on iOS */
+          border-radius: 8px;
+          width: 100%;
+        }
+        
+        .form-group textarea {
+          min-height: 100px;
+        }
+        
+        .form-row {
+          flex-direction: column;
+          gap: 15px;
+        }
+        
+        .submit-btn {
+          width: 100%;
+          padding: 14px;
+          font-size: 1rem;
+          min-height: 48px;
+        }
+        
+        /* WhatsApp Float Button */
         .whatsapp-float {
           width: 55px;
           height: 55px;
           font-size: 26px;
           bottom: 15px;
           right: 15px;
+          box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3);
+        }
+        
+        /* Mobile Footer */
+        .footer {
+          padding: 30px 15px;
+          text-align: center;
+        }
+        
+        .footer-content {
+          flex-direction: column;
+          gap: 25px;
+        }
+        
+        .footer-section h4 {
+          font-size: 1.1rem;
+        }
+        
+        .footer-section p,
+        .footer-section a {
+          font-size: 0.9rem;
+        }
+      }
+
+      /* Small Mobile Devices */
+      @media (max-width: 480px) {
+        .nav-inner {
+          padding: 0 8px;
+        }
+        
+        .logo {
+          width: 50px;
+          height: 50px;
+        }
+        
+        .brand {
+          font-size: 1rem;
+        }
+        
+        /* Compact Hero */
+        .hero {
+          height: 55vh;
+          padding: 0 10px;
+        }
+        
+        .hero-content h1 {
+          font-size: 1.7rem;
+        }
+        
+        .hero-content p {
+          font-size: 0.85rem;
+        }
+        
+        .cta-buttons {
+          max-width: 260px;
+        }
+        
+        /* Compact Content */
+        .intro {
+          padding: 30px 10px;
+        }
+        
+        .intro h2 {
+          font-size: 1.4rem;
+        }
+        
+        .features {
+          padding: 0 10px;
+        }
+        
+        .feature {
+          padding: 15px 10px;
+        }
+        
+        .gallery img {
+          width: 160px;
+          height: 110px;
+        }
+        
+        .booking {
+          padding: 25px 10px;
+        }
+        
+        .whatsapp-float {
+          width: 50px;
+          height: 50px;
+          font-size: 24px;
+          bottom: 12px;
+          right: 12px;
+        }
+      }
+
+      /* Touch Device Optimizations */
+      @media (hover: none) and (pointer: coarse) {
+        .cta-primary:active,
+        .cta-secondary:active,
+        .submit-btn:active {
+          transform: scale(0.98);
+        }
+        
+        .feature:active {
+          transform: scale(0.99);
+        }
+        
+        /* Larger touch targets */
+        .hamburger {
+          min-width: 44px;
+          min-height: 44px;
+          padding: 8px;
+        }
+        
+        .mobile-menu a {
+          min-height: 48px;
+          padding: 12px 20px;
+        }
+      }
+
+      /* Landscape Orientation */
+      @media (max-width: 768px) and (orientation: landscape) {
+        .hero {
+          height: 50vh;
+        }
+        
+        .hero-content h1 {
+          font-size: 1.8rem;
+        }
+        
+        .cta-buttons {
+          flex-direction: row;
+          justify-content: center;
+          gap: 15px;
+        }
+        
+        .cta-primary,
+        .cta-secondary {
+          width: auto;
+          min-width: 140px;
+        }
+      }
+
+      /* High DPI Displays */
+      @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+        .gallery img {
+          image-rendering: -webkit-optimize-contrast;
+          image-rendering: crisp-edges;
+        }
+      }
+
+      /* Performance Optimizations */
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
         }
       }
     </style>
@@ -1616,12 +1948,12 @@
     <div id="mobileMenu" class="mobile-menu" aria-hidden="true">
       <button class="close" id="closeMobile" aria-label="Close menu">✕</button>
       <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Restaurant & Bar</a></li>
-        <li><a href="#">Water Activities</a></li>
-        <li><a href="#">Indoor Games</a></li>
-        <li><a href="#">Outdoor Activities</a></li>
-        <li><a href="#">Events</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="RestaurantandDishes.html">Restaurant & Bar</a></li>
+        <li><a href="WaterActivities.html">Water Activities</a></li>
+        <li><a href="IndoorGames.html">Indoor Games</a></li>
+        <li><a href="OutdoorActivities.html">Outdoor Activities</a></li>
+        <li><a href="liveperformance.html">Events</a></li>
         <li><a href="#">About</a></li>
         <li><a href="#">Contact</a></li>
       </ul>
