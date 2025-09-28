@@ -1,0 +1,2497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Pronto Restaurant - Lake Victoria's Premier Dining Experience</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gold: #D4AF37;
+            --primary-dark: #1a1a1a;
+            --accent-orange: #FF8C42;
+            --deep-blue: #0B2545;
+            --warm-white: #FFF8F0;
+            --soft-gray: #f8f9fa;
+            --text-dark: #2c3e50;
+            --text-light: #666;
+            --shadow-light: rgba(0, 0, 0, 0.1);
+            --shadow-medium: rgba(0, 0, 0, 0.15);
+            --shadow-heavy: rgba(0, 0, 0, 0.25);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            background: var(--warm-white);
+            overflow-x: hidden;
+            color: var(--text-dark);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--soft-gray);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-gold);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #B8941F;
+        }
+
+        /* Header Navigation */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            height: 40px;
+            border-radius: 8px;
+        }
+
+        .brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-gold);
+            letter-spacing: 1px;
+        }
+
+        .nav-center {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-center a {
+            color: var(--warm-white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-center a:hover {
+            color: var(--primary-gold);
+        }
+
+        .nav-center a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-center a:hover::after {
+            width: 100%;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .book-btn {
+            background: var(--primary-gold);
+            color: var(--primary-dark);
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .book-btn:hover {
+            background: #B8941F;
+            transform: translateY(-2px);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            color: var(--warm-white);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        /* Mobile Menu Overlay */
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 26, 26, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            transform: translateX(-100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .mobile-menu-overlay.active {
+            transform: translateX(0);
+        }
+
+        .mobile-menu-content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 2rem;
+        }
+
+        .mobile-menu-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 3rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .mobile-logo {
+            height: 40px;
+            border-radius: 8px;
+        }
+
+        .mobile-brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-gold);
+            letter-spacing: 1px;
+        }
+
+        .mobile-menu-close {
+            font-size: 2rem;
+            color: var(--warm-white);
+            cursor: pointer;
+            padding: 0.5rem;
+            line-height: 1;
+        }
+
+        .mobile-nav {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .mobile-nav-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--warm-white);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            padding: 1rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .mobile-nav-link:hover,
+        .mobile-nav-link.active {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: rgba(212, 175, 55, 0.3);
+            color: var(--primary-gold);
+        }
+
+        .mobile-nav-link i {
+            font-size: 1.2rem;
+            width: 20px;
+        }
+
+        .mobile-cta {
+            margin-top: 2rem;
+        }
+
+        .mobile-book-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            background: var(--primary-gold);
+            color: var(--primary-dark);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .mobile-book-btn:hover {
+            background: #B8941F;
+            transform: translateY(-2px);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 968px) {
+            .nav-center {
+                display: none;
+            }
+
+            .book-btn {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .brand {
+                font-size: 1rem;
+            }
+
+            .hero {
+                padding-top: 70px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                height: 35px;
+            }
+
+            .brand {
+                font-size: 0.9rem;
+            }
+
+            .mobile-menu-content {
+                padding: 1.5rem;
+            }
+
+            .hero {
+                padding-top: 80px; /* Account for fixed header */
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .cta-button {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, var(--deep-blue) 0%, var(--primary-dark) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--warm-white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Hero Background Video */
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        .hero-video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(11, 37, 69, 0.7) 0%, rgba(26, 26, 26, 0.7) 100%);
+            z-index: 1;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="1.5" fill="%23D4AF37" opacity="0.3"><animate attributeName="opacity" values="0.3;0.8;0.3" dur="3s" repeatCount="indefinite"/></circle><circle cx="80" cy="40" r="1" fill="%23FF8C42" opacity="0.4"><animate attributeName="opacity" values="0.4;0.9;0.4" dur="4s" repeatCount="indefinite"/></circle><circle cx="60" cy="80" r="1.2" fill="%23D4AF37" opacity="0.35"><animate attributeName="opacity" values="0.35;0.7;0.35" dur="2.5s" repeatCount="indefinite"/></circle></svg>') repeat;
+            animation: float 25s infinite linear;
+        }
+
+        .hero-decorative-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .floating-shape {
+            position: absolute;
+            opacity: 0.1;
+            animation: floatShape 8s infinite ease-in-out;
+        }
+
+        .shape-1 {
+            top: 20%;
+            left: 10%;
+            width: 60px;
+            height: 60px;
+            background: var(--primary-gold);
+            border-radius: 50%;
+            animation-delay: 0s;
+        }
+
+        .shape-2 {
+            top: 60%;
+            right: 15%;
+            width: 40px;
+            height: 40px;
+            background: var(--accent-orange);
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            animation-delay: 2s;
+        }
+
+        .shape-3 {
+            bottom: 25%;
+            left: 20%;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-gold);
+            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(-100px) translateY(-100px); }
+        }
+
+        @keyframes floatShape {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .hero-content {
+            z-index: 3;
+            max-width: 900px;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-gold), var(--accent-orange));
+            color: var(--primary-dark);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            margin-bottom: 1.5rem;
+            animation: fadeInDown 1s ease-out;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1s ease-out 0.3s both;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 0.6s both;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease-out 0.9s both;
+            opacity: 0.8;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease-out 1.2s both;
+        }
+
+        .cta-button {
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .cta-primary {
+            background: linear-gradient(135deg, var(--primary-gold), var(--accent-orange));
+            color: var(--primary-dark);
+        }
+
+        .cta-secondary {
+            background: transparent;
+            color: var(--warm-white);
+            border: 2px solid var(--primary-gold);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 120px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M0,60 C300,20 600,100 900,60 C1050,30 1150,80 1200,60 L1200,120 L0,120 Z" fill="%23FFF8F0"/></svg>') no-repeat;
+            background-size: cover;
+            animation: wave 4s ease-in-out infinite;
+            z-index: 2;
+        }
+
+        /* Video Section Styles */
+        .video-container {
+            position: relative;
+            width: 100%;
+            margin: 3rem 0;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 25px 60px var(--shadow-medium);
+            background: var(--primary-dark);
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, var(--deep-blue), var(--primary-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 25px;
+        }
+
+        .video-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(255, 140, 66, 0.1));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--warm-white);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .video-placeholder:hover {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(255, 140, 66, 0.2));
+        }
+
+        .video-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-gold), var(--accent-orange));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            animation: pulse 2s infinite;
+        }
+
+        .video-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .video-description {
+            font-size: 1rem;
+            opacity: 0.8;
+            max-width: 300px;
+        }
+
+        /* Actual Video Styles */
+        .actual-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 25px;
+        }
+
+        /* Video Overlay for Custom Controls */
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 25px;
+        }
+
+        .video-container:hover .video-overlay {
+            opacity: 1;
+        }
+
+        .video-play-button {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-gold), var(--accent-orange));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--primary-dark);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .video-play-button:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes wave {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(-30px); }
+        }
+
+        /* Navigation Dots */
+        .nav-dots {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(212, 175, 55, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-dot.active {
+            background: var(--primary-gold);
+            transform: scale(1.3);
+        }
+
+        .nav-dot:hover {
+            background: var(--primary-gold);
+            transform: scale(1.2);
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            padding: 6rem 0;
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 1s ease-out;
+            position: relative;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-gold), var(--accent-orange));
+            color: var(--primary-dark);
+            padding: 0.4rem 1.2rem;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .section-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-light);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-gold), var(--accent-orange));
+            border-radius: 2px;
+            animation: expandLine 1.5s ease-out forwards;
+        }
+
+        @keyframes expandLine {
+            0% { width: 0; }
+            100% { width: 120px; }
+        }
+
+        /* Story Section */
+        .story-section {
+            background: var(--warm-white);
+        }
+
+        /* Story Background Video Section */
+        .story-video-section {
+            position: relative;
+            height: 70vh;
+            min-height: 500px;
+            overflow: hidden;
+            background: var(--deep-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .story-background-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        .story-video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(11, 37, 69, 0.8) 0%, rgba(212, 175, 55, 0.3) 50%, rgba(26, 26, 26, 0.8) 100%);
+            z-index: 2;
+        }
+
+        .story-video-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            color: var(--warm-white);
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .story-video-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-gold), var(--accent-orange));
+            color: var(--primary-dark);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .story-video-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            line-height: 1.2;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .story-video-subtitle {
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            font-weight: 300;
+            line-height: 1.6;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .story-video-description {
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            opacity: 0.8;
+            line-height: 1.7;
+            animation: fadeInUp 1s ease-out 0.9s both;
+        }
+
+        .story-video-cta {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease-out 1.2s both;
+        }
+
+        .story-video-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease-out 1.5s both;
+        }
+
+        .story-video-stat {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            min-width: 150px;
+        }
+
+        .story-video-stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+            margin-bottom: 0.5rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+
+        .story-video-stat-label {
+            font-size: 0.9rem;
+            color: var(--warm-white);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            opacity: 0.9;
+        }
+
+        .story-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+            margin-top: 4rem;
+        }
+
+        .story-content {
+            padding: 2rem 0;
+        }
+
+        .story-text {
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .story-text p {
+            margin-bottom: 1.8rem;
+            animation: slideInLeft 1s ease-out;
+        }
+
+        .story-highlight {
+            background: linear-gradient(135deg, var(--primary-gold), var(--accent-orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+        .story-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px var(--shadow-light);
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px var(--shadow-medium);
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .story-visual {
+            position: relative;
+            height: 500px;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 25px 60px var(--shadow-medium);
+            animation: slideInRight 1s ease-out;
+        }
+
+        .story-visual::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--deep-blue) 0%, rgba(212, 175, 55, 0.8) 100%);
+            z-index: 1;
+        }
+
+        .story-visual-content {
+            position: absolute;
+            bottom: 2rem;
+            left: 2rem;
+            right: 2rem;
+            color: white;
+            z-index: 2;
+        }
+
+        .story-visual h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Features Section */
+        .features-section {
+            background: linear-gradient(135deg, var(--soft-gray) 0%, white 100%);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 25px;
+            box-shadow: 0 15px 40px var(--shadow-light);
+            text-align: center;
+            transform: translateY(30px);
+            opacity: 0;
+            transition: all 0.6s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            transition: left 0.8s;
+        }
+
+        .feature-card:hover::before {
+            left: 100%;
+        }
+
+        .feature-card.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 60px var(--shadow-medium);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, var(--primary-gold), var(--accent-orange));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            animation: pulse 2s infinite;
+        }
+
+        .feature-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .feature-card p {
+            color: var(--text-light);
+            line-height: 1.7;
+            font-size: 1.1rem;
+        }
+
+        /* Experience Section */
+        .experience-section {
+            background: var(--warm-white);
+        }
+
+        .experience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .experience-category {
+            background: white;
+            padding: 3rem 2.5rem;
+            border-radius: 25px;
+            box-shadow: 0 15px 40px var(--shadow-light);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .experience-category::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-gold), var(--accent-orange));
+        }
+
+        .experience-category:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 60px var(--shadow-medium);
+        }
+
+        .experience-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .experience-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-gold), var(--accent-orange));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            margin-right: 1rem;
+        }
+
+        .experience-category h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--text-dark);
+        }
+
+        .experience-category ul {
+            list-style: none;
+        }
+
+        .experience-category li {
+            padding: 0.8rem 0;
+            color: var(--text-light);
+            position: relative;
+            padding-left: 2rem;
+            font-size: 1.05rem;
+            transition: all 0.3s ease;
+        }
+
+        .experience-category li::before {
+            content: '✦';
+            position: absolute;
+            left: 0;
+            top: 0.8rem;
+            color: var(--primary-gold);
+            font-size: 1.2rem;
+        }
+
+        .experience-category li:hover {
+            color: var(--text-dark);
+            transform: translateX(10px);
+        }
+
+        /* Team Section */
+        .team-section {
+            background: linear-gradient(135deg, var(--deep-blue) 0%, var(--primary-dark) 100%);
+            color: var(--warm-white);
+        }
+
+        .team-section .section-title,
+        .team-section .section-subtitle {
+            color: var(--warm-white);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .team-card {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.4s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .team-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-gold), var(--accent-orange));
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+        }
+
+        .team-card h5 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-card .role {
+            color: var(--primary-gold);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Testimonials Section */
+        .testimonials-section {
+            background: var(--soft-gray);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 25px;
+            box-shadow: 0 15px 40px var(--shadow-light);
+            position: relative;
+            transition: all 0.4s ease;
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: -10px;
+            left: 2rem;
+            font-size: 6rem;
+            color: var(--primary-gold);
+            font-family: 'Playfair Display', serif;
+            line-height: 1;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 60px var(--shadow-medium);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-dark);
+            margin-bottom: 2rem;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-gold), var(--accent-orange));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .author-info h6 {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.2rem;
+        }
+
+        .author-info .location {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        /* Social Media Section */
+        .social-section {
+            background: linear-gradient(135deg, var(--primary-gold) 0%, var(--accent-orange) 100%);
+            color: var(--primary-dark);
+        }
+
+        .social-section .section-title {
+            color: var(--primary-dark);
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            color: var(--primary-dark);
+            font-size: 2rem;
+            text-decoration: none;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .social-link:hover {
+            transform: translateY(-10px) scale(1.1);
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .social-text {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: var(--deep-blue);
+            color: var(--warm-white);
+        }
+
+        .contact-section .section-title,
+        .contact-section .section-subtitle {
+            color: var(--warm-white);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .contact-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 3rem 2rem;
+            border-radius: 25px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.4s ease;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .contact-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-gold), var(--accent-orange));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            margin: 0 auto 1.5rem;
+        }
+
+        .contact-card h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-card p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-dark);
+            color: var(--warm-white);
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        .footer p {
+            opacity: 0.8;
+            font-size: 1rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+            
+            .nav-dots {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.4rem;
+            }
+            
+            .hero-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .story-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .story-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .section {
+                padding: 4rem 0;
+            }
+            
+            .social-icons {
+                gap: 1rem;
+            }
+            
+            .social-link {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .features-grid,
+            .experience-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Loading Animation */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--deep-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-overlay.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(212, 175, 55, 0.3);
+            border-top: 3px solid var(--primary-gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="header">
+        <div class="nav-container">
+            <div class="nav-left">
+                <img src="0eddf86f-8023-4db7-aeb1-529bcd41a970.jpg" alt="Pronto logo" class="logo" />
+                <div class="brand">PRONTO RESTAURANT</div>
+            </div>
+            <nav class="nav-center" role="navigation" aria-label="Primary">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="RestaurantandDishes.html">Menu</a>
+                <a href="OutdoorActivities.html">Activities</a>
+                <a href="WaterActivities.html">Water Sports</a>
+                <a href="IndoorGames.html">Games</a>
+            </nav>
+            <div class="nav-right">
+                <a href="https://wa.me/254722566089?text=Hello! I would like to make a reservation at Pronto Restaurant. Please help me with availability." target="_blank" class="book-btn">Book Table</a>
+                <div class="mobile-menu-toggle">☰</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+        <div class="mobile-menu-content">
+            <div class="mobile-menu-header">
+                <img src="0eddf86f-8023-4db7-aeb1-529bcd41a970.jpg" alt="Pronto logo" class="mobile-logo" />
+                <span class="mobile-brand">PRONTO RESTAURANT</span>
+                <div class="mobile-menu-close">&times;</div>
+            </div>
+            <nav class="mobile-nav">
+                <a href="index.html" class="mobile-nav-link">
+                    <i class="fas fa-home"></i>Home
+                </a>
+                <a href="about.html" class="mobile-nav-link active">
+                    <i class="fas fa-info-circle"></i>About
+                </a>
+                <a href="RestaurantandDishes.html" class="mobile-nav-link">
+                    <i class="fas fa-utensils"></i>Menu
+                </a>
+                <a href="OutdoorActivities.html" class="mobile-nav-link">
+                    <i class="fas fa-mountain"></i>Outdoor Activities
+                </a>
+                <a href="WaterActivities.html" class="mobile-nav-link">
+                    <i class="fas fa-water"></i>Water Sports
+                </a>
+                <a href="IndoorGames.html" class="mobile-nav-link">
+                    <i class="fas fa-gamepad"></i>Indoor Games
+                </a>
+            </nav>
+            <div class="mobile-cta">
+                <a href="https://wa.me/254722566089?text=Hello! I would like to make a reservation at Pronto Restaurant. Please help me with availability." target="_blank" class="mobile-book-btn">
+                    <i class="fas fa-phone"></i>Book Your Table
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Navigation Dots -->
+    <div class="nav-dots">
+        <div class="nav-dot" data-section="hero"></div>
+        <div class="nav-dot" data-section="story"></div>
+        <div class="nav-dot" data-section="story-video"></div>
+        <div class="nav-dot" data-section="features"></div>
+        <div class="nav-dot" data-section="experience"></div>
+        <div class="nav-dot" data-section="team"></div>
+        <div class="nav-dot" data-section="testimonials"></div>
+        <div class="nav-dot" data-section="social"></div>
+        <div class="nav-dot" data-section="contact"></div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <!-- Background Video -->
+        <video class="hero-video" autoplay muted loop playsinline>
+            <source src="🍝✨ Happiness is best served fresh — and at Pronto, every smile is seasoned with flavor. From th(5).mp4" type="video/mp4">
+            <source src="The ambience gets even better another time around… welcome once again to Pronto.Visit us today .mp4" type="video/webm">
+            <!-- Fallback for browsers that don't support video -->
+        </video>
+        <div class="hero-video-overlay"></div>
+        
+        <div class="hero-decorative-elements">
+            <div class="floating-shape shape-1"></div>
+            <div class="floating-shape shape-2"></div>
+            <div class="floating-shape shape-3"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-badge">Most Popular Lakeside Dining</div>
+            <h1>About Pronto Restaurant</h1>
+            <p class="hero-subtitle">Where Lake Victoria meets exceptional dining experiences</p>
+            <p class="hero-description">Discover the story behind Kenya's premier lakeside destination, where culinary excellence meets breathtaking natural beauty on the shores of Lake Victoria.</p>
+            <div class="hero-cta">
+                <a href="https://wa.me/254722566089?text=Hello! I would like to book a table at Pronto Restaurant. Please let me know about availability and help me make a reservation." target="_blank" class="cta-button cta-primary">
+                    <i class="fas fa-calendar-alt"></i>
+                    Book Your Table
+                </a>
+                <a href="#story" class="cta-button cta-secondary">
+                    <i class="fas fa-arrow-down"></i>
+                    Discover Our Story
+                </a>
+            </div>
+        </div>
+        <div class="wave"></div>
+    </section>
+
+    <!-- Our Story Section -->
+    <section class="section story-section" id="story">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">Our Heritage</div>
+                <h2 class="section-title">The Pronto Story</h2>
+                <p class="section-subtitle">A journey of passion, tradition, and culinary excellence on the shores of Africa's largest lake</p>
+            </div>
+            <div class="story-grid">
+                <div class="story-content">
+                    <div class="story-text">
+                        <p><strong class="story-highlight">Karibu!</strong> Welcome to Pronto Beach Bar and Restaurant, where the gentle lapping of Lake Victoria's waters creates the perfect soundtrack for unforgettable dining experiences.</p>
+                        
+                        <p>Nestled on Kenya's stunning Lake Victoria Beach in <strong class="story-highlight">Migori County</strong>, Pronto Restaurant has carved its place as the region's most beloved lakeside dining destination. Our story began with a simple vision: to create a sanctuary where exceptional cuisine meets the natural splendor of Africa's largest freshwater lake.</p>
+                        
+                        <p>Our <strong class="story-highlight">enviable location</strong> offers more than just stunning views – it provides an immersive experience where guests can feel the gentle lake breeze while savoring carefully crafted meals. From our stylish outdoor seating area to our comprehensive à la carte restaurant, every detail has been designed to maximize your connection with this magnificent natural setting.</p>
+                        
+                        <p>Whether you're beginning your day with a hearty breakfast as the sun rises over the lake, enjoying a leisurely lunch with friends, or indulging in an elegant dinner under the stars, Pronto serves as your perfect lakeside companion. As evening approaches and the sun paints the sky in brilliant hues, join us for expertly crafted cocktails while our live entertainment brings the vibrant spirit of Kenyan culture to life.</p>
+                        
+                        <p>Our commitment extends beyond exceptional food and service – we're dedicated to <strong class="story-highlight">preserving the natural beauty</strong> of Lake Victoria while providing sustainable tourism opportunities for our local community. Every meal served, every event hosted, and every guest welcomed contributes to our mission of responsible lakeside hospitality.</p>
+                    </div>
+                    
+                    <div class="story-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">15+</div>
+                            <div class="stat-label">Years of Excellence</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">50K+</div>
+                            <div class="stat-label">Happy Guests</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">100+</div>
+                            <div class="stat-label">Signature Dishes</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="story-visual">
+                    <!-- Video Container 1: Restaurant Overview -->
+                    <div class="video-container">
+                        <div class="video-wrapper">
+                            <!-- Replace this placeholder with your actual video -->
+                            <div class="video-placeholder" onclick="loadVideo(this, 'path-to-restaurant-overview-video.mp4')">
+                                <div class="video-icon">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                                <div class="video-title">Restaurant Overview</div>
+                                <div class="video-description">Take a virtual tour of our beautiful lakeside location and facilities</div>
+                            </div>
+                            <!-- Uncomment and use this when you have the actual video -->
+                            <!-- <video class="actual-video" controls style="display: none;">
+                                <source src="path-to-restaurant-overview-video.mp4" type="video/mp4">
+                                <source src="path-to-restaurant-overview-video.webm" type="video/webm">
+                            </video>
+                            <div class="video-overlay">
+                                <div class="video-play-button">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Story Background Video Section -->
+    <section class="story-video-section">
+        <!-- Background Video -->
+        <video class="story-background-video" autoplay muted loop playsinline>
+            <source src="The ambience gets even better another time around… welcome once again to Pronto.Visit us today .mp4" type="video/mp4">
+            <source src="The ambience gets even better another time around… welcome once again to Pronto.Visit us today .mp4" type="video/webm">
+            <!-- Fallback for browsers that don't support video -->
+        </video>
+        <div class="story-video-overlay"></div>
+        
+        <div class="story-video-content">
+            <div class="story-video-badge">Our Legacy</div>
+            <h2 class="story-video-title">15 Years of Lakeside Excellence</h2>
+            <p class="story-video-subtitle">From humble beginnings to becoming Kenya's premier lakeside dining destination</p>
+            <p class="story-video-description">
+                Since our founding, Pronto Restaurant has been more than just a dining establishment—we've been the heart of Lake Victoria's hospitality scene. Our commitment to exceptional cuisine, warm Kenyan hospitality, and environmental stewardship has made us a beloved destination for locals and visitors alike.
+            </p>
+            
+            <div class="story-video-cta">
+                <a href="RestaurantandDishes.html" class="cta-button cta-primary">
+                    <i class="fas fa-utensils"></i>
+                    Explore Our Cuisine
+                </a>
+                <a href="https://wa.me/254722566089?text=Hello! I would like to make a reservation at Pronto Restaurant. Please help me with availability and booking details." target="_blank" class="cta-button cta-secondary">
+                    <i class="fas fa-phone"></i>
+                    Make Reservation
+                </a>
+            </div>
+            
+            <div class="story-video-stats">
+                <div class="story-video-stat">
+                    <div class="story-video-stat-number">50K+</div>
+                    <div class="story-video-stat-label">Satisfied Guests</div>
+                </div>
+                <div class="story-video-stat">
+                    <div class="story-video-stat-number">1000+</div>
+                    <div class="story-video-stat-label">Events Hosted</div>
+                </div>
+                <div class="story-video-stat">
+                    <div class="story-video-stat-number">5★</div>
+                    <div class="story-video-stat-label">Average Rating</div>
+                </div>
+                <div class="story-video-stat">
+                    <div class="story-video-stat-number">24/7</div>
+                    <div class="story-video-stat-label">Lake Views</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section features-section" id="features">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">Why Choose Us</div>
+                <h2 class="section-title">What Makes Us Extraordinary</h2>
+                <p class="section-subtitle">Discover the unique elements that have made Pronto Restaurant the most sought-after lakeside dining destination in Kenya</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3>Prime Lakeside Location</h3>
+                    <p>Perfectly positioned on Lake Victoria Beach with unobstructed panoramic views, direct beach access, and the most spectacular sunset vistas in Migori County. Our location offers the rare combination of tranquility and accessibility.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>All-Day Dining Excellence</h3>
+                    <p>From sunrise breakfast to moonlit dinners, our comprehensive menu and expert culinary team ensure exceptional meals throughout the day. Every dish is crafted with locally-sourced ingredients and international culinary techniques.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <h3>Live Cultural Entertainment</h3>
+                    <p>Experience authentic Kenyan culture through regular live performances, traditional music, and cultural shows that celebrate our rich heritage while you dine under the African stars.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-swimmer"></i>
+                    </div>
+                    <h3>Complete Water Experience</h3>
+                    <p>Enjoy our heated swimming pool, exciting water sports, scenic lake cruising, and convenient helipad access for the ultimate luxury lakeside adventure experience.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="section experience-section" id="experience">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">Complete Experience</div>
+                <h2 class="section-title">Your Lakeside Adventure Awaits</h2>
+                <p class="section-subtitle">From world-class cuisine to thrilling water activities, discover our comprehensive range of experiences designed to create lasting memories</p>
+            </div>
+            
+            <!-- Video Container 2: Culinary Experience -->
+            <div class="video-container">
+                <div class="video-wrapper">
+                    <!-- Replace this placeholder with your actual video -->
+                    <div class="video-placeholder" onclick="loadVideo(this, '🍝✨ Happiness is best served fresh — and at Pronto, every smile is seasoned with flavor. From th(5).mp4')">
+                        <div class="video-icon">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <div class="video-title">Culinary Excellence</div>
+                        <div class="video-description">Watch our expert chefs prepare signature dishes with traditional techniques</div>
+                    </div>
+                    <!-- Uncomment and use this when you have the actual video -->
+                    <!-- <video class="actual-video" controls style="display: none;">
+                        <source src="path-to-culinary-experience-video.mp4" type="video/mp4">
+                        <source src="path-to-culinary-experience-video.webm" type="video/webm">
+                    </video>
+                    <div class="video-overlay">
+                        <div class="video-play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+            
+            <div class="experience-grid">
+                <div class="experience-category">
+                    <div class="experience-header">
+                        <div class="experience-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <h4>Culinary Mastery</h4>
+                    </div>
+                    <ul>
+                        <li>Authentic Indian Cuisine with traditional spices and techniques</li>
+                        <li>Traditional Luo Cultural Dishes celebrating local heritage</li>
+                        <li>Fresh Swahili Specialties from the coastal tradition</li>
+                        <li>International Fusion combining global flavors</li>
+                        <li>Fresh Lake Victoria fish preparations</li>
+                        <li>Vegetarian and vegan options available</li>
+                        <li>Custom dietary accommodations</li>
+                    </ul>
+                </div>
+                
+                <div class="experience-category">
+                    <div class="experience-header">
+                        <div class="experience-icon">
+                            <i class="fas fa-water"></i>
+                        </div>
+                        <h4>Aquatic Adventures</h4>
+                    </div>
+                    <ul>
+                        <li>Heated swimming pool with lake views</li>
+                        <li>Jet skiing and water sports equipment</li>
+                        <li>Scenic Lake Victoria sunset cruises</li>
+                        <li>Private boat charter services</li>
+                        <li>Fishing expeditions and guides</li>
+                        <li>Convenient helipad for aerial arrivals</li>
+                        <li>Professional water safety staff</li>
+                    </ul>
+                </div>
+                
+                <div class="experience-category">
+                    <div class="experience-header">
+                        <div class="experience-icon">
+                            <i class="fas fa-gamepad"></i>
+                        </div>
+                        <h4>Indoor Entertainment</h4>
+                    </div>
+                    <ul>
+                        <li>Classic board games and card tournaments</li>
+                        <li>Professional table tennis facilities</li>
+                        <li>Cricket matches and equipment</li>
+                        <li>Pool and billiards tables</li>
+                        <li>Family-friendly arcade games</li>
+                        <li>Private event spaces available</li>
+                        <li>Corporate team-building activities</li>
+                    </ul>
+                </div>
+                
+                <div class="experience-category">
+                    <div class="experience-header">
+                        <div class="experience-icon">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <h4>Outdoor Experiences</h4>
+                    </div>
+                    <ul>
+                        <li>Therapeutic sand bathing sessions</li>
+                        <li>Romantic beachside bonfire evenings</li>
+                        <li>Live cultural performances and shows</li>
+                        <li>Sunset yoga and wellness sessions</li>
+                        <li>Beach volleyball and sports</li>
+                        <li>Guided nature walks along the shore</li>
+                        <li>Stargazing experiences with expert guides</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="section team-section" id="team">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">Meet Our Team</div>
+                <h2 class="section-title">The People Behind Excellence</h2>
+                <p class="section-subtitle">Our passionate team of professionals dedicated to creating unforgettable experiences at Lake Victoria</p>
+            </div>
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h5>Executive Chef</h5>
+                    <p class="role">Culinary Director</p>
+                    <p>Master chef with 20+ years of experience in international cuisine, specializing in East African and fusion dishes.</p>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <i class="fas fa-cocktail"></i>
+                    </div>
+                    <h5>Mixology Expert</h5>
+                    <p class="role">Head Bartender</p>
+                    <p>Award-winning mixologist creating signature cocktails inspired by Lake Victoria's natural beauty and local flavors.</p>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <i class="fas fa-ship"></i>
+                    </div>
+                    <h5>Activities Coordinator</h5>
+                    <p class="role">Adventure Guide</p>
+                    <p>Certified water sports instructor and cultural guide ensuring safe and exciting lakeside adventures for all guests.</p>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <i class="fas fa-concierge-bell"></i>
+                    </div>
+                    <h5>Guest Experience Manager</h5>
+                    <p class="role">Hospitality Director</p>
+                    <p>Dedicated to ensuring every guest receives personalized service and creates lasting memories at Pronto Restaurant.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section testimonials-section" id="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">Guest Reviews</div>
+                <h2 class="section-title">What Our Guests Say</h2>
+                <p class="section-subtitle">Hear from the thousands of satisfied guests who have experienced the magic of Pronto Restaurant</p>
+            </div>
+            
+            <!-- Video Container 3: Guest Testimonials -->
+            <div class="video-container">
+                <div class="video-wrapper">
+                    <!-- Replace this placeholder with your actual video -->
+                    <div class="video-placeholder" onclick="loadVideo(this, 'path-to-guest-testimonials-video.mp4')">
+                        <div class="video-icon">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <div class="video-title">Guest Experiences</div>
+                        <div class="video-description">Listen to our guests share their unforgettable Pronto Restaurant memories</div>
+                    </div>
+                    <!-- Uncomment and use this when you have the actual video -->
+                    <!-- <video class="actual-video" controls style="display: none;">
+                        <source src="path-to-guest-testimonials-video.mp4" type="video/mp4">
+                        <source src="path-to-guest-testimonials-video.webm" type="video/webm">
+                    </video>
+                    <div class="video-overlay">
+                        <div class="video-play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">The sunset views from Pronto are absolutely breathtaking! The Luo traditional fish was perfectly prepared, and the live cultural performance made our evening truly special. This is a must-visit destination when in Migori.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MK</div>
+                        <div class="author-info">
+                            <h6>Margaret Kiprotich</h6>
+                            <p class="location">Nairobi, Kenya</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">Pronto Restaurant exceeded all expectations! The water sports were thrilling, the Indian cuisine was authentic and flavorful, and the staff went above and beyond to make our anniversary dinner unforgettable.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">JM</div>
+                        <div class="author-info">
+                            <h6>James Mwangi</h6>
+                            <p class="location">Kisumu, Kenya</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">As a food blogger, I've visited many restaurants, but Pronto's combination of exceptional cuisine, stunning location, and warm hospitality is unmatched. The lakeside bonfire experience was magical!</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SA</div>
+                        <div class="author-info">
+                            <h6>Sarah Achieng</h6>
+                            <p class="location">Mombasa, Kenya</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Media Section -->
+    <section class="section social-section" id="social">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">Connect With Us</div>
+                <h2 class="section-title">Follow Our Journey</h2>
+                <p class="section-subtitle">Stay connected and share your Pronto Restaurant experiences with our community</p>
+            </div>
+            <div class="social-icons">
+                <a href="#" class="social-link" data-platform="facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="social-link" data-platform="instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="social-link" data-platform="twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="social-link" data-platform="tiktok">
+                    <i class="fab fa-tiktok"></i>
+                </a>
+                <a href="#" class="social-link" data-platform="youtube">
+                    <i class="fab fa-youtube"></i>
+                </a>
+                <a href="#" class="social-link" data-platform="whatsapp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+            <div class="social-text">
+                <p>Tag us in your photos and use <strong>#ProntoLakeVictoria</strong> to share your amazing experiences with fellow food lovers and adventure seekers!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section contact-section" id="contact">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">Get In Touch</div>
+                <h2 class="section-title">Ready for Your Lake Victoria Adventure?</h2>
+                <p class="section-subtitle">Contact us today to book your unforgettable experience at Pronto Restaurant</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <h4>Call Us</h4>
+                    <p>+254 722 566 089</p>
+                    <p>Available 7 days a week</p>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h4>Email Us</h4>
+                    <p>info@prontorestaurant.com</p>
+                    <p>We respond within 24 hours</p>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h4>Visit Us</h4>
+                    <p>Lake Victoria Beach</p>
+                    <p>Migori County, Kenya</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Pronto Restaurant. All rights reserved. | Designed with ❤️ for Lake Victoria</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+            const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+            const mobileMenuClose = document.querySelector('.mobile-menu-close');
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+            // Open mobile menu
+            mobileMenuToggle.addEventListener('click', function() {
+                mobileMenuOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+
+            // Close mobile menu
+            function closeMobileMenu() {
+                mobileMenuOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            mobileMenuClose.addEventListener('click', closeMobileMenu);
+
+            // Close menu when clicking outside
+            mobileMenuOverlay.addEventListener('click', function(e) {
+                if (e.target === mobileMenuOverlay) {
+                    closeMobileMenu();
+                }
+            });
+
+            // Close menu when clicking nav links
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    // Only close if it's an external link
+                    if (this.getAttribute('href').includes('.html')) {
+                        closeMobileMenu();
+                    }
+                });
+            });
+
+            // Handle escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && mobileMenuOverlay.classList.contains('active')) {
+                    closeMobileMenu();
+                }
+            });
+        });
+
+        // Loading animation
+        window.addEventListener('load', function() {
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            setTimeout(() => {
+                loadingOverlay.classList.add('fade-out');
+                setTimeout(() => {
+                    loadingOverlay.style.display = 'none';
+                }, 500);
+            }, 1500);
+            // Add story-video section to the sections array for navigation
+            const storyVideoSection = document.querySelector('.story-video-section');
+            if (storyVideoSection) {
+                storyVideoSection.id = 'story-video';
+                
+                // Add intersection observer for the story video section
+                const storyVideoObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            // Trigger animations for story video content
+                            const content = entry.target.querySelector('.story-video-content');
+                            if (content) {
+                                content.style.opacity = '1';
+                                content.style.transform = 'translateY(0)';
+                            }
+                            
+                            // Animate stats with counter effect
+                            const statNumbers = entry.target.querySelectorAll('.story-video-stat-number');
+                            statNumbers.forEach((stat, index) => {
+                                setTimeout(() => {
+                                    const text = stat.textContent;
+                                    if (text.includes('K')) {
+                                        const number = parseInt(text);
+                                        animateCounter(stat, 0, number, 'K+');
+                                    } else if (text === '5★') {
+                                        animateStars(stat);
+                                    } else if (text === '24/7') {
+                                        stat.style.animation = 'pulse 2s infinite';
+                                    } else {
+                                        const number = parseInt(text);
+                                        animateCounter(stat, 0, number, '+');
+                                    }
+                                }, index * 200);
+                            });
+                            
+                            storyVideoObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.3 });
+                
+                storyVideoObserver.observe(storyVideoSection);
+            }
+            
+            function animateCounter(element, start, end, suffix) {
+                let current = start;
+                const increment = end / 30;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= end) {
+                        element.textContent = end + suffix;
+                        clearInterval(timer);
+                    } else {
+                        element.textContent = Math.floor(current) + suffix;
+                    }
+                }, 50);
+            }
+            
+            function animateStars(element) {
+                let stars = 0;
+                const timer = setInterval(() => {
+                    stars++;
+                    element.textContent = '★'.repeat(stars);
+                    if (stars >= 5) {
+                        clearInterval(timer);
+                        setTimeout(() => {
+                            element.textContent = '5★';
+                        }, 500);
+                    }
+                }, 200);
+            }
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    // Add staggered animation for feature cards
+                    if (entry.target.querySelector('.feature-card')) {
+                        const cards = entry.target.querySelectorAll('.feature-card');
+                        cards.forEach((card, index) => {
+                            setTimeout(() => {
+                                card.classList.add('visible');
+                            }, index * 200);
+                        });
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Navigation dots functionality
+        const navDots = document.querySelectorAll('.nav-dot');
+        const sections = document.querySelectorAll('section[id]');
+
+        function updateActiveNavDot() {
+            let currentSection = '';
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                if (sectionTop <= 300) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            navDots.forEach(dot => {
+                dot.classList.remove('active');
+                if (dot.getAttribute('data-section') === currentSection) {
+                    dot.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveNavDot);
+
+        // Navigation dots click functionality
+        navDots.forEach(dot => {
+            dot.addEventListener('click', function() {
+                const targetSection = document.getElementById(this.getAttribute('data-section'));
+                if (targetSection) {
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Smooth scrolling for CTA buttons
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Parallax effect for hero background
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            const rate = scrolled * -0.3;
+            if (hero) {
+                hero.style.transform = `translate3d(0, ${rate}px, 0)`;
+            }
+        });
+
+        // Social media links hover effects
+        document.querySelectorAll('.social-link').forEach(link => {
+            link.addEventListener('mouseenter', function() {
+                const platform = this.getAttribute('data-platform');
+                this.style.transform = 'translateY(-15px) scale(1.15) rotateY(15deg)';
+            });
+            
+            link.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1) rotateY(0deg)';
+            });
+        });
+
+        // Video loading functionality
+        function loadVideo(placeholder, videoSrc) {
+            const videoWrapper = placeholder.parentElement;
+            const videoContainer = videoWrapper.parentElement;
+            
+            // Create video element
+            const video = document.createElement('video');
+            video.className = 'actual-video';
+            video.controls = true;
+            video.autoplay = true;
+            
+            // Add source
+            const source = document.createElement('source');
+            source.src = videoSrc;
+            source.type = 'video/mp4';
+            video.appendChild(source);
+            
+            // Replace placeholder with video
+            placeholder.style.display = 'none';
+            videoWrapper.appendChild(video);
+            
+            // Add video overlay for custom styling
+            const overlay = document.createElement('div');
+            overlay.className = 'video-overlay';
+            overlay.innerHTML = '<div class="video-play-button"><i class="fas fa-pause"></i></div>';
+            videoWrapper.appendChild(overlay);
+            
+            // Toggle play/pause on overlay click
+            overlay.addEventListener('click', function() {
+                if (video.paused) {
+                    video.play();
+                    overlay.querySelector('i').className = 'fas fa-pause';
+                } else {
+                    video.pause();
+                    overlay.querySelector('i').className = 'fas fa-play';
+                }
+            });
+            
+            // Update play button icon based on video state
+            video.addEventListener('play', function() {
+                overlay.querySelector('i').className = 'fas fa-pause';
+            });
+            
+            video.addEventListener('pause', function() {
+                overlay.querySelector('i').className = 'fas fa-play';
+            });
+        }
+
+        // Background video functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const heroVideo = document.querySelector('.hero-video');
+            
+            if (heroVideo) {
+                // Ensure video plays on mobile devices
+                heroVideo.addEventListener('loadedmetadata', function() {
+                    heroVideo.play().catch(function(error) {
+                        console.log('Video autoplay failed:', error);
+                        // Fallback: show a poster image or static background
+                        heroVideo.style.display = 'none';
+                    });
+                });
+                
+                // Handle video errors
+                heroVideo.addEventListener('error', function() {
+                    console.log('Video failed to load');
+                    heroVideo.style.display = 'none';
+                    // You could show a fallback image here
+                });
+            }
+        });
+
+        // Dynamic contact item hover effects
+        document.querySelectorAll('.contact-card').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-15px) scale(1.02)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Add floating animation to testimonial cards
+        document.querySelectorAll('.testimonial-card').forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.2}s`;
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-20px) rotateY(5deg)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) rotateY(0deg)';
+            });
+        });
+
+        // Add click-to-call functionality for phone numbers
+        document.addEventListener('DOMContentLoaded', function() {
+            const phoneNumbers = document.querySelectorAll('[href^="tel:"]');
+            phoneNumbers.forEach(phone => {
+                phone.addEventListener('click', function() {
+                    // Analytics tracking can be added here
+                    console.log('Phone number clicked: ' + this.href);
+                });
+            });
+        });
+
+        // Smooth reveal animation for stats
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const statNumbers = entry.target.querySelectorAll('.stat-number');
+                    statNumbers.forEach((stat, index) => {
+                        const finalValue = parseInt(stat.textContent);
+                        let currentValue = 0;
+                        const increment = finalValue / 50;
+                        
+                        const counter = setInterval(() => {
+                            currentValue += increment;
+                            if (currentValue >= finalValue) {
+                                stat.textContent = finalValue + (stat.textContent.includes('+') ? '+' : '');
+                                clearInterval(counter);
+                            } else {
+                                stat.textContent = Math.floor(currentValue) + (stat.textContent.includes('+') ? '+' : '');
+                            }
+                        }, 30);
+                    });
+                    
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        const statsSection = document.querySelector('.story-stats');
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+    </script>
+</body>
+</html>
