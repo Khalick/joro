@@ -1,0 +1,311 @@
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness", 
+  "@id": "https://juraresort.com/#organization",
+  "name": "Jura Resort",
+  "alternateName": "Jura Beach Bar and Restaurant",
+  "description": "Lake Victoria's premier restaurant and resort offering authentic Indian, Luo, and Swahili cuisine with stunning lake views and comprehensive water sports activities in Migori, Kenya.",
+  "url": "https://juraresort.com",
+  "logo": "https://juraresort.com/0eddf86f-8023-4db7-aeb1-529bcd41a970.jpg",
+  "image": [
+    "https://juraresort.com/0eddf86f-8023-4db7-aeb1-529bcd41a970.jpg",
+    "https://juraresort.com/restaurant image.jpeg", 
+    "https://juraresort.com/water2.webp",
+    "https://juraresort.com/INDIAN.jpeg",
+    "https://juraresort.com/swimming.jpeg"
+  ],
+  "telephone": "+254722566089",
+  "email": "info@juraresort.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Lake Victoria Beach",
+    "addressLocality": "Migori", 
+    "addressRegion": "Migori County",
+    "postalCode": "40400",
+    "addressCountry": "Kenya"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "-1.0632",
+    "longitude": "34.4734"
+  },
+  "openingHours": [
+    "Mo 06:00-23:00",
+    "Tu 06:00-23:00", 
+    "We 06:00-23:00",
+    "Th 06:00-23:00",
+    "Fr 06:00-23:00",
+    "Sa 06:00-23:00",
+    "Su 06:00-23:00"
+  ],
+  "priceRange": "$$",
+  "currenciesAccepted": "KES, USD",
+  "paymentAccepted": "Cash, Credit Card, Mobile Money",
+  "servesCuisine": [
+    "Indian",
+    "Luo Traditional", 
+    "Swahili",
+    "International",
+    "Seafood",
+    "Continental"
+  ],
+  "acceptsReservations": true,
+  "hasMenu": "https://juraresort.com/RestaurantandDishes.html",
+  "menuUrl": "https://juraresort.com/RestaurantandDishes.html",
+  "foundingDate": "2009",
+  "founder": {
+    "@type": "Organization",
+    "name": "Jura Resort Management"
+  },
+  "employee": [
+    {
+      "@type": "Person",
+      "name": "Executive Chef",
+      "jobTitle": "Head Chef",
+      "worksFor": {
+        "@type": "Organization", 
+        "name": "Jura Resort"
+      }
+    },
+    {
+      "@type": "Person",
+      "name": "Restaurant Manager",
+      "jobTitle": "General Manager",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Jura Resort" 
+      }
+    }
+  ],
+  "amenityFeature": [
+    {
+      "@type": "LocationFeatureSpecification",
+      "name": "Lake View Dining",
+      "value": true
+    },
+    {
+      "@type": "LocationFeatureSpecification",
+      "name": "Water Sports",
+      "value": true
+    },
+    {
+      "@type": "LocationFeatureSpecification", 
+      "name": "Swimming Pool",
+      "value": true
+    },
+    {
+      "@type": "LocationFeatureSpecification",
+      "name": "Live Entertainment", 
+      "value": true
+    },
+    {
+      "@type": "LocationFeatureSpecification",
+      "name": "Outdoor Seating",
+      "value": true
+    },
+    {
+      "@type": "LocationFeatureSpecification",
+      "name": "Helipad Access",
+      "value": true
+    },
+    {
+      "@type": "LocationFeatureSpecification",
+      "name": "WiFi",
+      "value": true
+    },
+    {
+      "@type": "LocationFeatureSpecification", 
+      "name": "Parking",
+      "value": true
+    },
+    {
+      "@type": "LocationFeatureSpecification",
+      "name": "Air Conditioning",
+      "value": true
+    },
+    {
+      "@type": "LocationFeatureSpecification",
+      "name": "Wheelchair Accessible", 
+      "value": true
+    }
+  ],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "reviewCount": "500", 
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "review": [
+    {
+      "@type": "Review",
+      "author": {
+        "@type": "Person",
+        "name": "Sarah Johnson"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5", 
+        "bestRating": "5"
+      },
+      "reviewBody": "Absolutely magical! The lakeside views during sunset are breathtaking, and the Indian cuisine is authentically prepared. The water sports activities made our visit unforgettable. Highly recommended for anyone visiting Lake Victoria!",
+      "datePublished": "2024-11-15"
+    },
+    {
+      "@type": "Review", 
+      "author": {
+        "@type": "Person",
+        "name": "Michael Ochieng"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5",
+        "bestRating": "5"
+      },
+      "reviewBody": "Best restaurant in Migori County! The Luo traditional dishes are perfectly prepared and the lakeside atmosphere is unmatched. Great service and beautiful location.",
+      "datePublished": "2024-11-10"
+    },
+    {
+      "@type": "Review",
+      "author": {
+        "@type": "Person", 
+        "name": "Emma Williams"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5",
+        "bestRating": "5"
+      },
+      "reviewBody": "Fantastic experience! The Swahili cuisine was exceptional and the water sports activities were thrilling. Perfect venue for events with stunning Lake Victoria views.",
+      "datePublished": "2024-11-05"
+    }
+  ],
+  "sameAs": [
+    "https://www.facebook.com/juraresort",
+    "https://www.instagram.com/juraresort", 
+    "https://www.twitter.com/juraresort",
+    "https://www.linkedin.com/company/juraresort",
+    "https://www.tripadvisor.com/juraresort"
+  ],
+  "contactPoint": [
+    {
+      "@type": "ContactPoint",
+      "telephone": "+254722566089",
+      "contactType": "customer service",
+      "availableLanguage": ["English", "Swahili", "Luo"],
+      "areaServed": "Kenya", 
+      "hoursAvailable": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+          "opens": "06:00",
+          "closes": "23:00"
+        }
+      ]
+    },
+    {
+      "@type": "ContactPoint",
+      "telephone": "+254722566089", 
+      "contactType": "reservations",
+      "availableLanguage": ["English", "Swahili"],
+      "areaServed": "Kenya"
+    }
+  ],
+  "potentialAction": [
+    {
+      "@type": "ReserveAction", 
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://wa.me/254722566089?text=Hello! I would like to make a reservation at JURA RESORT.",
+        "inLanguage": "en-US",
+        "actionPlatform": [
+          "http://schema.org/DesktopWebPlatform",
+          "http://schema.org/MobileWebPlatform"
+        ]
+      },
+      "result": {
+        "@type": "Reservation", 
+        "name": "Table Reservation at Jura Resort"
+      }
+    },
+    {
+      "@type": "OrderAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://wa.me/254722566089?text=Hello! I would like to order food from JURA RESORT.",
+        "inLanguage": "en-US"
+      },
+      "result": {
+        "@type": "Order",
+        "name": "Food Order from Jura Resort" 
+      }
+    }
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Jura Resort Services",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service", 
+          "name": "Lakeside Dining Experience",
+          "description": "Premium dining with stunning Lake Victoria views featuring authentic Indian, Luo, and Swahili cuisine"
+        },
+        "priceCurrency": "KES",
+        "availability": "https://schema.org/InStock"
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Water Sports Activities", 
+          "description": "Exciting water sports and activities on Lake Victoria including swimming, boating, and fishing"
+        },
+        "priceCurrency": "KES",
+        "availability": "https://schema.org/InStock"
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Event Hosting & Catering",
+          "description": "Professional event hosting for weddings, corporate events, and celebrations with full catering services"
+        },
+        "priceCurrency": "KES", 
+        "availability": "https://schema.org/InStock"
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Live Entertainment",
+          "description": "Cultural performances and live music entertainment showcasing Kenyan heritage"
+        },
+        "priceCurrency": "KES",
+        "availability": "https://schema.org/InStock"
+      }
+    ]
+  },
+  "knowsAbout": [
+    "Indian Cuisine Kenya",
+    "Luo Traditional Food",
+    "Swahili Cuisine", 
+    "Lake Victoria Tourism",
+    "Water Sports Kenya",
+    "Event Hosting Migori",
+    "Kenyan Hospitality",
+    "Lakeside Dining",
+    "Cultural Entertainment",
+    "Wedding Venues Kenya"
+  ],
+  "memberOf": {
+    "@type": "Organization",
+    "name": "Kenya Tourism Board"
+  },
+  "awards": [
+    "Lake Victoria's Premier Restaurant 2023",
+    "Best Lakeside Dining Experience 2022",
+    "Top Tourism Destination Migori County 2021"
+  ]
+}

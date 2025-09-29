@@ -1,0 +1,53 @@
+# Robots.txt for Jura Resort - Lake Victoria's Premier Restaurant
+# Optimized for maximum SEO crawling and indexing
+
+User-agent: *
+Allow: /
+
+# Priority pages for crawling
+Allow: /index.html
+Allow: /about.html
+Allow: /RestaurantandDishes.html
+Allow: /WaterActivities.html
+Allow: /OutdoorActivities.html
+Allow: /IndoorGames.html
+
+# Allow access to important resources
+Allow: /images/
+Allow: /*.jpg
+Allow: /*.jpeg
+Allow: /*.png
+Allow: /*.webp
+Allow: /*.gif
+Allow: /*.css
+Allow: /*.js
+
+# Disallow unnecessary files
+Disallow: /joro resto_files/
+Disallow: /*.log
+Disallow: /temp/
+Disallow: /cache/
+Disallow: /admin/
+Disallow: /private/
+
+# Special directives for major search engines
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 2
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+# Sitemap location
+Sitemap: https://juraresort.com/sitemap.xml
+
+# Additional sitemaps (if created later)
+# Sitemap: https://juraresort.com/news-sitemap.xml
+# Sitemap: https://juraresort.com/image-sitemap.xml
